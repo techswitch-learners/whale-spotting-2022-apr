@@ -8,6 +8,7 @@ namespace WhaleSpotting
     public class WhaleSpottingDbContext : DbContext
     {
         public DbSet<User> Users { get; set; }
+        public DbSet<Sighting> Sightings { get; set; }
 
         protected override void OnConfiguring(
             DbContextOptionsBuilder optionsBuilder
@@ -39,7 +40,8 @@ namespace WhaleSpotting
             var userInfo = databaseUri.UserInfo.Split(':');
 
             var builder =
-                new NpgsqlConnectionStringBuilder {
+                new NpgsqlConnectionStringBuilder
+                {
                     Host = databaseUri.Host,
                     Port = databaseUri.Port,
                     Username = userInfo[0],
