@@ -9,6 +9,7 @@ namespace WhaleSpotting
     {
         public DbSet<User> Users { get; set; }
         public DbSet<Sighting> Sightings { get; set; }
+        public DbSet<Species> Species { get; set; }
 
         protected override void OnConfiguring(
             DbContextOptionsBuilder optionsBuilder
