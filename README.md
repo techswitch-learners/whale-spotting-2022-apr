@@ -53,7 +53,7 @@ You can then connect to the database using [pgAdmin](https://www.pgadmin.org/) w
 | Field         | Value            |
 | ------------- | ---------------- |
 | Host          | `localhost`      |
-| Port          | `5400`           |
+| Port          | `5432`           |
 | Username      | `whale-spotting` |
 | Password      | `spot-whales`    |
 | Database name | `whale-spotting` |
@@ -69,7 +69,7 @@ First, set the required environment variables for connecting to the database.
 For local running in powershell, run:
 
 ```
-$env:DATABASE_URL = "postgres://whale-spotting:spot-whales@localhost:5400/whale-spotting"
+$env:DATABASE_URL = "postgres://postgres:1234@localhost:5432/whale-spotting"
 $env:USE_SSL = "false"
 ```
 
