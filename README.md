@@ -69,7 +69,7 @@ First, set the required environment variables for connecting to the database.
 For local running in powershell, run:
 
 ```
-$env:DATABASE_URL = "postgres://whale-spotting:spot-whales@localhost:5400/whale-spotting"
+$env:DATABASE_URL = "postgres://postgres:postgres@localhost:5432/whale-spotting"
 $env:USE_SSL = "false"
 ```
 
