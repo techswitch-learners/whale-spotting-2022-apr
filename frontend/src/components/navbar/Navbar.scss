@@ -8,21 +8,21 @@ nav.navbar {
   img.navbar__logo {
     height: 3em;
   }
-}
 
-.navbar a {
-  text-decoration: none;
-  color: #00aeff;
-  padding-left: 1em;
-  padding-right: 0.5em;
-}
+  a {
+    text-decoration: none;
+    color: #00aeff;
+    padding-left: 1em;
+    padding-right: 0.5em;
+  }
 
-.menu-toggle {
-  display: none;
-  border: 2px solid #00aeff;
-  background: transparent;
-  padding: 0.25em 0.5em;
-  border-radius: 4px;
+  button.menu-toggle {
+    display: none;
+    border: 2px solid #00aeff;
+    background: transparent;
+    padding: 0.25em 0.5em;
+    border-radius: 4px;
+  }
 }
 
 @media screen and (max-width: 600px) {
@@ -30,12 +30,29 @@ nav.navbar {
     img.navbar__logo {
       height: 2em;
     }
-  }
-  .menu-collapsed {
-    display: none;
-  }
-  .menu-toggle {
-    display: block;
-    margin-right: 0.5em;
+
+    .menu-items {
+      display: flex;
+      flex-direction: column;
+      position: absolute;
+      top: 3em;
+      width: 100%;
+      background-color: #bff;
+      left: 0;
+      align-items: center;
+
+      &.menu-collapsed {
+        display: none;
+      }
+
+      a.menu-link {
+        padding: 0.5em;
+      }
+    }
+
+    button.menu-toggle {
+      display: block;
+      margin-right: 0.5em;
+    }
   }
 }
