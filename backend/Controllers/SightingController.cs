@@ -1,4 +1,4 @@
-using System;
+using System.Linq;
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
 using WhaleSpotting.Repositories;
@@ -24,7 +24,10 @@ namespace WhaleSpotting.Controllers
         {
             return new SightingListResponse
             {
-                Sightings = _sightingService.GetAllSightings()
+                Sightings = _sightingService
+                    .GetAllSightings()
+                    .Select(s => new SightingResponse(s))
+                    .ToList(),
             };
         }
     }

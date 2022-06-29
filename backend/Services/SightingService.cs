@@ -1,15 +1,12 @@
 using System.Collections.Generic;
-using System.Linq;
 using WhaleSpotting.Models.Database;
-using WhaleSpotting.Models.Request;
 using WhaleSpotting.Repositories;
-using WhaleSpotting.Models.Response;
 
 namespace WhaleSpotting.Services
 {
     public interface ISightingService
     {
-        List<SightingResponse> GetAllSightings();
+        IEnumerable<Sighting> GetAllSightings();
     }
 
     public class SightingService : ISightingService
@@ -21,10 +18,9 @@ namespace WhaleSpotting.Services
             _sightingRepo = sightingRepo;
         }
 
-        public List<SightingResponse> GetAllSightings()
+        public IEnumerable<Sighting> GetAllSightings()
         {
-            var sightings = _sightingRepo.GetAllSightings();
-            return sightings.Select(sighting => new SightingResponse(sighting)).ToList();
+            return _sightingRepo.GetAllSightings();
         }
     }
 }
