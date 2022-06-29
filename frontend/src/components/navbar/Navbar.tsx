@@ -1,10 +1,17 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { Link } from "react-router-dom";
 import { LoginContext } from "../login/LoginManager";
 import "./Navbar.scss";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faBars } from "@fortawesome/free-solid-svg-icons";
 
 export const Navbar: React.FunctionComponent = () => {
   const loginContext = useContext(LoginContext);
+  const [menuCollapsed, setmenuCollapsed] = useState(true);
+
+  const toggleMenu = () => {
+    setmenuCollapsed(!menuCollapsed);
+  };
 
   return (
     <nav className="navbar" role="navigation" aria-label="main navigation">
@@ -15,17 +22,30 @@ export const Navbar: React.FunctionComponent = () => {
           alt="Whale Spotting logo"
         />
       </Link>
-      <div>
+      <span className={`menu-items ${menuCollapsed && "menu-collapsed"}`}>
+        <Link to="/report-sighting">Report Sighting</Link>
+        <Link to="/ticket-booking">Book Tickets</Link>
+        <Link to="/sightings-list">Sightings List</Link>
         {!loginContext.isLoggedIn ? (
-          <div></div>
-        ) : (
-          <Link to="/">
-            <a className="button is-primary" onClick={loginContext.logOut}>
-              <strong>Logout</strong>
-            </a>
+          <Link className="button is-primary" to="/login">
+            Login
           </Link>
+        ) : (
+          <>
+            <Link to="/pending-sights">Pending Sightings</Link>
+            <Link
+              onClick={loginContext.logOut}
+              className="button is-primary"
+              to="/"
+            >
+              Logout
+            </Link>
+          </>
         )}
-      </div>
+      </span>
+      <button className="menu-toggle" onClick={toggleMenu}>
+        <FontAwesomeIcon color="#00aeff" icon={faBars} />
+      </button>
     </nav>
   );
 };
