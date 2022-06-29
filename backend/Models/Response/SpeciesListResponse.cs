@@ -24,7 +24,7 @@ namespace WhaleSpotting.Models.Response
 
     public class SpeciesListResponse
     {
-        public List<SpeciesListItemResponse> SpeciesList;
+        public List<SpeciesListItemResponse> SpeciesList {get; set;}
 
         public SpeciesListResponse(IEnumerable<Species> items)
         {
