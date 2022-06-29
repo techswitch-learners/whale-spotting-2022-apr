@@ -58,9 +58,12 @@ namespace WhaleSpotting
 
       services.AddTransient<IUsersRepo, UsersRepo>();
       services.AddTransient<ISightingRepo, SightingRepo>();
+      services.AddTransient<ISpeciesRepo, SpeciesRepo>();
 
       services.AddTransient<IAuthService, AuthService>();
       services.AddTransient<ISightingService, SightingService>();
+      services.AddTransient<ISpeciesService, SpeciesService>();
+
     }
 
     // This method gets called by the runtime. Use this method to configure the
