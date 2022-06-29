@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Microsoft.EntityFrameworkCore;
 using WhaleSpotting.Models.Database;
 using WhaleSpotting.Models.Request;
 
@@ -21,7 +22,7 @@ namespace WhaleSpotting.Repositories
         public IEnumerable<Sighting> GetAllSightings()
         {
             return _context
-                .Sightings;
+                .Sightings.Include(s => s.Species);
         }
     }
 }
