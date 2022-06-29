@@ -1,5 +1,4 @@
 using System.Linq;
-using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
 using WhaleSpotting.Repositories;
 using WhaleSpotting.Services;
