@@ -1,53 +1,81 @@
-export interface Sightings {
-  sightings: Sighting[];
+export interface SightingsListResponse {
+  sightings: SightingResponse[];
 }
 
-export interface SpeciesList {
-  species: Species[];
+export interface SpeciesListResponse {
+  species: SpeciesResponse[];
 }
 
-export interface Locations {
+export interface LocationsListResponse {
   locations: Location[];
 }
 
-export interface Location {
+export interface LocationResponse {
   id: number;
-  latitude: number; // ranges fron -90.0 to 90.0
-  longitude: number; // ranges from -180.0 to 180.0
-  name: string; // the common name of the location (if it has one!)
+  latitude: number;
+  longitude: number;
+  name: string;
   description: string;
-  sightings: Sighting[]; // a list of all sightings at this location (those Sighting objects do NOT include the location field)
+  sightings: SightingResponse[];
 }
 
-export interface Species {
+export interface SpeciesResponse {
   id: number;
   name: string;
   latinName: string;
   photoUrl: string;
   description: string;
   endangeredStatus: string;
-  sightings: Sighting[];
+  sightings: SightingResponse[];
 }
 
-export interface Sighting {
+export interface SightingResponse {
   id: number;
   location: Location;
-  species: Species[];
+  species: SpeciesResponse[];
   date: string;
   photoUrl: string;
   email: string;
 }
 
-export async function fetchSightings(): Promise<Sightings> {
+export async function fetchSightings(): Promise<SightingsListResponse> {
   const response = await fetch(
     `http://whale-spotting-external-api.herokuapp.com/api/sightings`
   );
   return await response.json();
 }
 
-export async function fetchSightingById(id: number): Promise<Sighting> {
+export async function fetchSightingById(id: number): Promise<SightingResponse> {
   const response = await fetch(
     `http://whale-spotting-external-api.herokuapp.com/api/sightings/${id}`
+  );
+  return await response.json();
+}
+
+export async function fetchSpecies(): Promise<SpeciesListResponse> {
+  const response = await fetch(
+    `http://whale-spotting-external-api.herokuapp.com/api/species`
+  );
+  return await response.json();
+}
+
+export async function fetchSpeciesById(id: number): Promise<SightingResponse> {
+  const response = await fetch(
+    `http://whale-spotting-external-api.herokuapp.com/api/species/${id}`
+  );
+  return await response.json();
+}
+
+export async function fetchLocations(): Promise<LocationsListResponse> {
+  const response = await fetch(
+    `http://whale-spotting-external-api.herokuapp.com/api/locations`
+  );
+  return await response.json();
+}
+
+export async function fetchLocationById(id: number): Promise<LocationResponse> {
+  const response = await fetch(
+    `http://whale-spotting-external-api.herokuapp.com/api/locations/${id}`
   );
   return await response.json();
 }
