@@ -29,9 +29,9 @@ export const Navbar: React.FunctionComponent = () => {
           </Link>
         ) : (
           <>
-            <a onClick={loginContext.logOut} className="menu-link">
+            <button onClick={loginContext.logOut} className="menu-link">
               Logout
-            </a>
+            </button>
           </>
         )}
       </span>
