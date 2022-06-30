@@ -4,12 +4,9 @@ using WhaleSpotting.Repositories;
 using WhaleSpotting.Services;
 using WhaleSpotting.Models.Response;
 using WhaleSpotting.Models.Request;
-using WhaleSpotting.Models.Database;
 
 namespace WhaleSpotting.Controllers
 {
-    [ApiController]
-    [Route("/sightings")]
     public class SightingController : ControllerBase
     {
         private readonly ISightingService _sightingService;
@@ -39,7 +36,6 @@ namespace WhaleSpotting.Controllers
         {
             var sighting = _sightingService.CreateSighting(newSighting);
             return new SightingResponse(sighting);
-            
         }
     }
 }

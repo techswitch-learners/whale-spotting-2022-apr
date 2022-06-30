@@ -30,21 +30,20 @@ namespace WhaleSpotting.Repositories
 
         public Sighting CreateSighting(CreateSightingRequest sighting)
         {
-
             Sighting newSighting = new Sighting
             {
                 Date = sighting.Date,
                 Latitude = sighting.Latitude,
                 Longitude = sighting.Longitude,
                 Description = sighting.Description,
-                PhotoUrl= sighting.PhotoUrl
+                PhotoUrl = sighting.PhotoUrl
             };
             if (sighting.SpeciesId != 0)
             {
                 Species species = _context
-                .Species
-                .Where(a => a.Id == sighting.SpeciesId)
-                .Single();
+                    .Species
+                    .Where(a => a.Id == sighting.SpeciesId)
+                    .Single();
                 newSighting.Species = species;
             }
             
