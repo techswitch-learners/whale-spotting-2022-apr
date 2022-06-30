@@ -1,9 +1,9 @@
-export interface SightingListResponse {
-  sightings: SightingResponse[];
-}
-
 export interface SpeciesListResponse {
   species: SpeciesResponse[];
+}
+
+export interface SightingListResponse {
+  sightings: SightingResponse[];
 }
 
 export interface SpeciesResponse {
@@ -17,21 +17,21 @@ export interface SpeciesResponse {
 
 export interface SightingResponse {
   id: number;
-  latitude: number; //check this
-  longitude: number; //check this
-  date: Date; //check this
+  latitude: number;
+  longitude: number;
+  date: Date;
   description: string;
   photoUrl: string;
   species: SpeciesResponse;
   isApproved: boolean;
 }
 
-export async function fetchSightings(): Promise<SightingListResponse> {
-  const response = await fetch(`https://localhost:5001/`);
+export async function fetchSpecies(): Promise<SpeciesListResponse> {
+  const response = await fetch(`https://localhost:5001/species`);
   return await response.json();
 }
 
-export async function fetchSpecies(): Promise<SpeciesListResponse> {
-  const response = await fetch(`https://localhost:5001/species`);
+export async function fetchSightings(): Promise<SightingListResponse> {
+  const response = await fetch(`https://localhost:5001/`);
   return await response.json();
 }
