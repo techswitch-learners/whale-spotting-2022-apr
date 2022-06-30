@@ -7,6 +7,7 @@ namespace WhaleSpotting.Services
     public interface ISightingService
     {
         IEnumerable<Sighting> GetAllSightings();
+        Sighting GetSightingById(int Id);
     }
 
     public class SightingService : ISightingService
@@ -21,6 +22,11 @@ namespace WhaleSpotting.Services
         public IEnumerable<Sighting> GetAllSightings()
         {
             return _sightingRepo.GetAllSightings();
+        }
+
+        public Sighting GetSightingById(int Id)
+        {
+            return _sightingRepo.GetSightingById(Id);
         }
     }
 }

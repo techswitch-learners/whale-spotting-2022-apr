@@ -6,6 +6,8 @@ using WhaleSpotting.Models.Response;
 
 namespace WhaleSpotting.Controllers
 {
+    [ApiController]
+    [Route("/sightings")]
     public class SightingController : ControllerBase
     {
         private readonly ISightingService _sightingService;
@@ -28,6 +30,12 @@ namespace WhaleSpotting.Controllers
                     .Select(s => new SightingResponse(s))
                     .ToList(),
             };
+        }
+        [HttpGet("{id}")]
+        public ActionResult<SightingResponse> GetSightingById([FromRoute] int id)
+        {
+            var sighting = _sightingService.GetSightingById(id);
+            return new SightingResponse(sighting);
         }
     }
 }
