@@ -3,9 +3,13 @@ using Microsoft.AspNetCore.Mvc;
 using WhaleSpotting.Repositories;
 using WhaleSpotting.Services;
 using WhaleSpotting.Models.Response;
+using WhaleSpotting.Models.Request;
+using WhaleSpotting.Models.Database;
 
 namespace WhaleSpotting.Controllers
 {
+    [ApiController]
+    [Route("/sightings")]
     public class SightingController : ControllerBase
     {
         private readonly ISightingService _sightingService;
@@ -28,6 +32,14 @@ namespace WhaleSpotting.Controllers
                     .Select(s => new SightingResponse(s))
                     .ToList(),
             };
+        }
+
+        [HttpPost("")]
+        public ActionResult<SightingResponse> CreateSighting([FromBody] CreateSightingRequest newSighting)
+        {
+            var sighting = _sightingService.CreateSighting(newSighting);
+            return new SightingResponse(sighting);
+            
         }
     }
 }

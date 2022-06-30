@@ -1,5 +1,6 @@
 using System;
 using System.ComponentModel.DataAnnotations;
+using WhaleSpotting.Models.Database;
 
 namespace WhaleSpotting.Models.Request
 {
