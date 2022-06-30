@@ -23,27 +23,15 @@ export const Navbar: React.FunctionComponent = () => {
         />
       </Link>
       <span className={`menu-items ${menuCollapsed && "menu-collapsed"}`}>
-        <Link className="menu-link" to="/report-sighting">
-          Report Sighting
-        </Link>
-        <Link className="menu-link" to="/ticket-booking">
-          Book Tickets
-        </Link>
-        <Link className="menu-link" to="/sightings-list">
-          Sightings List
-        </Link>
         {!loginContext.isLoggedIn ? (
           <Link className="menu-link" to="/login">
             Login
           </Link>
         ) : (
           <>
-            <Link className="menu-link" to="/pending-sights">
-              Pending Sightings
-            </Link>
-            <Link onClick={loginContext.logOut} className="menu-link" to="/">
+            <a onClick={loginContext.logOut} className="menu-link">
               Logout
-            </Link>
+            </a>
           </>
         )}
       </span>
