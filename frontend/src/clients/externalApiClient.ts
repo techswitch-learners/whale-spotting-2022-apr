@@ -38,7 +38,7 @@ export interface SightingResponse {
   email: string;
 }
 
-export async function fetchSightings(): Promise<SightingsListResponse> {
+export async function fetchSightings(): Promise<SightingListResponse> {
   const response = await fetch(
     `http://whale-spotting-external-api.herokuapp.com/api/sightings`
   );
@@ -66,7 +66,7 @@ export async function fetchSpeciesById(id: number): Promise<SightingResponse> {
   return await response.json();
 }
 
-export async function fetchLocations(): Promise<LocationsListResponse> {
+export async function fetchLocations(): Promise<LocationListResponse> {
   const response = await fetch(
     `http://whale-spotting-external-api.herokuapp.com/api/locations`
   );
