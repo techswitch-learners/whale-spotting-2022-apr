@@ -20,9 +20,12 @@ namespace WhaleSpotting.Repositories
 
         public IEnumerable<Sighting> GetAllSightings()
         {
-            return _context
-                .Sightings
-                .Include(s => s.Species);
+            return _context.Sightings.Include(s => s.Species);
+        }
+
+        public Sighting GetSightingById()
+        {
+            return null;
         }
     }
 }
