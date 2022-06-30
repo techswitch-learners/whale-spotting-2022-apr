@@ -7,6 +7,8 @@ using WhaleSpotting.Models.Request;
 
 namespace WhaleSpotting.Controllers
 {
+    [ApiController]
+    [Route("/sightings")]
     public class SightingController : ControllerBase
     {
         private readonly ISightingService _sightingService;
