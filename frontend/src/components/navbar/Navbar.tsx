@@ -1,10 +1,17 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { Link } from "react-router-dom";
 import { LoginContext } from "../login/LoginManager";
 import "./Navbar.scss";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faBars } from "@fortawesome/free-solid-svg-icons";
 
 export const Navbar: React.FunctionComponent = () => {
   const loginContext = useContext(LoginContext);
+  const [menuCollapsed, setmenuCollapsed] = useState(true);
+
+  const toggleMenu = () => {
+    setmenuCollapsed(!menuCollapsed);
+  };
 
   return (
     <nav className="navbar" role="navigation" aria-label="main navigation">
@@ -15,17 +22,22 @@ export const Navbar: React.FunctionComponent = () => {
           alt="Whale Spotting logo"
         />
       </Link>
-      <div>
+      <span className={`menu-items ${menuCollapsed && "menu-collapsed"}`}>
         {!loginContext.isLoggedIn ? (
-          <div></div>
-        ) : (
-          <Link to="/">
-            <a className="button is-primary" onClick={loginContext.logOut}>
-              <strong>Logout</strong>
-            </a>
+          <Link className="menu-link" to="/login">
+            Login
           </Link>
+        ) : (
+          <>
+            <button onClick={loginContext.logOut} className="menu-link">
+              Logout
+            </button>
+          </>
         )}
-      </div>
+      </span>
+      <button className="menu-toggle" onClick={toggleMenu}>
+        <FontAwesomeIcon color="#00aeff" icon={faBars} />
+      </button>
     </nav>
   );
 };
