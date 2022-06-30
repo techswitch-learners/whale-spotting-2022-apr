@@ -2,6 +2,10 @@ export interface SightingListResponse {
   sightings: SightingResponse[];
 }
 
+export interface SpeciesListResponse {
+  species: SpeciesResponse[];
+}
+
 export interface SpeciesResponse {
   id: number;
   name: string;
@@ -24,5 +28,10 @@ export interface SightingResponse {
 
 export async function fetchSightings(): Promise<SightingListResponse> {
   const response = await fetch(`https://localhost:5001/`);
+  return await response.json();
+}
+
+export async function fetchSpecies(): Promise<SpeciesListResponse> {
+  const response = await fetch(`https://localhost:5001/species`);
   return await response.json();
 }

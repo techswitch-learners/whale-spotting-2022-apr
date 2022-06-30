@@ -1,8 +1,8 @@
-import { fetchSightings } from "../../clients/internalApiClient";
+import { fetchSpecies } from "../../clients/internalApiClient";
 
 export const Home: React.FunctionComponent = () => {
-  const sightings = fetchSightings();
-  console.log(sightings);
+  const species = fetchSpecies();
+  console.log(species);
 
   return (
     <>
