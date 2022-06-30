@@ -1,4 +1,4 @@
-export interface SightingsListResponse {
+export interface SightingListResponse {
   sightings: SightingResponse[];
 }
 
@@ -6,7 +6,7 @@ export interface SpeciesListResponse {
   species: SpeciesResponse[];
 }
 
-export interface LocationsListResponse {
+export interface LocationListResponse {
   locations: Location[];
 }
 
