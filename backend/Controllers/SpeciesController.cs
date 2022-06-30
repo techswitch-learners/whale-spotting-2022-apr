@@ -7,16 +7,16 @@ namespace WhaleSpotting.Controllers
     [Route("/species")]
     public class SpeciesController : ControllerBase
     {
-        private readonly ISpeciesService _speciesservice;
-        public SpeciesController(ISpeciesService speciesservise)
+        private readonly ISpeciesService _speciesService;
+        public SpeciesController(ISpeciesService speciesService)
         {
-            _speciesservice = speciesservise;
+            _speciesService = speciesService;
         }
 
         [HttpGet("")]
         public ActionResult<SpeciesListResponse> GetSpecies()
         {
-            var species = _speciesservice.GetSpecies();
+            var species = _speciesService.GetSpecies();
             return new SpeciesListResponse(species);
         }
     }
