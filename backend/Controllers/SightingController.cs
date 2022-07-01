@@ -8,6 +8,8 @@ using WhaleSpotting.Models.Request;
 
 namespace WhaleSpotting.Controllers
 {
+    [ApiController]
+    [Route("/sightings")]
     public class SightingController : ControllerBase
     {
         private readonly ISightingService _sightingService;
@@ -51,6 +53,13 @@ namespace WhaleSpotting.Controllers
             {
                 return BadRequest("At least one search parameter must be given");
             }
+        }
+        
+        [HttpPost("")]
+        public ActionResult<SightingResponse> CreateSighting([FromBody] CreateSightingRequest newSighting)
+        {
+            var sighting = _sightingService.CreateSighting(newSighting);
+            return new SightingResponse(sighting);
         }
     }
 }

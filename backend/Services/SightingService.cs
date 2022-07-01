@@ -9,6 +9,7 @@ namespace WhaleSpotting.Services
     {
         IEnumerable<Sighting> GetAllSightings();
         IEnumerable<Sighting> SearchSightings(SightingSearchRequest search);
+        Sighting CreateSighting(CreateSightingRequest sighting);
     }
 
     public class SightingService : ISightingService
@@ -28,6 +29,11 @@ namespace WhaleSpotting.Services
         public IEnumerable<Sighting> SearchSightings(SightingSearchRequest search)
         {
             return _sightingRepo.SearchSightings(search);
+        }
+
+        public Sighting CreateSighting(CreateSightingRequest sighting)
+        {
+            return _sightingRepo.CreateSighting(sighting);
         }
     }
 }

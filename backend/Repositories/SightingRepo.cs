@@ -11,6 +11,7 @@ namespace WhaleSpotting.Repositories
     {
         IEnumerable<Sighting> GetAllSightings();
         IEnumerable<Sighting> SearchSightings(SightingSearchRequest search);
+        Sighting CreateSighting(CreateSightingRequest sighting);
     }
 
     public class SightingRepo : ISightingRepo
@@ -63,6 +64,30 @@ namespace WhaleSpotting.Repositories
             }
 
             return searchResult;
+        }
+
+        public Sighting CreateSighting(CreateSightingRequest sighting)
+        {
+            Sighting newSighting = new Sighting
+            {
+                Date = sighting.Date,
+                Latitude = sighting.Latitude,
+                Longitude = sighting.Longitude,
+                Description = sighting.Description,
+                PhotoUrl = sighting.PhotoUrl
+            };
+            if (sighting.SpeciesId != 0)
+            {
+                Species species = _context
+                    .Species
+                    .Where(a => a.Id == sighting.SpeciesId)
+                    .Single();
+                newSighting.Species = species;
+            }
+
+            var insertedSighting = _context.Sightings.Add(newSighting);
+            _context.SaveChanges();
+            return insertedSighting.Entity;
         }
     }
 }
