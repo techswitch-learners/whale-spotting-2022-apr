@@ -29,5 +29,12 @@ namespace WhaleSpotting.Controllers
                     .ToList(),
             };
         }
+
+        [HttpDelete("{id}")]
+        public IActionResult DeleteSighting([FromRoute] int id)
+        {
+            _sightingService.DeleteSighting(id);
+            return NoContent();
+        }
     }
 }
