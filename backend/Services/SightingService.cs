@@ -9,6 +9,7 @@ namespace WhaleSpotting.Services
     {
         IEnumerable<Sighting> GetAllSightings();
         Sighting CreateSighting(CreateSightingRequest sighting);
+        public int CountAllSightings();
     }
 
     public class SightingService : ISightingService
@@ -28,6 +29,11 @@ namespace WhaleSpotting.Services
         public Sighting CreateSighting(CreateSightingRequest sighting)
         {
             return _sightingRepo.CreateSighting(sighting);
+        }
+
+        public int CountAllSightings()
+        {
+            return _sightingRepo.CountAllSightings();
         }
     }
 }

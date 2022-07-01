@@ -24,7 +24,7 @@ namespace WhaleSpotting.Controllers
         [HttpGet("")]
         public ActionResult<SightingListResponse> GetAllSightings()
         {
-            return new SightingListResponse
+            var sightingListresponse =  new SightingListResponse()
             {
                 Sightings = _sightingService
                     .GetAllSightings()

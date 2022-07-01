@@ -10,6 +10,7 @@ namespace WhaleSpotting.Repositories
     {
         IEnumerable<Sighting> GetAllSightings();
         Sighting CreateSighting(CreateSightingRequest sighting);
+        public int CountAllSightings();
     }
 
     public class SightingRepo : ISightingRepo
@@ -50,6 +51,13 @@ namespace WhaleSpotting.Repositories
             var insertedSighting = _context.Sightings.Add(newSighting);
             _context.SaveChanges();
             return insertedSighting.Entity;
+        }
+
+        public int CountAllSightings()
+        {
+            return _context
+                .Sightings
+                .Count();
         }
     }
 }

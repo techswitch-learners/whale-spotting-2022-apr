@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using WhaleSpotting.Models.Database;
 
 namespace WhaleSpotting.Models.Response
@@ -53,5 +54,32 @@ namespace WhaleSpotting.Models.Response
     public class SightingListResponse
     {
         public List<SightingResponse> Sightings { get; set; }
+
+        private readonly string _path;
+
+        public int TotalNumberOfItems { get; }
+        public int Page { get; set; } = 1;
+        public int PageSize { get; set; } = 10;
+
+        public string NextPage => !HasNextPage() ? null : $"/{_path}?page={Page + 1}&pageNumber={PageSize}";
+
+        public string PreviousPage => Page <= 1 ? null : $"/{_path}?page={Page - 1}&pageNumber={PageSize}";
+
+        public SightingListResponse(List<SightingResponse> sightings, int totalNumberOfItems, string path)
+        {
+            Sightings = sightings;
+            TotalNumberOfItems = totalNumberOfItems;
+            _path = path;
+        }
+        
+        private bool HasNextPage()
+        {
+            return Page * PageSize < TotalNumberOfItems;
+        }
+
+        // public static SightingListResponse Create(List<SightingResponse> sightings, int totalNumberOfItems, string path)
+        // {
+        //     return new SightingListResponse(sightings, totalNumberOfItems, "sightings");
+        // }
     }
 }
