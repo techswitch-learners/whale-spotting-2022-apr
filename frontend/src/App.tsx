@@ -9,10 +9,10 @@ import { Footer } from "./components/footer/Footer";
 const Routes: React.FunctionComponent = () => {
   return (
     <Switch>
-      <Route path="/">
+      <Route exact path="/">
         <Home />
       </Route>
-      <Route path="/login">
+      <Route exact path="/login">
         <Login />
       </Route>
     </Switch>
