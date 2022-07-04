@@ -5,14 +5,18 @@ import { Login } from "./components/login/Login";
 import { Navbar } from "./components/navbar/Navbar";
 import { LoginManager } from "./components/login/LoginManager";
 import { Footer } from "./components/footer/Footer";
+import { Sightings } from "./components/sightings/sightings";
 
 const Routes: React.FunctionComponent = () => {
   return (
     <Switch>
-      <Route path="/">
+      <Route exact path="/">
         <Home />
       </Route>
-      <Route path="/login">
+      <Route exact path="/sightings">
+        <Sightings />
+      </Route>
+      <Route exact path="/login">
         <Login />
       </Route>
     </Switch>
