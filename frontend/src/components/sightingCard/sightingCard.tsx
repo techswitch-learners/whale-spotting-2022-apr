@@ -1,31 +1,57 @@
-import React from "react";
 import "./sightingCard.scss";
-import { Link } from "react-router-dom";
-import {
-  SightingResponse,
-  SpeciesResponse,
-} from "../../clients/internalApiClient";
+import { SightingResponse } from "../../clients/internalApiClient";
 
 interface SightingCardProps {
-  // species: SpeciesResponse;
   sighting: SightingResponse;
 }
 
+function formatDate(dateRaw: Date) {
+  const date = dateRaw.toString();
+  const months = [
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December",
+  ];
+
+  const year = date.substring(0, 4);
+  const monthIndex = parseInt(date.substring(5, 7));
+  const month = months[monthIndex - 1];
+  const dayNum = parseInt(date.substring(8, 10));
+  let formattedDay = "";
+
+  if (dayNum === 1 || dayNum === 21 || dayNum === 31) {
+    formattedDay = dayNum + "st";
+  } else if (dayNum === 2 || dayNum === 22) {
+    formattedDay = dayNum + "nd";
+  } else if (dayNum === 3 || dayNum === 23) {
+    formattedDay = dayNum + "rd";
+  } else {
+    formattedDay = dayNum + "th";
+  }
+
+  const formattedDate = `${formattedDay} ${month}, ${year}`;
+  return formattedDate;
+}
+
 export function SightingCard(props: SightingCardProps): JSX.Element {
-  console.log(props.sighting.species);
+  const sighting = props.sighting;
+  const species = props.sighting.species;
+  const formattedDate = formatDate(sighting.date);
+
   return (
     <div className="sighting-card">
-      <div>{props.sighting.description}</div>
-      <div>{props.sighting.date}</div>
-      {props.sighting.species ? <div>{props.sighting.species.name}</div> : null}
-      {/* <div>{props.species.name}</div> */}
+      <p>Description: {sighting.description}</p>
+      <p>Spoted on: {formattedDate}</p>
+      {species ? <div>{species.name}</div> : null}
     </div>
-    // <div className="sighting-card">
-    //     <img className="image" src={props.sighting.photoUrl} alt="sighting image"/>
-    //     <div className="description">{props.sighting.description}</div>
-    //     <div className="date">{props.sighting.date}</div>
-    //     <div className="species">{props.sighting.species}</div>
-    //     <Link className="sighting-page" to={`/users/${props.post.postedBy.id}`}>{props.post.postedBy.displayName}</Link>
-    // </div>
   );
 }
