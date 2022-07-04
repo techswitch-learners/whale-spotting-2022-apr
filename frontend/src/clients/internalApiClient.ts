@@ -26,6 +26,14 @@ export interface SightingResponse {
   isApproved: boolean;
 }
 
+export interface NewSighting {
+  location: string;
+  date: Date;
+  description: string;
+  photoUrl: string;
+  species: SpeciesResponse;
+}
+
 export async function fetchSpecies(): Promise<SpeciesListResponse> {
   const response = await fetch(`https://localhost:5001/species`);
   return await response.json();
@@ -34,4 +42,18 @@ export async function fetchSpecies(): Promise<SpeciesListResponse> {
 export async function fetchSightings(): Promise<SightingListResponse> {
   const response = await fetch(`https://localhost:5001/`);
   return await response.json();
+}
+
+//export async function createSightings(): Promise<SightingFormResponse> {
+export async function createSighting(newSighting: NewSighting) {
+  const response = await fetch(`https://localhost:5001/sightings/create`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(newSighting),
+  });
+  if (!response.ok) {
+    throw new Error(await response.json());
+  }
 }
