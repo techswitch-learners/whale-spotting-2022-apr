@@ -26,7 +26,7 @@ export interface SightingResponse {
   isApproved: boolean;
 }
 
-export interface NewSighting {
+export interface NewSightingRequest {
   location: string;
   date: Date;
   description: string;
@@ -45,7 +45,7 @@ export async function fetchSightings(): Promise<SightingListResponse> {
 }
 
 //export async function createSightings(): Promise<SightingFormResponse> {
-export async function createSighting(newSighting: NewSighting) {
+export async function createSighting(newSighting: NewSightingRequest) {
   const response = await fetch(`https://localhost:5001/sightings/create`, {
     method: "POST",
     headers: {
