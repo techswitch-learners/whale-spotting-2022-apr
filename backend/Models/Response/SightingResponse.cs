@@ -37,7 +37,6 @@ namespace WhaleSpotting.Models.Response
 
         public SightingResponse(Sighting sighting)
         {
-            
             Id = sighting.Id;
             Latitude = sighting.Latitude;
             Longitude = sighting.Longitude;

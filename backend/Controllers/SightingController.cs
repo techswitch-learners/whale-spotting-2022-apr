@@ -54,7 +54,7 @@ namespace WhaleSpotting.Controllers
                 return BadRequest("At least one search parameter must be given");
             }
         }
-        
+
         [HttpPost("")]
         public ActionResult<SightingResponse> CreateSighting([FromBody] CreateSightingRequest newSighting)
         {

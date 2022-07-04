@@ -4,6 +4,7 @@ using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using WhaleSpotting.Models.Database;
 using WhaleSpotting.Models.Request;
+using WhaleSpotting.Util;
 
 namespace WhaleSpotting.Repositories
 {
@@ -70,28 +71,8 @@ namespace WhaleSpotting.Repositories
 
             if (search.latitude != null && search.longitude != null && search.radius != null)
             {
-                static double toRadians(double angleIn10thofaDegree)
-                {
-                    return (angleIn10thofaDegree * Math.PI) / 180;
-                }
-                static double distance(double lat1, double lat2, double lon1,double lon2)
-                {
-                    lon1 = toRadians(lon1);
-                    lon2 = toRadians(lon2);
-                    lat1 = toRadians(lat1);
-                    lat2 = toRadians(lat2);
-
-                    double dlon = lon2 - lon1;
-                    double dlat = lat2 - lat1;
-                    double a = Math.Pow(Math.Sin(dlat / 2), 2) +
-                               Math.Cos(lat1) * Math.Cos(lat2) *
-                               Math.Pow(Math.Sin(dlon / 2), 2);
-                    double c = 2 * Math.Asin(Math.Sqrt(a));
-                    double r = 6371;
-                    return (c * r);
-                }
                 searchResult = searchResult
-                    .Where(s => distance(search.latitude.Value, s.Latitude, search.longitude.Value, s.Longitude) <= search.radius);
+                    .Where(s => GeographyHelpers.Distance(search.latitude.Value, s.Latitude, search.longitude.Value, s.Longitude) <= search.radius);
             }
             return searchResult;
         }
