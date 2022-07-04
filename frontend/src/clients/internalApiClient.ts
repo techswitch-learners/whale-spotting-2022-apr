@@ -35,3 +35,24 @@ export async function fetchSightings(): Promise<SightingListResponse> {
   const response = await fetch(`https://localhost:5001/`);
   return await response.json();
 }
+
+export async function authenticateLogin(
+  username: string,
+  password: string
+): Promise<Boolean> {
+  const details = `${username}:${password}`;
+  const encodedDetails = btoa(details);
+  const authHeader = `Basic ${encodedDetails}`;
+  const response = await fetch(`https://localhost:5001/login`, {
+    method: "GET",
+    headers: {
+      Authorization: authHeader,
+    },
+  });
+
+  if (response.ok) {
+    return true;
+  } else {
+    return false;
+  }
+}
