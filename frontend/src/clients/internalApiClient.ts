@@ -39,7 +39,7 @@ export async function fetchSightings(): Promise<SightingListResponse> {
 export async function authenticateLogin(
   username: string,
   password: string
-): Promise<Boolean> {
+): Promise<boolean> {
   const details = `${username}:${password}`;
   const encodedDetails = btoa(details);
   const authHeader = `Basic ${encodedDetails}`;
