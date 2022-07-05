@@ -1,3 +1,4 @@
+using System;
 using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using WhaleSpotting.Repositories;
@@ -31,6 +32,34 @@ namespace WhaleSpotting.Controllers
                     .Select(s => new SightingResponse(s))
                     .ToList(),
             };
+        }
+
+        [HttpGet("{id}")]
+        public ActionResult<SightingResponse> GetSightingById([FromRoute] int id)
+        {
+            var sighting = _sightingService.GetSightingById(id);
+            return new SightingResponse(sighting);
+        }
+        
+        [HttpGet("/search")]
+        public ActionResult<SightingListResponse> SearchSightings(
+            [FromQuery] SightingSearchRequest search
+        )
+        {
+            try
+            {
+                return new SightingListResponse
+                {
+                    Sightings = _sightingService
+                        .SearchSightings(search)
+                        .Select(s => new SightingResponse(s))
+                        .ToList(),
+                };
+            }
+            catch (ArgumentNullException)
+            {
+                return BadRequest("At least one search parameter must be given");
+            }
         }
 
         [HttpPost("")]
