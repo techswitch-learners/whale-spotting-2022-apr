@@ -8,8 +8,7 @@ namespace WhaleSpotting.Repositories
     public interface ISightingRepo
     {
         IEnumerable<Sighting> GetAllSightings();
-        Sighting GetById(int id);
-        Sighting DeleteSighting(int id);
+        void DeleteById(int id);
     }
 
     public class SightingRepo : ISightingRepo
@@ -28,24 +27,14 @@ namespace WhaleSpotting.Repositories
                 .Include(s => s.Species);
         }
 
-         public Sighting GetById(int id)
+        public void DeleteById(int id)
         {
-            return _context
-                .Sightings
-                .Single(s => s.Id == id);
-        }
-         public Sighting DeleteSighting(int id)
-        {
-             Sighting sighting = _context
-                .Sightings
-                .Include(s => s.Species)
-                .Single(s => s.Id == id);
+            Sighting sighting = _context
+               .Sightings
+               .Single(s => s.Id == id);
             sighting.IsDeleted = true;
             _context.Sightings.Update(sighting);
             _context.SaveChanges();
-
-            return sighting;
         }
-
     }
 }

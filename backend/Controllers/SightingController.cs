@@ -31,9 +31,9 @@ namespace WhaleSpotting.Controllers
         }
 
         [HttpDelete("{id}")]
-        public IActionResult DeleteSighting([FromRoute] int id)
+        public IActionResult DeleteById([FromRoute] int id)
         {
-            _sightingService.DeleteSighting(id);
+            _sightingService.DeleteById(id);
             return NoContent();
         }
     }
