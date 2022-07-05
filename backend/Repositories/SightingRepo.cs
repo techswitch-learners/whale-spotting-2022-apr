@@ -25,17 +25,16 @@ namespace WhaleSpotting.Repositories
         public IEnumerable<Sighting> GetAllSightings()
         {
             return _context
-                    .Sightings
-                    .Include(s => s.Species);
+                .Sightings
+                .Include(s => s.Species);
         }
 
         public Sighting GetSightingById(int id)
         {
             return _context
-                    .Sightings
-                    .Where(s => s.Id == id)
-                    .Include(s => s.Species)
-                    .Single();
+                .Sightings
+                .Include(s => s.Species)
+                .Single(s => s.Id == id);
         }
 
         public Sighting CreateSighting(CreateSightingRequest sighting)
@@ -56,7 +55,7 @@ namespace WhaleSpotting.Repositories
                     .Single();
                 newSighting.Species = species;
             }
-            
+
             var insertedSighting = _context.Sightings.Add(newSighting);
             _context.SaveChanges();
             return insertedSighting.Entity;
