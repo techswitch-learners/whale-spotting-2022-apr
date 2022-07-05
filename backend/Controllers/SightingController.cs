@@ -34,6 +34,13 @@ namespace WhaleSpotting.Controllers
             };
         }
 
+        [HttpGet("{id}")]
+        public ActionResult<SightingResponse> GetSightingById([FromRoute] int id)
+        {
+            var sighting = _sightingService.GetSightingById(id);
+            return new SightingResponse(sighting);
+        }
+        
         [HttpGet("/search")]
         public ActionResult<SightingListResponse> SearchSightings(
             [FromQuery] SightingSearchRequest search

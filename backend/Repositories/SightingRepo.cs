@@ -11,6 +11,7 @@ namespace WhaleSpotting.Repositories
     public interface ISightingRepo
     {
         IEnumerable<Sighting> GetAllSightings();
+        Sighting GetSightingById(int id);
         IEnumerable<Sighting> SearchSightings(SightingSearchRequest search);
         Sighting CreateSighting(CreateSightingRequest sighting);
     }
@@ -31,6 +32,14 @@ namespace WhaleSpotting.Repositories
                 .Include(s => s.Species);
         }
 
+        public Sighting GetSightingById(int id)
+        {
+            return _context
+                .Sightings
+                .Include(s => s.Species)
+                .Single(s => s.Id == id);
+        }
+        
         public IEnumerable<Sighting> SearchSightings(SightingSearchRequest search)
         {
             IEnumerable<Sighting> searchResult = _context
