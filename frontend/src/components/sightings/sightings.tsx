@@ -16,9 +16,11 @@ export const Sightings: React.FunctionComponent = () => {
     <section>
       <h1>Sighting page!</h1>
       {sightings &&
-        sightings.map((sighting) => (
-          <SightingCard sighting={sighting} key={sighting.id} />
-        ))}
+        sightings.map((sighting) => {
+          if (sighting.isApproved) {
+            return <SightingCard sighting={sighting} key={sighting.id} />;
+          }
+        })}
     </section>
   );
 };

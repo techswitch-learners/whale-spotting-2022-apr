@@ -14,3 +14,9 @@ test("Should render without error", () => {
   const elements = screen.getAllByText(/Sighting page!/i);
   expect(elements[0]).toBeInTheDocument();
 });
+
+describe("Sighting page", () => {
+  it("Should render without error", () => {
+    render(<Sightings />);
+  });
+});
