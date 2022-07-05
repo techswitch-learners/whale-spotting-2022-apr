@@ -1,57 +1,41 @@
 import "./sightingCard.scss";
 import { SightingResponse } from "../../clients/internalApiClient";
+import { format, parseISO } from "date-fns";
 
 interface SightingCardProps {
   sighting: SightingResponse;
 }
 
-function formatDate(dateRaw: Date) {
-  const date = dateRaw.toString();
-  const months = [
-    "January",
-    "February",
-    "March",
-    "April",
-    "May",
-    "June",
-    "July",
-    "August",
-    "September",
-    "October",
-    "November",
-    "December",
-  ];
-
-  const year = date.substring(0, 4);
-  const monthIndex = parseInt(date.substring(5, 7));
-  const month = months[monthIndex - 1];
-  const dayNum = parseInt(date.substring(8, 10));
-  let formattedDay = "";
-
-  if (dayNum === 1 || dayNum === 21 || dayNum === 31) {
-    formattedDay = dayNum + "st";
-  } else if (dayNum === 2 || dayNum === 22) {
-    formattedDay = dayNum + "nd";
-  } else if (dayNum === 3 || dayNum === 23) {
-    formattedDay = dayNum + "rd";
-  } else {
-    formattedDay = dayNum + "th";
-  }
-
-  const formattedDate = `${formattedDay} ${month}, ${year}`;
-  return formattedDate;
-}
-
 export function SightingCard(props: SightingCardProps): JSX.Element {
   const sighting = props.sighting;
   const species = props.sighting.species;
-  const formattedDate = formatDate(sighting.date);
+  const formattedDate = format(parseISO(sighting.date), "do MMMM, yyyy");
 
   return (
     <div className="sighting-card">
       <p>Description: {sighting.description}</p>
-      <p>Spoted on: {formattedDate}</p>
-      {species ? <div>{species.name}</div> : null}
+      <p>Spotted on: {formattedDate}</p>
+      <p>Latitude: {sighting.latitude}</p>
+      <p>Longitude: {sighting.longitude}</p>
+      {sighting.photoUrl ? (
+        <img src={sighting.photoUrl} alt="sighting of whales" />
+      ) : (
+        <img
+          src="https://i0.wp.com/handluggageonly.co.uk/wp-content/uploads/2017/05/humpback-1209297_1920.jpg?w=1600&ssl=1"
+          alt="sighting of whales"
+        />
+      )}
+      {species ? (
+        <div>
+          <p>{species.name}</p>
+          <p>{species.description}</p>
+        </div>
+      ) : (
+        <div>
+          <p>Unrecognised species</p>
+          <p>This type of whale was not recognised when whale spotting</p>
+        </div>
+      )}
     </div>
   );
 }
