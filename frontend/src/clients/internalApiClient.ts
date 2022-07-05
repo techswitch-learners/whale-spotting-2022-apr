@@ -44,7 +44,6 @@ export async function fetchSightings(): Promise<SightingListResponse> {
   return await response.json();
 }
 
-//export async function createSightings(): Promise<SightingFormResponse> {
 export async function createSighting(newSighting: NewSightingRequest) {
   const response = await fetch(`https://localhost:5001/sightings/create`, {
     method: "POST",

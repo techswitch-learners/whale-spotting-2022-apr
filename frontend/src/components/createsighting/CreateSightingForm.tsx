@@ -1,4 +1,7 @@
 import React, { useState, FormEvent } from "react";
+import { createSighting } from "../../clients/internalApiClient";
+
+type FormStatus = "READY" | "SUBMITTING" | "ERROR" | "FINISHED";
 
 export const CreateSightingForm: React.FunctionComponent = () => {
   const [date, setDate] = useState("");
@@ -6,12 +9,31 @@ export const CreateSightingForm: React.FunctionComponent = () => {
   const [description, setDescription] = useState("");
   const [photo, setPhoto] = useState("");
   const [species, setSpecies] = useState("");
+  const [status, setStatus] = useState<FormStatus>("READY");
 
   const submit = (event: FormEvent) => {
     event.preventDefault();
+    setStatus("SUBMITTING");
+    createSighting({
+      location,
+      date: parseString(date),
+      description,
+      photoUrl,
+      species: parseInt(SpeciesId),
+    })
+      .then(() => setStatus("FINISHED"))
+      .catch(() => setStatus("ERROR"));
   };
+
+  if (status === "FINISHED") {
+    return (
+      <div>
+        <p>Form Submitted Successfully!</p>
+      </div>
+    );
+  }
   return (
-    <form>
+    <form onSubmit={submit}>
       <fieldset>
         <label>
           Enter date:
@@ -58,10 +80,11 @@ export const CreateSightingForm: React.FunctionComponent = () => {
           />
         </label>
         <br />
-        <button type="submit" onSubmit={(event) => console.log(event.target)}>
-          Submit
-        </button>
+        <button type="submit">Submit</button>
       </fieldset>
     </form>
   );
 };
+function NewSightingRequest(NewSightingRequest: any) {
+  throw new Error("Function not implemented.");
+}
