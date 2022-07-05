@@ -32,7 +32,7 @@ export async function fetchSpecies(): Promise<SpeciesListResponse> {
 }
 
 export async function fetchSightings(): Promise<SightingListResponse> {
-  const response = await fetch(`https://localhost:5001/`);
+  const response = await fetch(`https://localhost:5001/sightings`);
   return await response.json();
 }
 
