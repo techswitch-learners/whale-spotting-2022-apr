@@ -1,31 +1,39 @@
-import React from "react";
 import "./sightingCard.scss";
-import { Link } from "react-router-dom";
-import {
-  SightingResponse,
-  SpeciesResponse,
-} from "../../clients/internalApiClient";
+import { SightingResponse } from "../../clients/internalApiClient";
+import { format, parseISO } from "date-fns";
 
 interface SightingCardProps {
-  // species: SpeciesResponse;
   sighting: SightingResponse;
 }
 
-export function SightingCard(props: SightingCardProps): JSX.Element {
-  console.log(props.sighting.species);
+export const SightingCard: React.FunctionComponent<SightingCardProps> = ({
+  sighting,
+}) => {
+  const species = sighting.species;
+  const formattedDate = format(parseISO(sighting.date), "do MMMM, yyyy");
+
   return (
     <div className="sighting-card">
-      <div>{props.sighting.description}</div>
-      <div>{props.sighting.date}</div>
-      {props.sighting.species ? <div>{props.sighting.species.name}</div> : null}
-      {/* <div>{props.species.name}</div> */}
+      <p>Description: {sighting.description}</p>
+      <p>Spotted on: {formattedDate}</p>
+      <p>Latitude: {sighting.latitude}</p>
+      <p>Longitude: {sighting.longitude}</p>
+      {sighting.photoUrl ? (
+        <img src={sighting.photoUrl} alt="sighting of whales" />
+      ) : (
+        <img src="https://i.imgur.com/bQI6qPz.jpeg" alt="sighting of whales" />
+      )}
+      {species ? (
+        <div>
+          <p>{species.name}</p>
+          <p>{species.description}</p>
+        </div>
+      ) : (
+        <div>
+          <p>Unrecognised species</p>
+          <p>This type of whale was not recognised when whale spotting</p>
+        </div>
+      )}
     </div>
-    // <div className="sighting-card">
-    //     <img className="image" src={props.sighting.photoUrl} alt="sighting image"/>
-    //     <div className="description">{props.sighting.description}</div>
-    //     <div className="date">{props.sighting.date}</div>
-    //     <div className="species">{props.sighting.species}</div>
-    //     <Link className="sighting-page" to={`/users/${props.post.postedBy.id}`}>{props.post.postedBy.displayName}</Link>
-    // </div>
   );
-}
+};
