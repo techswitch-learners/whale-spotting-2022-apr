@@ -30,7 +30,7 @@ namespace WhaleSpotting.Repositories
         {
             return _context
                 .Sightings
-                .Where(s => s.IsDeleted != true)
+                .Where(s => !s.IsDeleted)
                 .Include(s => s.Species);
         }
 
@@ -53,6 +53,7 @@ namespace WhaleSpotting.Repositories
         {
             return _context
                 .Sightings
+                .Where(s => !s.IsDeleted)
                 .Include(s => s.Species)
                 .Single(s => s.Id == id);
         }
@@ -61,6 +62,7 @@ namespace WhaleSpotting.Repositories
         {
             IEnumerable<Sighting> searchResult = _context
                 .Sightings
+                .Where(s => !s.IsDeleted)
                 .Include(s => s.Species);
 
             if (
