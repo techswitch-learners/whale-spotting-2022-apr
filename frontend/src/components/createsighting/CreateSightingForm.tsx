@@ -1,15 +1,16 @@
 import React, { useState, FormEvent } from "react";
 import { createSighting } from "../../clients/internalApiClient";
+import { format, parse } from "date-fns";
 
 type FormStatus = "READY" | "SUBMITTING" | "ERROR" | "FINISHED";
 
 export const CreateSightingForm: React.FunctionComponent = () => {
-  const [date, setDate] = useState("");
-  const [latitude, setLatitude] = useState("");
-  const [longitude, setLongitude] = useState("");
+  const [date, setDate] = useState<Date>(new Date());
+  const [latitude, setLatitude] = useState(0);
+  const [longitude, setLongitude] = useState(0);
   const [description, setDescription] = useState("");
-  const [photo, setPhoto] = useState("");
-  const [species, setSpecies] = useState("");
+  const [photoUrl, setPhotoUrl] = useState("");
+  const [speciesId, setSpeciesId] = useState(0);
   const [status, setStatus] = useState<FormStatus>("READY");
 
   const submit = (event: FormEvent) => {
@@ -18,10 +19,10 @@ export const CreateSightingForm: React.FunctionComponent = () => {
     createSighting({
       latitude,
       longitude,
-      date: parseString(date),
+      date,
       description,
       photoUrl,
-      species: parseInt(SpeciesId),
+      speciesId,
     })
       .then(() => setStatus("FINISHED"))
       .catch(() => setStatus("ERROR"));
@@ -40,18 +41,35 @@ export const CreateSightingForm: React.FunctionComponent = () => {
         <label>
           Enter date:
           <input
-            type={"text"}
-            value={date}
-            onChange={(event) => setDate(event.target.value)}
+            type={"date"}
+            value={format(date, "yyyy-MM-dd")}
+            onChange={(event) =>
+              setDate(parse(event.target.value, "yyyy-MM-dd", new Date()))
+            }
           />
         </label>
         <br />
         <label>
-          Enter Location:
+          Enter Latitude:
           <input
-            type={"text"}
-            value={location}
-            onChange={(event) => setLocation(event.target.value)}
+            type={"number"}
+            required
+            min={-90}
+            max={90}
+            value={latitude}
+            onChange={(event) => setLatitude(parseFloat(event.target.value))}
+          />
+        </label>
+        <br />
+        <label>
+          Enter Longitude:
+          <input
+            type={"number"}
+            required
+            min={-180}
+            max={180}
+            value={longitude}
+            onChange={(event) => setLongitude(parseFloat(event.target.value))}
           />
         </label>
         <br />
@@ -68,17 +86,17 @@ export const CreateSightingForm: React.FunctionComponent = () => {
           Enter Photo:
           <input
             type={"text"}
-            value={photo}
-            onChange={(event) => setPhoto(event.target.value)}
+            value={photoUrl}
+            onChange={(event) => setPhotoUrl(event.target.value)}
           />
         </label>
         <br />
         <label>
-          Enter Species:
+          Enter Species ID:
           <input
-            type={"text"}
-            value={species}
-            onChange={(event) => setSpecies(event.target.value)}
+            type={"number"}
+            value={speciesId}
+            onChange={(event) => setSpeciesId(parseInt(event.target.value))}
           />
         </label>
         <br />
@@ -87,6 +105,3 @@ export const CreateSightingForm: React.FunctionComponent = () => {
     </form>
   );
 };
-function NewSightingRequest(NewSightingRequest: any) {
-  throw new Error("Function not implemented.");
-}
