@@ -23,7 +23,7 @@ const testSighting = {
   isApproved: true,
 };
 
-test("Should render without error", () => {
+test("Should render with information about the sighting", () => {
   const history = createMemoryHistory();
   render(
     <Router history={history}>

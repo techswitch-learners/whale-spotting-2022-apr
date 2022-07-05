@@ -6,9 +6,10 @@ interface SightingCardProps {
   sighting: SightingResponse;
 }
 
-export function SightingCard(props: SightingCardProps): JSX.Element {
-  const sighting = props.sighting;
-  const species = props.sighting.species;
+export const SightingCard: React.FunctionComponent<SightingCardProps> = ({
+  sighting,
+}) => {
+  const species = sighting.species;
   const formattedDate = format(parseISO(sighting.date), "do MMMM, yyyy");
 
   return (
@@ -20,10 +21,7 @@ export function SightingCard(props: SightingCardProps): JSX.Element {
       {sighting.photoUrl ? (
         <img src={sighting.photoUrl} alt="sighting of whales" />
       ) : (
-        <img
-          src="https://i0.wp.com/handluggageonly.co.uk/wp-content/uploads/2017/05/humpback-1209297_1920.jpg?w=1600&ssl=1"
-          alt="sighting of whales"
-        />
+        <img src="https://i.imgur.com/bQI6qPz.jpeg" alt="sighting of whales" />
       )}
       {species ? (
         <div>
@@ -38,4 +36,4 @@ export function SightingCard(props: SightingCardProps): JSX.Element {
       )}
     </div>
   );
-}
+};
