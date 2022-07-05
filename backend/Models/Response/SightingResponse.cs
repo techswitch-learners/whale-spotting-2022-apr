@@ -43,7 +43,8 @@ namespace WhaleSpotting.Models.Response
             Date = sighting.Date;
             Description = sighting.Description;
             PhotoUrl = sighting.PhotoUrl;
-            if (sighting.Species != null){
+            if (sighting.Species != null)
+            {
                 Species = new SightingSpeciesResponse(sighting.Species);
             }
             IsApproved = sighting.IsApproved;
