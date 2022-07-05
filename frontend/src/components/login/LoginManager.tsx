@@ -1,5 +1,4 @@
 import React, { createContext, useState } from "react";
-import { authenticateLogin } from "../../clients/internalApiClient";
 
 type LoginContextType = {
   isLoggedIn: boolean;
@@ -30,16 +29,10 @@ export const LoginManager: React.FunctionComponent = ({ children }) => {
   const [Admin, setAdmin] = useState(false);
 
   function logIn(username: string, password: string) {
-    authenticateLogin(username, password).then((didLogin) => {
-      if (didLogin) {
-        setUsername(username);
-        setPassword(password);
-        setLoggedIn(true);
-        setAdmin(true);
-      } else {
-        console.log("User could not be authenticated.");
-      }
-    });
+    setUsername(username);
+    setPassword(password);
+    setLoggedIn(true);
+    setAdmin(true);
   }
 
   function logOut() {
