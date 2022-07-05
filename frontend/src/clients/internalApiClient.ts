@@ -27,11 +27,12 @@ export interface SightingResponse {
 }
 
 export interface NewSightingRequest {
-  location: string;
+  latitude: number;
+  longitude: number;
   date: Date;
   description: string;
   photoUrl: string;
-  species: SpeciesResponse;
+  speciesId: number;
 }
 
 export async function fetchSpecies(): Promise<SpeciesListResponse> {

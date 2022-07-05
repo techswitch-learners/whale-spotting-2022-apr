@@ -5,7 +5,8 @@ type FormStatus = "READY" | "SUBMITTING" | "ERROR" | "FINISHED";
 
 export const CreateSightingForm: React.FunctionComponent = () => {
   const [date, setDate] = useState("");
-  const [location, setLocation] = useState("");
+  const [latitude, setLatitude] = useState("");
+  const [longitude, setLongitude] = useState("");
   const [description, setDescription] = useState("");
   const [photo, setPhoto] = useState("");
   const [species, setSpecies] = useState("");
@@ -15,7 +16,8 @@ export const CreateSightingForm: React.FunctionComponent = () => {
     event.preventDefault();
     setStatus("SUBMITTING");
     createSighting({
-      location,
+      latitude,
+      longitude,
       date: parseString(date),
       description,
       photoUrl,
