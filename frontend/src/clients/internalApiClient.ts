@@ -19,7 +19,7 @@ export interface SightingResponse {
   id: number;
   latitude: number;
   longitude: number;
-  date: Date;
+  date: string;
   description: string;
   photoUrl: string;
   species: SpeciesResponse;
