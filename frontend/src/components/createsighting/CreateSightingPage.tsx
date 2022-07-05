@@ -1,7 +1,7 @@
-import { Sightingform } from "./Sightingform";
+import { CreateSightingForm } from "./CreateSightingForm";
 
 export const CreateSightingPage: React.FunctionComponent = () => (
   <>
-    <Sightingform />
+    <CreateSightingForm />
   </>
 );

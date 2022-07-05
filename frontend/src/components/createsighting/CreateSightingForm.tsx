@@ -1,6 +1,6 @@
 import React, { useState, FormEvent } from "react";
 
-export const Sightingform: React.FunctionComponent = () => {
+export const CreateSightingForm: React.FunctionComponent = () => {
   const [date, setDate] = useState("");
   const [location, setLocation] = useState("");
   const [description, setDescription] = useState("");
@@ -9,7 +9,6 @@ export const Sightingform: React.FunctionComponent = () => {
 
   const submit = (event: FormEvent) => {
     event.preventDefault();
-    //alert(date);
   };
   return (
     <form>
