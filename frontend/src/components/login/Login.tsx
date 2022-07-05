@@ -11,9 +11,8 @@ export const Login: React.FunctionComponent = () => {
   }
 
   return (
-    <>
-      <h1>Login Form</h1>
+    <div className="container-fluid">
       <LoginForm />
-    </>
+    </div>
   );
 };

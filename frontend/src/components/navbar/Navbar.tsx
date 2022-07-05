@@ -14,30 +14,52 @@ export const Navbar: React.FunctionComponent = () => {
   };
 
   return (
-    <nav className="navbar" role="navigation" aria-label="main navigation">
-      <Link to="/">
-        <img
-          className="navbar__logo"
-          src="/logo.png"
-          alt="Whale Spotting logo"
-        />
-      </Link>
-      <span className={`menu-items ${menuCollapsed && "menu-collapsed"}`}>
-        {!loginContext.isLoggedIn ? (
-          <Link className="menu-link" to="/admin/login">
-            Login
-          </Link>
-        ) : (
-          <>
-            <button onClick={loginContext.logOut} className="menu-link">
-              Logout
-            </button>
-          </>
-        )}
-      </span>
-      <button className="menu-toggle" onClick={toggleMenu}>
-        <FontAwesomeIcon color="#00aeff" icon={faBars} />
-      </button>
+    <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
+      <div className="container-fluid">
+        <Link className="navbar-brand" to="/">
+          <img
+            className="navbar__logo"
+            src="/logo.png"
+            alt="Whale Spotting logo"
+          />
+        </Link>
+        <button
+          className="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarToggler"
+          aria-controls="navbarToggler"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span className="navbar-toggler-icon"></span>
+        </button>
+        <div className="collapse navbar-collapse" id="navbarToggler">
+          <ul className="navbar-nav me-auto mb-2 mb-lg-0">
+            <li className="nav-item">
+              <Link className="nav-link text-light" to="#">
+                Sightings
+              </Link>
+            </li>
+            <li className="nav-item">
+              <Link className="nav-link text-light" to="#">
+                Species
+              </Link>
+            </li>
+          </ul>
+          <div className="d-flex">
+            {!loginContext.isLoggedIn ? (
+              <Link className="btn btn-info" to="/admin/login">
+                Login
+              </Link>
+            ) : (
+              <button onClick={loginContext.logOut} className="btn btn-info">
+                Log Out
+              </button>
+            )}
+          </div>
+        </div>
+      </div>
     </nav>
   );
 };
