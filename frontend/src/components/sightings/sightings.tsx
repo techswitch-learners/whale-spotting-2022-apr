@@ -7,6 +7,7 @@ import { SightingCard } from "../sightingCard/sightingCard";
 
 export const Sightings: React.FunctionComponent = () => {
   const [sightings, setSightings] = useState<SightingResponse[]>();
+
   useEffect(() => {
     fetchSightings().then((response) => setSightings(response.sightings));
   }, []);
