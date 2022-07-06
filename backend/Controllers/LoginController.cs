@@ -33,8 +33,7 @@ namespace WhaleSpotting.Controllers {
         return new UnauthorizedResult();
       }
 
-      var encodedUsernamePassword = authHeader.Substring("Basic ".Length).Trim();
-      string usernamePassword = AuthHelper.Base64Decode(encodedUsernamePassword);
+      string[] usernamePassword = AuthHelper.getUsernameAndPasswordfromAuthheader(authHeader);
 
       try
       {
