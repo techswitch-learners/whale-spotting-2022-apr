@@ -15,13 +15,10 @@ export const IndividualSighting: React.FunctionComponent = () => {
     fetchSightingById(idNumber).then((response) => setSighting(response));
   }, []);
 
-  if (id === undefined) {
-    return <Sightings />;
-  }
   return (
-    <div>
-      <h2>Whale spotting sighting</h2>
+    <section>
+      <h1>Whale spotting sighting</h1>
       {sighting && <SightingCard sighting={sighting} key={sighting.id} />}
-    </div>
+    </section>
   );
 };
