@@ -41,37 +41,47 @@ export const SightingCard: React.FunctionComponent<SightingCardProps> = ({
     );
   }
 
-  function isExternalSpeciesResponse(
-    response: InternalSpeciesResponse | ExternalSpeciesResponse
-  ): response is ExternalSpeciesResponse {
-    return (response as ExternalSpeciesResponse) !== undefined;
+  let speciesSection = <></>;
+  if (Array.isArray(species)) {
+    console.log(species.map);
+    speciesSection = (
+      <>
+        {species.map((s) => {
+          return (
+            <>
+              <p>Species Name: {s.name}</p>
+              <p>Species Description: {s.description}</p>
+            </>
+          );
+        })}
+      </>
+    );
+  } else {
+    speciesSection = (
+      <>
+        <p>Species Name: {species.name}</p>
+        <p>Species Description: {species.description}</p>
+      </>
+    );
   }
-
-  // let speciesSection = <></>;
-  // if (isExternalSpeciesResponse(species)) {
-
-  // }
 
   return (
     <div className="sighting-card">
       {descriptionSection}
       <p>Spotted on: {formattedDate}</p>
       {locationSection}
-      {sighting.photoUrl ? (
-        <img src={sighting.photoUrl} alt="sighting of whales" />
-      ) : (
-        <img src="https://i.imgur.com/bQI6qPz.jpeg" alt="sighting of whales" />
-      )}
       {species ? (
-        <div>
-          <p>{species.name}</p>
-          <p>{species.description}</p>
-        </div>
+        speciesSection
       ) : (
         <div>
           <p>Unrecognised species</p>
           <p>This type of whale was not recognised when whale spotting</p>
         </div>
+      )}
+      {sighting.photoUrl ? (
+        <img src={sighting.photoUrl} alt="sighting of whales" />
+      ) : (
+        <img src="https://i.imgur.com/bQI6qPz.jpeg" alt="sighting of whales" />
       )}
     </div>
   );
