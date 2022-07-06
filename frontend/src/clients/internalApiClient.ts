@@ -19,7 +19,7 @@ export interface SightingResponse {
   id: number;
   latitude: number;
   longitude: number;
-  date: Date;
+  date: string;
   description: string;
   photoUrl: string;
   species: SpeciesResponse;
@@ -55,4 +55,9 @@ export async function authenticateLogin(
   } else {
     return false;
   }
+}
+
+export async function fetchSightingById(id: number): Promise<SightingResponse> {
+  const response = await fetch(`https://localhost:5001/sightings/${id}`);
+  return await response.json();
 }
