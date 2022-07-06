@@ -17,15 +17,30 @@ namespace WhaleSpotting.Helpers
             return System.Text.Encoding.UTF8.GetString(base64EncodedBytes);
         }
 
-        public static string[] getUsernameAndPasswordfromAuthheader(string header)
+        public class UsernamePassword 
         {
+            public string Username { get ; set; }
+            public string Password { get ; set; }
+
+            public UsernamePassword(string username, string password)
+            {
+                username= Username;
+                password = Password;
+            }
+        }
+
+        public static UsernamePassword GetUsernameAndPasswordfromAuthheader(string header)
+        {
+
             string[] splitHeader = header.Split(" ");
             string encodedUsernameAndPassword = splitHeader[1];
             string usernameAndPassword = Base64Decode(encodedUsernameAndPassword);
             int separatorIndex = usernameAndPassword.IndexOf(':');
-            var splitUsernamePassword = usernameAndPassword.Split(':');
+            string[] splitUsernamePassword = usernameAndPassword.Split(':');
+            UsernamePassword usernamePassword = new UsernamePassword(splitUsernamePassword[0], splitUsernamePassword[1]);
 
-            return splitUsernamePassword;
+
+            return usernamePassword;
         }
     }
 }

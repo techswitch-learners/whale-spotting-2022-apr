@@ -6,7 +6,7 @@ namespace WhaleSpotting.Services
 {
     public interface IAuthService
     {
-        bool IsAuthenticated(string[] usernamePassword);
+        bool IsAuthenticated(string username, string password);
     }
     public class AuthService : IAuthService
     {
@@ -15,11 +15,8 @@ namespace WhaleSpotting.Services
         {
             _context = context;
         }
-        public bool IsAuthenticated(string[] usernamePassword)
+        public bool IsAuthenticated(string username, string password)
         {
-            var username = usernamePassword[0];
-            var password = usernamePassword[1];
-
             var foundUser = _context.Users.Single(user => user.Username == username);
 
             if (foundUser != null)

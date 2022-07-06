@@ -53,8 +53,9 @@ namespace WhaleSpotting.Controllers
             }
             try
             {
-                string[] usernameAndPassword = AuthHelper.getUsernameAndPasswordfromAuthheader(authorization);
-                if (!_authService.IsAuthenticated(usernameAndPassword))
+                AuthHelper.UsernamePassword usernamePassword = AuthHelper.GetUsernameAndPasswordfromAuthheader(authorization);
+                
+                if (!_authService.IsAuthenticated(usernamePassword.Username, usernamePassword.Password))
                 {
                     return Unauthorized("Username and password are not valid.");
                 }

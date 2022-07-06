@@ -33,11 +33,11 @@ namespace WhaleSpotting.Controllers {
         return new UnauthorizedResult();
       }
 
-      string[] usernamePassword = AuthHelper.getUsernameAndPasswordfromAuthheader(authHeader);
+      AuthHelper.UsernamePassword usernamePassword = AuthHelper.GetUsernameAndPasswordfromAuthheader(authHeader);
 
       try
       {
-        var check = _authservice.IsAuthenticated(usernamePassword);
+        var check = _authservice.IsAuthenticated(usernamePassword.Username, usernamePassword.Password);
         if (!check)
           return new UnauthorizedResult();
         else
