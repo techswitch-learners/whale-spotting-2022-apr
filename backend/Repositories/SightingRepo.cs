@@ -11,6 +11,7 @@ namespace WhaleSpotting.Repositories
     public interface ISightingRepo
     {
         IEnumerable<Sighting> GetAllSightings();
+        void DeleteById(int id);
         Sighting ApproveSighting(int id);
         Sighting GetSightingById(int id);
         IEnumerable<Sighting> SearchSightings(SightingSearchRequest search);
@@ -34,6 +35,16 @@ namespace WhaleSpotting.Repositories
                 .Include(s => s.Species);
         }
 
+
+        public void DeleteById(int id)
+        {
+            Sighting sighting = _context
+               .Sightings
+               .Single(s => s.Id == id);
+            sighting.IsDeleted = true;
+            _context.Sightings.Update(sighting);
+            _context.SaveChanges();
+        }
         public Sighting ApproveSighting(int id)
         {
             Sighting sighting = _context.Sightings

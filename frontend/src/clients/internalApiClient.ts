@@ -57,3 +57,8 @@ export async function createSighting(newSighting: NewSightingRequest) {
     throw new Error(await response.json());
   }
 }
+
+export async function fetchSightingById(id: number): Promise<SightingResponse> {
+  const response = await fetch(`https://localhost:5001/sightings/${id}`);
+  return await response.json();
+}
