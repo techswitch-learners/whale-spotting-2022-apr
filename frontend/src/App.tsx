@@ -6,12 +6,16 @@ import { Navbar } from "./components/navbar/Navbar";
 import { LoginManager } from "./components/login/LoginManager";
 import { Footer } from "./components/footer/Footer";
 import { CreateSightingPage } from "./components/createsighting/CreateSightingPage";
+import { Sightings } from "./components/sightings/sightings";
 
 const Routes: React.FunctionComponent = () => {
   return (
     <Switch>
       <Route exact path="/">
         <Home />
+      </Route>
+      <Route exact path="/sightings">
+        <Sightings />
       </Route>
       <Route exact path="/login">
         <Login />
