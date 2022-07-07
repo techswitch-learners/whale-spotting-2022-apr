@@ -24,7 +24,7 @@ export const Navbar: React.FunctionComponent = () => {
       </Link>
       <span className={`menu-items ${menuCollapsed && "menu-collapsed"}`}>
         {!loginContext.isLoggedIn ? (
-          <Link className="menu-link" to="/login">
+          <Link className="menu-link" to="/admin/login">
             Login
           </Link>
         ) : (
