@@ -36,7 +36,6 @@ export const LoginManager: React.FunctionComponent = ({ children }) => {
       setAdmin(true);
       return true;
     } else {
-      console.log("User could not be authenticated.");
       return false;
     }
   }
