@@ -7,7 +7,9 @@ namespace WhaleSpotting.Services
 {
     public interface ISightingService
     {
-        IEnumerable<Sighting> GetAllSightings();
+        //IEnumerable<Sighting> GetAllSightings();
+        IEnumerable<Sighting> GetApprovedSightings();
+        IEnumerable<Sighting> GetUnapprovedSightings();
         void DeleteById(int id);
         Sighting ApproveSighting(int id);
         Sighting GetSightingById(int id);
@@ -24,9 +26,18 @@ namespace WhaleSpotting.Services
             _sightingRepo = sightingRepo;
         }
 
-        public IEnumerable<Sighting> GetAllSightings()
+        // public IEnumerable<Sighting> GetAllSightings()
+        // {
+        //     return _sightingRepo.GetAllSightings();
+        // }
+        public IEnumerable<Sighting> GetApprovedSightings()
         {
-            return _sightingRepo.GetAllSightings();
+            return _sightingRepo.GetApprovedSightings();
+        }
+
+        public IEnumerable<Sighting> GetUnapprovedSightings()
+        {
+            return _sightingRepo.GetUnapprovedSightings();
         }
 
         public void DeleteById(int id)

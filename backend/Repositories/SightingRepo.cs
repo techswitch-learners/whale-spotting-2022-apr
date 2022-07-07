@@ -10,7 +10,9 @@ namespace WhaleSpotting.Repositories
 {
     public interface ISightingRepo
     {
-        IEnumerable<Sighting> GetAllSightings();
+        //IEnumerable<Sighting> GetAllSightings();
+        IEnumerable<Sighting> GetApprovedSightings();
+        IEnumerable<Sighting> GetUnapprovedSightings();        
         void DeleteById(int id);
         Sighting ApproveSighting(int id);
         Sighting GetSightingById(int id);
@@ -27,13 +29,30 @@ namespace WhaleSpotting.Repositories
             _context = context;
         }
 
-        public IEnumerable<Sighting> GetAllSightings()
+        // public IEnumerable<Sighting> GetAllSightings()
+        // {
+        //     return _context
+        //         .Sightings
+        //         .Include(s => s.Species);
+        // }
+
+        public IEnumerable<Sighting> GetApprovedSightings()
         {
             return _context
                 .Sightings
-                .Include(s => s.Species);
+                .Where(s => s.IsApproved == true)
+                .Include(s => s.Species)
+                .ToList();
         }
 
+        public IEnumerable<Sighting> GetUnapprovedSightings()
+        {
+            return _context
+                .Sightings
+                .Where(s => s.IsApproved == false)
+                .Include(s => s.Species)
+                .ToList();
+        }
 
         public void DeleteById(int id)
         {
@@ -63,6 +82,7 @@ namespace WhaleSpotting.Repositories
         {
             return _context
                 .Sightings
+                .Where(s => s.IsApproved == true)
                 .Include(s => s.Species)
                 .Single(s => s.Id == id);
         }
