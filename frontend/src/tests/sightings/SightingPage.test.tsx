@@ -1,8 +1,9 @@
 import { render, screen } from "@testing-library/react";
 import { createMemoryHistory } from "history";
 import { Router } from "react-router-dom";
-import { IndividualSighting } from "../../components/individualSighting/individualSighting";
+import { IndividualSighting } from "../../components/SightingPage/SightingPage";
 import * as apiClient from "../../clients/internalApiClient";
+import { act } from "react-dom/test-utils";
 
 test('When rendered with a route, sends a fetch request to the "get sighting by ID" endpoint in the backend', () => {
   const history = createMemoryHistory({ initialEntries: ["/sightings/1"] });
@@ -59,15 +60,19 @@ test("When rendered with a route, displays the information of the sighting with 
       isApproved: true,
     }));
 
-  render(
-    <Router history={history}>
-      <IndividualSighting />
-    </Router>
-  );
+  act(() => {
+    render(
+      <Router history={history}>
+        <IndividualSighting />
+      </Router>
+    );
+  });
 
   expect(
-    await screen.getByText(/description: a sighting/i)
+    await screen.findByText(/description: a sighting/i)
   ).toBeInTheDocument();
-  expect(await screen.getByText(/blue whale/i)).toBeInTheDocument();
-  expect(await screen.getByText(/a whale, coloured blue/i)).toBeInTheDocument();
+  expect(await screen.findByText(/blue whale/i)).toBeInTheDocument();
+  expect(
+    await screen.findByText(/a whale, coloured blue/i)
+  ).toBeInTheDocument();
 });

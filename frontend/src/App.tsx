@@ -6,7 +6,7 @@ import { Navbar } from "./components/navbar/Navbar";
 import { LoginManager } from "./components/login/LoginManager";
 import { Footer } from "./components/footer/Footer";
 import { Sightings } from "./components/sightings/sightings";
-import { IndividualSighting } from "./components/individualSighting/individualSighting";
+import { IndividualSighting } from "./components/SightingPage/SightingPage";
 
 const Routes: React.FunctionComponent = () => {
   return (
