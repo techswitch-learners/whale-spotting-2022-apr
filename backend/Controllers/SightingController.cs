@@ -28,18 +28,7 @@ namespace WhaleSpotting.Controllers
             _authService = authService;
         }
 
-        // [HttpGet("")]
-        // public ActionResult<SightingListResponse> GetAllSightings()
-        // {
-        //     return new SightingListResponse
-        //     {
-        //         Sightings = _sightingService
-        //             .GetAllSightings()
-        //             .Select(s => new SightingResponse(s))
-        //             .ToList(),
-        //     };
-        // }
-        [HttpGet("approved")]
+        [HttpGet("")]
         public ActionResult<SightingListResponse> GetApprovedSightings()
         {
             return new SightingListResponse

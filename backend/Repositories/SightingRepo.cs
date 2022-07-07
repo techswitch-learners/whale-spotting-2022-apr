@@ -10,7 +10,6 @@ namespace WhaleSpotting.Repositories
 {
     public interface ISightingRepo
     {
-        //IEnumerable<Sighting> GetAllSightings();
         IEnumerable<Sighting> GetApprovedSightings();
         IEnumerable<Sighting> GetUnapprovedSightings();        
         void DeleteById(int id);
@@ -28,13 +27,6 @@ namespace WhaleSpotting.Repositories
         {
             _context = context;
         }
-
-        // public IEnumerable<Sighting> GetAllSightings()
-        // {
-        //     return _context
-        //         .Sightings
-        //         .Include(s => s.Species);
-        // }
 
         public IEnumerable<Sighting> GetApprovedSightings()
         {
