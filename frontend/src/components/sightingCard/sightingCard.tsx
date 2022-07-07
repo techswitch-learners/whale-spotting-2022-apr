@@ -1,12 +1,6 @@
 import "./sightingCard.scss";
-import {
-  SightingResponse as InternalSightingResponse,
-  SpeciesResponse as InternalSpeciesResponse,
-} from "../../clients/internalApiClient";
-import {
-  SightingResponse as ExternalSightingResponse,
-  SpeciesResponse as ExternalSpeciesResponse,
-} from "../../clients/externalApiClient";
+import { SightingResponse as InternalSightingResponse } from "../../clients/internalApiClient";
+import { SightingResponse as ExternalSightingResponse } from "../../clients/externalApiClient";
 import { format, parseISO } from "date-fns";
 
 interface SightingCardProps {
