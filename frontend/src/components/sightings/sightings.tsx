@@ -8,12 +8,23 @@ import {
   SightingResponse as ExternalSightingResponse,
 } from "../../clients/externalApiClient";
 import { SightingCard } from "../sightingCard/sightingCard";
+import { compareDesc, parseISO } from "date-fns";
 
 export const Sightings: React.FunctionComponent = () => {
   const [internalSightings, setInternalSightings] =
     useState<InternalSightingResponse[]>();
   const [externalSightings, setExternalSightings] =
     useState<ExternalSightingResponse[]>();
+
+  let allSightings: Array<InternalSightingResponse | ExternalSightingResponse> =
+    [];
+  if (internalSightings !== undefined) {
+    allSightings = allSightings.concat(internalSightings);
+  }
+  if (externalSightings !== undefined) {
+    allSightings = allSightings.concat(externalSightings);
+  }
+  allSightings.sort((a, b) => compareDesc(parseISO(a.date), parseISO(b.date)));
 
   useEffect(() => {
     fetchInternalSightings().then((response) =>
@@ -28,16 +39,13 @@ export const Sightings: React.FunctionComponent = () => {
   return (
     <section>
       <h1>Sightings</h1>
-      {internalSightings &&
-        internalSightings.map((sighting) => {
-          if (sighting.isApproved) {
-            return <SightingCard sighting={sighting} key={sighting.id} />;
-          }
-        })}
-      {externalSightings &&
-        externalSightings.map((sighting) => {
+      {allSightings ? (
+        allSightings.map((sighting) => {
           return <SightingCard sighting={sighting} key={sighting.id} />;
-        })}
+        })
+      ) : (
+        <p>Loading...</p>
+      )}
     </section>
   );
 };
