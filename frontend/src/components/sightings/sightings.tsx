@@ -1,27 +1,25 @@
 import { useEffect, useState } from "react";
 import {
   fetchSightings as fetchInternalSightings,
-  SightingResponse as internalSightingResponse,
+  SightingResponse as InternalSightingResponse,
 } from "../../clients/internalApiClient";
 import {
   fetchSightings as fetchExternalSightings,
-  SightingResponse as externalSightingResponse,
+  SightingResponse as ExternalSightingResponse,
 } from "../../clients/externalApiClient";
-import { SightingCard as SightingCard } from "../sightingCard/sightingCard";
+import { SightingCard } from "../sightingCard/sightingCard";
 
 export const Sightings: React.FunctionComponent = () => {
   const [internalSightings, setInternalSightings] =
-    useState<internalSightingResponse[]>();
+    useState<InternalSightingResponse[]>();
   const [externalSightings, setExternalSightings] =
-    useState<externalSightingResponse[]>();
+    useState<ExternalSightingResponse[]>();
 
   useEffect(() => {
     fetchInternalSightings().then((response) =>
       setInternalSightings(response.sightings)
     );
-  }, []);
 
-  useEffect(() => {
     fetchExternalSightings().then((response) =>
       setExternalSightings(response.sightings)
     );

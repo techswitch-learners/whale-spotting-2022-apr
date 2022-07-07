@@ -43,15 +43,14 @@ export const SightingCard: React.FunctionComponent<SightingCardProps> = ({
 
   let speciesSection = <></>;
   if (Array.isArray(species)) {
-    console.log(species.map);
     speciesSection = (
       <>
         {species.map((s) => {
           return (
-            <>
-              <p>Species Name: {s.name}</p>
-              <p>Species Description: {s.description}</p>
-            </>
+            <ul key={s.id}>
+              <li>Species Name: {s.name}</li>
+              <li>Species Description: {s.description}</li>
+            </ul>
           );
         })}
       </>
