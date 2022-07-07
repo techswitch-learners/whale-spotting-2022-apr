@@ -5,6 +5,7 @@ import { LoginPage } from "./components/login/LoginPage";
 import { Navbar } from "./components/navbar/Navbar";
 import { LoginManager } from "./components/login/LoginManager";
 import { Footer } from "./components/footer/Footer";
+import { CreateSightingPage } from "./components/createsighting/CreateSightingPage";
 import { Sightings } from "./components/sightings/sightings";
 
 const Routes: React.FunctionComponent = () => {
@@ -18,6 +19,9 @@ const Routes: React.FunctionComponent = () => {
       </Route>
       <Route exact path="/admin/login">
         <LoginPage />
+      </Route>
+      <Route exact path="/sightings/create">
+        <CreateSightingPage />
       </Route>
     </Switch>
   );

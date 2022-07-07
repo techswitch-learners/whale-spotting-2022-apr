@@ -34,6 +34,7 @@ export const Navbar: React.FunctionComponent = () => {
             </button>
           </>
         )}
+        <Link to="/sightings/create">Report a Sighting</Link>
       </span>
       <button className="menu-toggle" onClick={toggleMenu}>
         <FontAwesomeIcon color="#00aeff" icon={faBars} />
