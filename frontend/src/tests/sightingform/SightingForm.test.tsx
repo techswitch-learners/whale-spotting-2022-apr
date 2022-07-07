@@ -1,4 +1,4 @@
-import { fireEvent, render, screen } from "@testing-library/react";
+import { act, fireEvent, render, screen } from "@testing-library/react";
 import { CreateSightingForm } from "../../components/createsighting/CreateSightingForm";
 import * as apiClient from "../../clients/internalApiClient";
 
@@ -40,7 +40,9 @@ test("Submitting the form with values calls the API client with a NewSightingReq
   const photoInput = screen.getByLabelText(/photo/i);
   const speciesInput = screen.getByLabelText(/species/i);
 
-  fireEvent.click(screen.getByText(/submit/i));
+  act(() => {
+    fireEvent.click(screen.getByText(/submit/i));
+  });
 
   expect(createSighting).toBeCalled();
 });
