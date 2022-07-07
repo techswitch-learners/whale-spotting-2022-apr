@@ -29,12 +29,47 @@ namespace WhaleSpotting.Controllers
         }
 
         [HttpGet("")]
-        public ActionResult<SightingListResponse> GetAllSightings()
+        public ActionResult<SightingListResponse> GetApprovedSightings()
         {
             return new SightingListResponse
             {
                 Sightings = _sightingService
-                    .GetAllSightings()
+                    .GetApprovedSightings()
+                    .Select(s => new SightingResponse(s))
+                    .ToList(),
+            };
+        }
+
+        [HttpGet("unapproved")]
+        public ActionResult<SightingListResponse> GetUnapprovedSightings([FromHeader] string authorization)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            try
+            {
+                string[] splitHeader = authorization.Split(" ");
+                string encodedUsernameAndPassword = splitHeader[1];
+                byte[] usernameAndPasswordBytes = Convert.FromBase64String(
+                    encodedUsernameAndPassword
+                );
+                string usernameAndPassword = System.Text.Encoding.UTF8.GetString(
+                    usernameAndPasswordBytes
+                );
+                if (!_authService.IsAuthenticated(usernameAndPassword))
+                {
+                    return Unauthorized("Username and password are not valid.");
+                }
+            }
+            catch (Exception)
+            {
+                return Unauthorized("Must pass a valid authorization header.");
+            }
+            return new SightingListResponse
+            {
+                Sightings = _sightingService
+                    .GetUnapprovedSightings()
                     .Select(s => new SightingResponse(s))
                     .ToList(),
             };
