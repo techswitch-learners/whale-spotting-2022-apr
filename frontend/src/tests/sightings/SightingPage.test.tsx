@@ -3,7 +3,7 @@ import { createMemoryHistory } from "history";
 import { Router } from "react-router-dom";
 import { SightingPage } from "../../components/SightingPage/SightingPage";
 import * as apiClient from "../../clients/internalApiClient";
-import { act } from "react-dom/test-utils";
+import { act } from "@testing-library/react";
 
 test('When rendered with a route, sends a fetch request to the "get sighting by ID" endpoint in the backend', () => {
   const history = createMemoryHistory({ initialEntries: ["/sightings/1"] });

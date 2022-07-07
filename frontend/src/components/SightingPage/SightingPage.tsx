@@ -17,7 +17,11 @@ export const SightingPage: React.FunctionComponent = () => {
   return (
     <section>
       <h1>Whale spotting sighting</h1>
-      {sighting && <SightingCard sighting={sighting} key={sighting.id} />}
+      {sighting ? (
+        <SightingCard sighting={sighting} key={sighting.id} />
+      ) : (
+        <p>Loading...</p>
+      )}
     </section>
   );
 };
