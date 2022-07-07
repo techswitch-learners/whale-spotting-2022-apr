@@ -1,16 +1,21 @@
 import React, { FormEvent, useState, useContext } from "react";
 import { LoginContext } from "../login/LoginManager";
 
-export const Login: React.FunctionComponent = () => {
+export const LoginForm: React.FunctionComponent = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const [error, setError] = useState(undefined);
+  const [error, setError] = useState<string>();
   const loginContext = useContext(LoginContext);
 
   function tryLogin(event: FormEvent) {
     event.preventDefault();
-    loginContext.logIn(username, password);
-    setError(undefined);
+    loginContext.logIn(username, password).then((didLogin) => {
+      if (didLogin) {
+        setError(undefined);
+      } else {
+        setError("Login failed.");
+      }
+    });
   }
 
   return (
