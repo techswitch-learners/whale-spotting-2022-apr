@@ -5,9 +5,8 @@ import {
   SightingResponse,
 } from "../../clients/internalApiClient";
 import { SightingCard } from "../sightingCard/sightingCard";
-import { Sightings } from "../sightings/sightings";
 
-export const IndividualSighting: React.FunctionComponent = () => {
+export const SightingPage: React.FunctionComponent = () => {
   const { id } = useParams<{ id: string }>();
   const idNumber = parseInt(id);
   const [sighting, setSighting] = useState<SightingResponse>();

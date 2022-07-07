@@ -1,7 +1,7 @@
 import { render, screen } from "@testing-library/react";
 import { createMemoryHistory } from "history";
 import { Router } from "react-router-dom";
-import { IndividualSighting } from "../../components/SightingPage/SightingPage";
+import { SightingPage } from "../../components/SightingPage/SightingPage";
 import * as apiClient from "../../clients/internalApiClient";
 import { act } from "react-dom/test-utils";
 
@@ -28,18 +28,19 @@ test('When rendered with a route, sends a fetch request to the "get sighting by 
       isApproved: true,
     }));
 
-  render(
-    <Router history={history}>
-      <IndividualSighting />
-    </Router>
-  );
+  act(() => {
+    render(
+      <Router history={history}>
+        <SightingPage />
+      </Router>
+    );
+  });
 
   expect(fetchSightingById).toBeCalled();
 });
 
 test("When rendered with a route, displays the information of the sighting with that ID", async () => {
   const history = createMemoryHistory({ initialEntries: ["/sightings/1"] });
-
   jest
     .spyOn(apiClient, "fetchSightingById")
     .mockImplementation(async (id: number) => ({
@@ -60,10 +61,10 @@ test("When rendered with a route, displays the information of the sighting with 
       isApproved: true,
     }));
 
-  act(() => {
+  await act(async () => {
     render(
       <Router history={history}>
-        <IndividualSighting />
+        <SightingPage />
       </Router>
     );
   });
