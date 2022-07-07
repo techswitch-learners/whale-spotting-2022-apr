@@ -8,6 +8,7 @@ import { Footer } from "./components/footer/Footer";
 import { CreateSightingPage } from "./components/createsighting/CreateSightingPage";
 import { Sightings } from "./components/sightings/sightings";
 import { SightingPage } from "./components/SightingPage/SightingPage";
+import { SightingListPage } from "./components/sightingListPage/SightingListPage";
 
 const Routes: React.FunctionComponent = () => {
   return (
@@ -20,6 +21,9 @@ const Routes: React.FunctionComponent = () => {
       </Route>
       <Route exact path="/sightings/:id">
         <SightingPage />
+      </Route>
+      <Route exact path="/sightingslist">
+        <SightingListPage />
       </Route>
       <Route exact path="/admin/login">
         <LoginPage />
