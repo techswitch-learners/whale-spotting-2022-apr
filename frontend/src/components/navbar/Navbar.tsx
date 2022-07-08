@@ -24,7 +24,7 @@ export const Navbar: React.FunctionComponent = () => {
       </Link>
       <span className={`menu-items ${menuCollapsed && "menu-collapsed"}`}>
         {!loginContext.isLoggedIn ? (
-          <Link className="menu-link" to="/login">
+          <Link className="menu-link" to="/admin/login">
             Login
           </Link>
         ) : (
@@ -34,6 +34,7 @@ export const Navbar: React.FunctionComponent = () => {
             </button>
           </>
         )}
+        <Link to="/sightings/create">Report a Sighting</Link>
       </span>
       <button className="menu-toggle" onClick={toggleMenu}>
         <FontAwesomeIcon color="#00aeff" icon={faBars} />
