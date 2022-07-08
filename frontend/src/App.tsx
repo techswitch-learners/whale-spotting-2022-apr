@@ -9,6 +9,7 @@ import { CreateSightingPage } from "./components/createsighting/CreateSightingPa
 import { Sightings } from "./components/sightings/sightings";
 import { SightingPage } from "./components/SightingPage/SightingPage";
 import { SightingListPage } from "./components/sightingListPage/SightingListPage";
+import { UnapprovedSightingPage } from "./components/sightingListPage/UnapprovedSightingPage";
 
 const Routes: React.FunctionComponent = () => {
   return (
@@ -24,6 +25,9 @@ const Routes: React.FunctionComponent = () => {
       </Route>
       <Route exact path="/sightingslist">
         <SightingListPage />
+      </Route>
+      <Route exact path="/admin/unapproved">
+        <UnapprovedSightingPage />
       </Route>
       <Route exact path="/admin/login">
         <LoginPage />
