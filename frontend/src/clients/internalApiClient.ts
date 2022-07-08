@@ -85,6 +85,6 @@ export async function fetchSightingById(id: number): Promise<SightingResponse> {
 }
 
 export async function fetchUnapprovedSightings(): Promise<SightingListResponse> {
-  const response = await fetch(`https://localhost:5001/sightings`);
+  const response = await fetch(`https://localhost:5001/sightings/unapproved`);
   return await response.json();
 }

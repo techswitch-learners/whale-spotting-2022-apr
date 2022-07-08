@@ -32,6 +32,7 @@ export const Navbar: React.FunctionComponent = () => {
             <button onClick={loginContext.logOut} className="menu-link">
               Logout
             </button>
+            <Link to="/admin/unapproved">Unapproved Sightings</Link>
           </>
         )}
         <Link to="/sightings/create">Report a Sighting</Link>
