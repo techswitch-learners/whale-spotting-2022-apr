@@ -18,7 +18,11 @@ export const BinocularMarker: React.FunctionComponent<BinocularMarkerProps> = ({
   sighting,
 }) => {
   return (
-    <Marker position={[sighting.latitude, sighting.longitude]} icon={svgIcon}>
+    <Marker
+      position={[sighting.latitude, sighting.longitude]}
+      icon={svgIcon}
+      data-testid="marker"
+    >
       <Popup>{sighting.description}</Popup>
     </Marker>
   );
