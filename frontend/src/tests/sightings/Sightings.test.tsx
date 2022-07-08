@@ -5,6 +5,7 @@ import { Sightings } from "../../components/sightings/sightings";
 
 test("Should render without error", () => {
   const history = createMemoryHistory();
+
   render(
     <Router history={history}>
       <Sightings />

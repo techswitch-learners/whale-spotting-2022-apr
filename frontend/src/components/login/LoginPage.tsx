@@ -1,9 +1,9 @@
 import React, { useContext } from "react";
-import { LoginContext } from "../login/LoginManager";
+import { LoginContext } from "./LoginManager";
 import { Redirect } from "react-router-dom";
 import { LoginForm } from "./LoginForm";
 
-export const Login: React.FunctionComponent = () => {
+export const LoginPage: React.FunctionComponent = () => {
   const loginContext = useContext(LoginContext);
 
   if (loginContext.isLoggedIn) {
