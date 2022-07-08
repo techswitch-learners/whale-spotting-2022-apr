@@ -9,12 +9,10 @@ import { SightingCard } from "../sightingCard/sightingCard";
 export const UnapprovedSightingPage: React.FunctionComponent = () => {
   const [sightings, setSightings] = useState<SightingResponse[]>();
   const loginContext = useContext(LoginContext);
-  const username = "";
-  const password = "";
 
   useEffect(() => {
-    fetchUnapprovedSightings(username, password).then((response) =>
-      setSightings(response.sightings)
+    fetchUnapprovedSightings(loginContext.username, loginContext.password).then(
+      (response) => setSightings(response.sightings)
     );
   }, []);
 
