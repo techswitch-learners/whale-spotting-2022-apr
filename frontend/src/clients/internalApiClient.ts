@@ -84,7 +84,18 @@ export async function fetchSightingById(id: number): Promise<SightingResponse> {
   return await response.json();
 }
 
-export async function fetchUnapprovedSightings(): Promise<SightingListResponse> {
-  const response = await fetch(`https://localhost:5001/sightings/unapproved`);
+export async function fetchUnapprovedSightings(
+  username: string,
+  password: string
+): Promise<SightingListResponse> {
+  const details = `${username}:${password}`;
+  const encodedDetails = btoa(details);
+  const authHeader = `Basic ${encodedDetails}`;
+  const response = await fetch(`https://localhost:5001/sightings/unapproved`, {
+    method: "GET",
+    headers: {
+      Authorization: authHeader,
+    },
+  });
   return await response.json();
 }
