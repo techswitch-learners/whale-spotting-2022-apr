@@ -7,7 +7,7 @@ import { LoginManager } from "./components/login/LoginManager";
 import { Footer } from "./components/footer/Footer";
 import { CreateSightingPage } from "./components/createsighting/CreateSightingPage";
 import { Sightings } from "./components/sightings/sightings";
-import { SightingPage } from "./components/SightingPage/SightingPage";
+import { SightingPage } from "./components/individualSighting/SightingPage";
 
 const Routes: React.FunctionComponent = () => {
   return (

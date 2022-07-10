@@ -4,7 +4,7 @@ import { svgPathData } from "@fortawesome/free-solid-svg-icons/faBinoculars";
 import { SightingResponse } from "../../clients/internalApiClient";
 
 const svgIcon = Leaflet.divIcon({
-  html: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="${svgPathData}"/></svg>`,
+  html: `<svg role="marker" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" ><path d="${svgPathData}"  /></svg>`,
   className: "",
   iconSize: [24, 24],
   iconAnchor: [12, 0],
@@ -18,11 +18,7 @@ export const BinocularMarker: React.FunctionComponent<BinocularMarkerProps> = ({
   sighting,
 }) => {
   return (
-    <Marker
-      position={[sighting.latitude, sighting.longitude]}
-      icon={svgIcon}
-      data-testid="marker"
-    >
+    <Marker position={[sighting.latitude, sighting.longitude]} icon={svgIcon}>
       <Popup>{sighting.description}</Popup>
     </Marker>
   );
