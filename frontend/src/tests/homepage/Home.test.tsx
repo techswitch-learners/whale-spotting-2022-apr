@@ -7,11 +7,11 @@ import * as apiClient from "../../clients/internalApiClient";
 import { MapContainer, TileLayer } from "react-leaflet";
 import { BinocularMarker } from "../../components/homepage/BinocularMarker";
 
-const sightingDummyData: SightingListResponse = {
+const sightingsDummyData: SightingListResponse = {
   sightings: [
     {
       id: 1,
-      latitude: 0,
+      latitude: 51.5072,
       longitude: 0,
       date: "2022-07-06",
       description: "A sighting",
@@ -28,13 +28,30 @@ const sightingDummyData: SightingListResponse = {
     },
     {
       id: 2,
-      latitude: 30,
-      longitude: 50,
+      latitude: 51.5072,
+      longitude: 1,
       date: "2022-07-06",
       description: "A sighting, very amazing",
       photoUrl: "",
       species: {
         id: 1,
+        name: "Blue whale",
+        latinName: "Blueus Whaleus",
+        endangeredStatus: "Not Endangered, I Hope",
+        imageUrl: "",
+        description: "A whale, coloured blue",
+      },
+      isApproved: true,
+    },
+    {
+      id: 3,
+      latitude: 51.5072,
+      longitude: 3,
+      date: "2022-07-06",
+      description: "A sighting, very very amazing",
+      photoUrl: "",
+      species: {
+        id: 3,
         name: "Blue whale",
         latinName: "Blueus Whaleus",
         endangeredStatus: "Not Endangered, I Hope",
@@ -56,4 +73,13 @@ test("renders map component to screen", () => {
   const { container } = render(<Home />);
   const map = container.getElementsByClassName("leaflet-container");
   expect(map[0]).toBeInTheDocument();
+});
+
+test("renders all markers", async () => {
+  const fetchSightings = jest
+    .spyOn(apiClient, "fetchSightings")
+    .mockImplementation(async () => sightingsDummyData);
+  render(<Home />);
+  await waitFor(() => expect(fetchSightings).toBeCalled());
+  await waitFor(() => expect(screen.queryAllByRole("marker")).toHaveLength(2));
 });
