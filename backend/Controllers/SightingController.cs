@@ -50,15 +50,8 @@ namespace WhaleSpotting.Controllers
             }
             try
             {
-                string[] splitHeader = authorization.Split(" ");
-                string encodedUsernameAndPassword = splitHeader[1];
-                byte[] usernameAndPasswordBytes = Convert.FromBase64String(
-                    encodedUsernameAndPassword
-                );
-                string usernameAndPassword = System.Text.Encoding.UTF8.GetString(
-                    usernameAndPasswordBytes
-                );
-                if (!_authService.IsAuthenticated(usernameAndPassword))
+                AuthHelper.UsernamePassword usernamePassword = AuthHelper.GetUsernameAndPasswordfromAuthheader(authorization);
+                if (!_authService.IsAuthenticated(usernamePassword.Username, usernamePassword.Password))
                 {
                     return Unauthorized("Username and password are not valid.");
                 }
