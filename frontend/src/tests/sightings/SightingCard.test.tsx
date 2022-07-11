@@ -122,8 +122,6 @@ const testExternalSighting2 = {
   ],
   id: 5,
   date: "2021-12-21",
-  locationId: 3,
-  speciesIds: [2, 3],
   photoUrl:
     "https://www.nhm.ac.uk/content/dam/nhmwww/discover/whale-skulls/sperm-whale-full-width.jpg.thumb.1160.1160.jpg",
   email: "hello@google.com",
