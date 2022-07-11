@@ -1,7 +1,6 @@
 import { fireEvent, render, screen, waitFor } from "@testing-library/react";
-import { MapContainer, Marker, Popup, TileLayer } from "react-leaflet";
+import { MapContainer, TileLayer } from "react-leaflet";
 import { BinocularMarker } from "../../components/homepage/BinocularMarker";
-import { shallow } from "enzyme";
 
 const sighting = {
   id: 1,

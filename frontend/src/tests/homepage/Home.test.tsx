@@ -1,11 +1,7 @@
-import { render, screen, act, waitFor } from "@testing-library/react";
-import { createMemoryHistory } from "history";
+import { render, screen, waitFor } from "@testing-library/react";
 import { Home } from "../../components/homepage/Home";
-import { Router } from "react-router-dom";
 import { SightingListResponse } from "../../clients/internalApiClient";
 import * as apiClient from "../../clients/internalApiClient";
-import { MapContainer, TileLayer } from "react-leaflet";
-import { BinocularMarker } from "../../components/homepage/BinocularMarker";
 
 const sightingsDummyData: SightingListResponse = {
   sightings: [
