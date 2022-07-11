@@ -3,6 +3,7 @@ import {
   fetchUnapprovedSightings,
   SightingResponse,
   approveSighting,
+  deleteById,
 } from "../../clients/internalApiClient";
 import { LoginContext } from "../login/LoginManager";
 import { SightingCard } from "../sightingCard/sightingCard";
@@ -20,17 +21,23 @@ export const UnapprovedSightingPage: React.FunctionComponent = () => {
 
   const onApprove = (sighting: SightingResponse) => {
     setRemoveSightingIds(removeSightingIds.concat([sighting.id]));
+    approveSighting(sighting.id, loginContext.username, loginContext.password);
   };
 
+  const onDelete = (sighting: SightingResponse) => {
+    setRemoveSightingIds(removeSightingIds.concat([sighting.id]));
+    deleteById(sighting.id, loginContext.username, loginContext.password);
+  };
+  const filteredSightings =
+    sightings?.length &&
+    sightings.filter((sighting) => !removeSightingIds.includes(sighting.id));
   return (
     <section>
-      <h1>Unapproved Sighting List</h1>
+      <h1>Unapproved Sightings</h1>
       {loginContext.isAdmin ? (
-        sightings &&
-        sightings
-          .filter((sighting) => !removeSightingIds.includes(sighting.id))
-          .map((sighting) => (
-            <>
+        filteredSightings ? (
+          filteredSightings.map((sighting) => (
+            <div role="unapproved" key={sighting.id}>
               <SightingCard sighting={sighting} key={sighting.id} />
               <button
                 onClick={() => {
@@ -39,11 +46,20 @@ export const UnapprovedSightingPage: React.FunctionComponent = () => {
               >
                 Approve
               </button>
-              <button>Delete</button>
-            </>
+              <button
+                onClick={() => {
+                  onDelete(sighting);
+                }}
+              >
+                Delete
+              </button>
+            </div>
           ))
+        ) : (
+          <p>There are no unapproved sightings left!</p>
+        )
       ) : (
-        <p>Loading...</p>
+        <p>Please login as administrator</p>
       )}
     </section>
   );

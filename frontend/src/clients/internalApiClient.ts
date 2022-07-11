@@ -122,3 +122,22 @@ export async function approveSighting(
   }
   return await response.json();
 }
+
+export async function deleteById(
+  id: number,
+  username: string,
+  password: string
+) {
+  const details = `${username}:${password}`;
+  const encodedDetails = btoa(details);
+  const authHeader = `Basic ${encodedDetails}`;
+  const response = await fetch(`https://localhost:5001/sightings/${id}`, {
+    method: "DELETE",
+    headers: {
+      Authorization: authHeader,
+    },
+  });
+  if (!response.ok) {
+    throw new Error(await response.json());
+  }
+}
