@@ -1,10 +1,4 @@
-import {
-  act,
-  fireEvent,
-  render,
-  screen,
-  waitFor,
-} from "@testing-library/react";
+import { act, fireEvent, render, screen } from "@testing-library/react";
 import { createMemoryHistory } from "history";
 import userEvent from "@testing-library/user-event";
 import { LoginForm } from "../../components/login/LoginForm";
