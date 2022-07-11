@@ -32,7 +32,7 @@ namespace WhaleSpotting.Repositories
         {
             return _context
                 .Sightings
-                .Where(s => s.IsApproved == true)
+                .Where(s => s.IsApproved && !s.IsDeleted)
                 .Include(s => s.Species)
                 .ToList();
         }
@@ -41,7 +41,7 @@ namespace WhaleSpotting.Repositories
         {
             return _context
                 .Sightings
-                .Where(s => s.IsApproved == false)
+                .Where(s => !s.IsApproved && !s.IsDeleted)
                 .Include(s => s.Species)
                 .ToList();
         }
@@ -55,11 +55,11 @@ namespace WhaleSpotting.Repositories
             _context.Sightings.Update(sighting);
             _context.SaveChanges();
         }
+        
         public Sighting ApproveSighting(int id)
         {
             Sighting sighting = _context.Sightings
                 .Where(s => s.Id == id)
-                .Include(s => s.Species)
                 .Single();
 
             sighting.IsApproved = true;
@@ -74,7 +74,7 @@ namespace WhaleSpotting.Repositories
         {
             return _context
                 .Sightings
-                .Where(s => s.IsApproved == true)
+                .Where(s => s.IsApproved && !s.IsDeleted)
                 .Include(s => s.Species)
                 .Single(s => s.Id == id);
         }
@@ -83,6 +83,7 @@ namespace WhaleSpotting.Repositories
         {
             IEnumerable<Sighting> searchResult = _context
                 .Sightings
+                .Where(s => s.IsApproved && !s.IsDeleted)
                 .Include(s => s.Species);
 
             if (
@@ -133,7 +134,9 @@ namespace WhaleSpotting.Repositories
                 Latitude = sighting.Latitude,
                 Longitude = sighting.Longitude,
                 Description = sighting.Description,
-                PhotoUrl = sighting.PhotoUrl
+                PhotoUrl = sighting.PhotoUrl,
+                IsApproved = false,
+                IsDeleted = false,
             };
             if (sighting.SpeciesId != 0)
             {
