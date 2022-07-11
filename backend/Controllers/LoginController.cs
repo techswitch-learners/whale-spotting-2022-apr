@@ -44,7 +44,7 @@ namespace WhaleSpotting.Controllers {
       }
       catch (Exception)
       {
-        return Unauthorized(new {Message = "Username as password not found."});
+        return Unauthorized(new {Message = "Username and password not found."});
       }
     }
   }

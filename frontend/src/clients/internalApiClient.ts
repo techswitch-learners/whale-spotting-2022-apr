@@ -35,6 +35,11 @@ export interface NewSightingRequest {
   speciesId: number;
 }
 
+export interface authenticateLoginResponse {
+  isResponseOk: boolean;
+  message: string;
+}
+
 export async function fetchSpecies(): Promise<SpeciesListResponse> {
   const response = await fetch(`https://localhost:5001/species`);
   return await response.json();
@@ -61,7 +66,7 @@ export async function createSighting(newSighting: NewSightingRequest) {
 export async function authenticateLogin(
   username: string,
   password: string
-): Promise<boolean> {
+): Promise<authenticateLoginResponse> {
   const details = `${username}:${password}`;
   const encodedDetails = btoa(details);
   const authHeader = `Basic ${encodedDetails}`;
@@ -73,9 +78,16 @@ export async function authenticateLogin(
   });
 
   if (response.ok) {
-    return true;
+    return {
+      isResponseOk: true,
+      message: "",
+    };
   } else {
-    return false;
+    const responseJson = await response.json();
+    return {
+      isResponseOk: false,
+      message: responseJson.message,
+    };
   }
 }
 
