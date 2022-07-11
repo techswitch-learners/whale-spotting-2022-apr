@@ -10,7 +10,10 @@ namespace WhaleSpotting.Repositories
 {
     public interface ISightingRepo
     {
-        IEnumerable<Sighting> GetAllSightings();
+        IEnumerable<Sighting> GetApprovedSightings();
+        IEnumerable<Sighting> GetUnapprovedSightings();        
+        void DeleteById(int id);
+        Sighting ApproveSighting(int id);
         Sighting GetSightingById(int id);
         IEnumerable<Sighting> SearchSightings(SightingSearchRequest search);
         Sighting CreateSighting(CreateSightingRequest sighting);
@@ -25,21 +28,57 @@ namespace WhaleSpotting.Repositories
             _context = context;
         }
 
-        public IEnumerable<Sighting> GetAllSightings()
+        public IEnumerable<Sighting> GetApprovedSightings()
         {
             return _context
                 .Sightings
-                .Include(s => s.Species);
+                .Where(s => s.IsApproved == true)
+                .Include(s => s.Species)
+                .ToList();
+        }
+
+        public IEnumerable<Sighting> GetUnapprovedSightings()
+        {
+            return _context
+                .Sightings
+                .Where(s => s.IsApproved == false)
+                .Include(s => s.Species)
+                .ToList();
+        }
+
+        public void DeleteById(int id)
+        {
+            Sighting sighting = _context
+               .Sightings
+               .Single(s => s.Id == id);
+            sighting.IsDeleted = true;
+            _context.Sightings.Update(sighting);
+            _context.SaveChanges();
+        }
+        public Sighting ApproveSighting(int id)
+        {
+            Sighting sighting = _context.Sightings
+                .Where(s => s.Id == id)
+                .Include(s => s.Species)
+                .Single();
+
+            sighting.IsApproved = true;
+
+            _context.Sightings.Update(sighting);
+            _context.SaveChanges();
+
+            return sighting;
         }
 
         public Sighting GetSightingById(int id)
         {
             return _context
                 .Sightings
+                .Where(s => s.IsApproved == true)
                 .Include(s => s.Species)
                 .Single(s => s.Id == id);
         }
-        
+
         public IEnumerable<Sighting> SearchSightings(SightingSearchRequest search)
         {
             IEnumerable<Sighting> searchResult = _context
@@ -64,7 +103,7 @@ namespace WhaleSpotting.Repositories
                     .Where(s => s.Species != null)
                     .Where(s => s.Species.Id == search.SpeciesId);
             }
-            
+
 
             if (search.FromDate != null)
             {

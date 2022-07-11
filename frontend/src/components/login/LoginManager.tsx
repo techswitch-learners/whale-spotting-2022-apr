@@ -1,11 +1,12 @@
 import React, { createContext, useState } from "react";
+import { authenticateLogin } from "../../clients/internalApiClient";
 
 type LoginContextType = {
   isLoggedIn: boolean;
   isAdmin: boolean;
   username: string;
   password: string;
-  logIn: (username: string, password: string) => void;
+  logIn: (username: string, password: string) => Promise<boolean>;
   logOut: () => void;
 };
 
@@ -14,9 +15,7 @@ export const LoginContext = createContext<LoginContextType>({
   isAdmin: false,
   username: "",
   password: "",
-  logIn: () => {
-    console.log();
-  },
+  logIn: async () => false,
   logOut: () => {
     console.log();
   },
@@ -28,11 +27,17 @@ export const LoginManager: React.FunctionComponent = ({ children }) => {
   const [contextPassword, setPassword] = useState("");
   const [Admin, setAdmin] = useState(false);
 
-  function logIn(username: string, password: string) {
-    setUsername(username);
-    setPassword(password);
-    setLoggedIn(true);
-    setAdmin(true);
+  async function logIn(username: string, password: string): Promise<boolean> {
+    const didLogin = await authenticateLogin(username, password);
+    if (didLogin) {
+      setUsername(username);
+      setPassword(password);
+      setLoggedIn(true);
+      setAdmin(true);
+      return true;
+    } else {
+      return false;
+    }
   }
 
   function logOut() {
