@@ -5,6 +5,7 @@ using WhaleSpotting.Repositories;
 using WhaleSpotting.Services;
 using WhaleSpotting.Models.Response;
 using WhaleSpotting.Models.Request;
+using static WhaleSpotting.Helpers.AuthHelper;
 
 namespace WhaleSpotting.Controllers
 {
@@ -49,15 +50,8 @@ namespace WhaleSpotting.Controllers
             }
             try
             {
-                string[] splitHeader = authorization.Split(" ");
-                string encodedUsernameAndPassword = splitHeader[1];
-                byte[] usernameAndPasswordBytes = Convert.FromBase64String(
-                    encodedUsernameAndPassword
-                );
-                string usernameAndPassword = System.Text.Encoding.UTF8.GetString(
-                    usernameAndPasswordBytes
-                );
-                if (!_authService.IsAuthenticated(usernameAndPassword))
+                UsernamePassword usernamePassword = GetUsernameAndPasswordfromAuthheader(authorization);
+                if (!_authService.IsAuthenticated(usernamePassword.Username, usernamePassword.Password))
                 {
                     return Unauthorized("Username and password are not valid.");
                 }
@@ -94,15 +88,9 @@ namespace WhaleSpotting.Controllers
             }
             try
             {
-                string[] splitHeader = authorization.Split(" ");
-                string encodedUsernameAndPassword = splitHeader[1];
-                byte[] usernameAndPasswordBytes = Convert.FromBase64String(
-                    encodedUsernameAndPassword
-                );
-                string usernameAndPassword = System.Text.Encoding.UTF8.GetString(
-                    usernameAndPasswordBytes
-                );
-                if (!_authService.IsAuthenticated(usernameAndPassword))
+                UsernamePassword usernamePassword = GetUsernameAndPasswordfromAuthheader(authorization);
+                
+                if (!_authService.IsAuthenticated(usernamePassword.Username, usernamePassword.Password))
                 {
                     return Unauthorized("Username and password are not valid.");
                 }
