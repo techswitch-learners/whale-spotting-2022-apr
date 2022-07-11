@@ -40,8 +40,8 @@ export const Sightings: React.FunctionComponent = () => {
     <section>
       <h1>Sightings</h1>
       {allSightings ? (
-        allSightings.map((sighting) => {
-          return <SightingCard sighting={sighting} key={sighting.id} />;
+        allSightings.map((sighting, index) => {
+          return <SightingCard sighting={sighting} key={index} />;
         })
       ) : (
         <p>Loading...</p>
