@@ -1,9 +1,8 @@
 using Microsoft.AspNetCore.Mvc;
 using System;
-using WhaleSpotting.Models.Request;
 using WhaleSpotting.Services;
 using WhaleSpotting.Repositories;
-using WhaleSpotting.Helpers;
+using static WhaleSpotting.Helpers.AuthHelper;
 
 namespace WhaleSpotting.Controllers {
   [ApiController]
@@ -33,7 +32,7 @@ namespace WhaleSpotting.Controllers {
         return new UnauthorizedResult();
       }
 
-      AuthHelper.UsernamePassword usernamePassword = AuthHelper.GetUsernameAndPasswordfromAuthheader(authHeader);
+      UsernamePassword usernamePassword = GetUsernameAndPasswordfromAuthheader(authHeader);
 
       try
       {

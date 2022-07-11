@@ -18,12 +18,12 @@ namespace WhaleSpotting.Helpers
 
         public class UsernamePassword 
         {
-            public string Username { get ; set; }
-            public string Password { get ; set; }
+            public string Username { get; set; }
+            public string Password { get; set; }
 
             public UsernamePassword(string username, string password)
             {
-                Username= username;
+                Username = username;
                 Password = password;
             }
         }

@@ -5,7 +5,7 @@ using WhaleSpotting.Repositories;
 using WhaleSpotting.Services;
 using WhaleSpotting.Models.Response;
 using WhaleSpotting.Models.Request;
-using WhaleSpotting.Helpers;
+using static WhaleSpotting.Helpers.AuthHelper;
 
 namespace WhaleSpotting.Controllers
 {
@@ -50,7 +50,7 @@ namespace WhaleSpotting.Controllers
             }
             try
             {
-                AuthHelper.UsernamePassword usernamePassword = AuthHelper.GetUsernameAndPasswordfromAuthheader(authorization);
+                UsernamePassword usernamePassword = GetUsernameAndPasswordfromAuthheader(authorization);
                 if (!_authService.IsAuthenticated(usernamePassword.Username, usernamePassword.Password))
                 {
                     return Unauthorized("Username and password are not valid.");
@@ -88,7 +88,7 @@ namespace WhaleSpotting.Controllers
             }
             try
             {
-                AuthHelper.UsernamePassword usernamePassword = AuthHelper.GetUsernameAndPasswordfromAuthheader(authorization);
+                UsernamePassword usernamePassword = GetUsernameAndPasswordfromAuthheader(authorization);
                 
                 if (!_authService.IsAuthenticated(usernamePassword.Username, usernamePassword.Password))
                 {
