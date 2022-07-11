@@ -99,3 +99,26 @@ export async function fetchUnapprovedSightings(
   });
   return await response.json();
 }
+
+export async function approveSighting(
+  id: number,
+  username: string,
+  password: string
+): Promise<SightingResponse> {
+  const details = `${username}:${password}`;
+  const encodedDetails = btoa(details);
+  const authHeader = `Basic ${encodedDetails}`;
+  const response = await fetch(
+    `https://localhost:5001/sightings/${id}/approve`,
+    {
+      method: "PATCH",
+      headers: {
+        Authorization: authHeader,
+      },
+    }
+  );
+  if (!response.ok) {
+    throw new Error(await response.json());
+  }
+  return await response.json();
+}
