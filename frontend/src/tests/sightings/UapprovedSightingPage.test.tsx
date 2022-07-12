@@ -90,23 +90,10 @@ test("When rendered, check the correct number of unapproved sightings", async ()
       <UnapprovedSightingPage />
     </LoginContext.Provider>
   );
-  await waitFor(() =>
-    expect(screen.queryAllByRole("unapproved")).toHaveLength(2)
-  );
-});
-
-test("When rendered, displays the correct information about the sighting", async () => {
-  jest
-    .spyOn(apiClient, "fetchUnapprovedSightings")
-    .mockImplementation(async () => unapprovedSightingsDummyData);
-  render(
-    <LoginContext.Provider value={context_admin_login}>
-      <UnapprovedSightingPage />
-    </LoginContext.Provider>
-  );
   await waitFor(() => {
-    const elements = screen.getByText(/Description: A sighting, very amazing/i);
-    expect(elements).toBeInTheDocument();
+    expect(screen.queryAllByRole("unapproved")).toHaveLength(2);
+    const element = screen.getByText(/A sighting, very amazing/i);
+    expect(element).toBeInTheDocument();
   });
 });
 
