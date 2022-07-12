@@ -23,28 +23,33 @@ export const LoginForm: React.FunctionComponent = () => {
       {error && <p>{error}</p>}
       <h1>Log In</h1>
       <form onSubmit={tryLogin}>
-        <label className="field">
-          Username
+        <div className="form-floating mb-3">
           <input
-            type={"text"}
             value={username}
+            type="text"
+            className="form-control"
+            id="username"
             placeholder="Username"
-            required
             onChange={(event) => setUsername(event.target.value)}
-          />
-        </label>
-        <label className="field">
-          Password
-          <input
-            type={"password"}
-            value={password}
-            placeholder="Password"
             required
-            onChange={(event) => setPassword(event.target.value)}
           />
-        </label>
-
-        <button type="submit">Log In</button>
+          <label htmlFor="username">Username</label>
+        </div>
+        <div className="form-floating mb-3">
+          <input
+            value={password}
+            type="password"
+            className="form-control"
+            id="password"
+            placeholder="Password"
+            onChange={(event) => setPassword(event.target.value)}
+            required
+          />
+          <label htmlFor="password">Password</label>
+        </div>
+        <button type="submit" className="btn btn-primary d-block w-100">
+          Log In
+        </button>
       </form>
     </div>
   );
