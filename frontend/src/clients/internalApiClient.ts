@@ -1,3 +1,5 @@
+const baseUrl = process.env["REACT_APP_BACKEND_DOMAIN"];
+
 export interface SpeciesListResponse {
   species: SpeciesResponse[];
 }
@@ -35,18 +37,23 @@ export interface NewSightingRequest {
   speciesId: number;
 }
 
+export interface AuthenticateLoginResponse {
+  isResponseOk: boolean;
+  message: string;
+}
+
 export async function fetchSpecies(): Promise<SpeciesListResponse> {
-  const response = await fetch(`https://localhost:5001/species`);
+  const response = await fetch(`${baseUrl}/species`);
   return await response.json();
 }
 
 export async function fetchSightings(): Promise<SightingListResponse> {
-  const response = await fetch(`https://localhost:5001/sightings`);
+  const response = await fetch(`${baseUrl}/sightings`);
   return await response.json();
 }
 
 export async function createSighting(newSighting: NewSightingRequest) {
-  const response = await fetch(`https://localhost:5001/sightings`, {
+  const response = await fetch(`${baseUrl}/sightings`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -61,11 +68,11 @@ export async function createSighting(newSighting: NewSightingRequest) {
 export async function authenticateLogin(
   username: string,
   password: string
-): Promise<boolean> {
+): Promise<AuthenticateLoginResponse> {
   const details = `${username}:${password}`;
   const encodedDetails = btoa(details);
   const authHeader = `Basic ${encodedDetails}`;
-  const response = await fetch(`https://localhost:5001/login`, {
+  const response = await fetch(`${baseUrl}/login`, {
     method: "GET",
     headers: {
       Authorization: authHeader,
@@ -73,13 +80,20 @@ export async function authenticateLogin(
   });
 
   if (response.ok) {
-    return true;
+    return {
+      isResponseOk: true,
+      message: "",
+    };
   } else {
-    return false;
+    const responseJson = await response.json();
+    return {
+      isResponseOk: false,
+      message: responseJson.message,
+    };
   }
 }
 
 export async function fetchSightingById(id: number): Promise<SightingResponse> {
-  const response = await fetch(`https://localhost:5001/sightings/${id}`);
+  const response = await fetch(`${baseUrl}/sightings/${id}`);
   return await response.json();
 }

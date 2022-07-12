@@ -1,3 +1,5 @@
 export const Footer: React.FunctionComponent = () => (
-  <footer>Created by TechSwitch</footer>
+  <footer className="footer fixed-bottom p-3 bg-secondary">
+    Created by TechSwitch
+  </footer>
 );

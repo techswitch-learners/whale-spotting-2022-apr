@@ -14,7 +14,7 @@ export const Home: React.FunctionComponent = () => {
   }, []);
 
   return (
-    <>
+    <div className="container-fluid">
       <h1>Whale Spotting</h1>
       <p>Spot whales!</p>
       <MapContainer
@@ -36,6 +36,6 @@ export const Home: React.FunctionComponent = () => {
           <BinocularMarker key={sighting.id} sighting={sighting} />
         ))}
       </MapContainer>
-    </>
+    </div>
   );
 };

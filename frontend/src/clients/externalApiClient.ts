@@ -31,7 +31,7 @@ export interface SpeciesResponse {
 
 export interface SightingResponse {
   id: number;
-  location: Location;
+  location: LocationResponse;
   species: SpeciesResponse[];
   date: string;
   photoUrl: string;

@@ -39,23 +39,6 @@ const sightingsDummyData: SightingListResponse = {
       },
       isApproved: true,
     },
-    {
-      id: 3,
-      latitude: 51.5072,
-      longitude: 3,
-      date: "2022-07-06",
-      description: "A sighting, very very amazing",
-      photoUrl: "",
-      species: {
-        id: 3,
-        name: "Blue whale",
-        latinName: "Blueus Whaleus",
-        endangeredStatus: "Not Endangered, I Hope",
-        imageUrl: "",
-        description: "A whale, coloured blue",
-      },
-      isApproved: false,
-    },
   ],
 };
 
