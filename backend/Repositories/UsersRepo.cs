@@ -1,6 +1,4 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using WhaleSpotting.Models.Database;
 using WhaleSpotting.Models.Request;
 using System.Security.Cryptography;
@@ -27,10 +25,7 @@ namespace WhaleSpotting.Repositories
         {
             // generate a 128-bit salt using a cryptographically strong random sequence of nonzero values
             byte[] salt = new byte[128 / 8];
-            using (var rngCsp = new RNGCryptoServiceProvider())
-            {
-                rngCsp.GetNonZeroBytes(salt);
-            }
+            RandomNumberGenerator.Fill(salt);
 
             // derive a 256-bit subkey (use HMACSHA256 with 100,000 iterations)
             string hashed = Convert.ToBase64String(KeyDerivation.Pbkdf2(
