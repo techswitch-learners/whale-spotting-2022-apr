@@ -17,7 +17,7 @@ namespace WhaleSpotting.Services
         }
         public bool IsAuthenticated(string username, string password)
         {
-            var foundUser = _context.Users.Single(user => user.Username == username);
+            var foundUser = _context.Users.SingleOrDefault(user => user.Username == username);
 
             if (foundUser != null)
             {
