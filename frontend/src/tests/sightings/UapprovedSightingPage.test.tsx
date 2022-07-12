@@ -57,7 +57,7 @@ test("Should render without error", () => {
   expect(elements[0]).toBeInTheDocument();
 });
 
-test("When rendered, displays the information of all unapproved sightings", async () => {
+test("When rendered, mocking calling the method fetchUnapprovedSightings", async () => {
   const history = createMemoryHistory();
   const fetchUnapprovedSightings = jest
     .spyOn(apiClient, "fetchUnapprovedSightings")
@@ -81,9 +81,9 @@ const context_admin_login = {
   logOut: async () => true,
 };
 
-test("When rendered, displays the correct number of unapproved sightings", async () => {
+test("When rendered, calls the unapproved sightings API endpoint", async () => {
   jest
-    .spyOn(apiClient, "fetchSightings")
+    .spyOn(apiClient, "fetchUnapprovedSightings")
     .mockImplementation(async () => unapprovedSightingsDummyData);
   render(
     <LoginContext.Provider value={context_admin_login}>
@@ -92,6 +92,22 @@ test("When rendered, displays the correct number of unapproved sightings", async
   );
   await waitFor(() =>
     expect(screen.queryAllByRole("unapproved")).toHaveLength(2)
+  );
+});
+
+test("When rendered, displays the correct information about the sighting", async () => {
+  jest
+    .spyOn(apiClient, "fetchUnapprovedSightings")
+    .mockImplementation(async () => unapprovedSightingsDummyData);
+  render(
+    <LoginContext.Provider value={context_admin_login}>
+      <UnapprovedSightingPage />
+    </LoginContext.Provider>
+  );
+  await waitFor(() =>
+    expect(
+      screen.findByText(/Description: A sighting, very amazing/i)
+    ).toBeInTheDocument()
   );
 });
 

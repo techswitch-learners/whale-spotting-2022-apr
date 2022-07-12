@@ -29,7 +29,7 @@ export const UnapprovedSightingPage: React.FunctionComponent = () => {
     deleteById(sighting.id, loginContext.username, loginContext.password);
   };
   const filteredSightings =
-    sightings?.length &&
+    sightings &&
     sightings.filter((sighting) => !removeSightingIds.includes(sighting.id));
   return (
     <section>
