@@ -1,9 +1,8 @@
 using Microsoft.AspNetCore.Mvc;
 using System;
-using WhaleSpotting.Models.Request;
 using WhaleSpotting.Services;
 using WhaleSpotting.Repositories;
-using WhaleSpotting.Helpers;
+using static WhaleSpotting.Helpers.AuthHelper;
 
 namespace WhaleSpotting.Controllers {
   [ApiController]
@@ -30,23 +29,22 @@ namespace WhaleSpotting.Controllers {
 
       if (authHeader is null)
       {
-        return new UnauthorizedResult();
+        return Unauthorized(new {Message = "Username and password must be entered."});
       }
 
-      var encodedUsernamePassword = authHeader.Substring("Basic ".Length).Trim();
-      string usernamePassword = AuthHelper.Base64Decode(encodedUsernamePassword);
+      UsernamePassword usernamePassword = GetUsernameAndPasswordfromAuthheader(authHeader);
 
       try
       {
-        var check = _authservice.IsAuthenticated(usernamePassword);
+        var check = _authservice.IsAuthenticated(usernamePassword.Username, usernamePassword.Password);
         if (!check)
-          return new UnauthorizedResult();
+          return Unauthorized(new {Message = "Username and password do not match."});
         else
           return Ok();
       }
       catch (Exception)
       {
-        return new UnauthorizedResult();
+        return Unauthorized(new {Message = "Username and password not found."});
       }
     }
   }
