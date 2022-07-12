@@ -34,11 +34,6 @@ export const Navbar: React.FunctionComponent = () => {
                 Sightings
               </Link>
             </li>
-            <li className="nav-item">
-              <Link className="nav-link fs-5 text-light" to="#">
-                Species
-              </Link>
-            </li>
           </ul>
           <div className="navbar-nav mt-n1">
             <span className="nav-item ps-0">
