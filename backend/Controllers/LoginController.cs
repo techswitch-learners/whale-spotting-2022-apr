@@ -29,7 +29,7 @@ namespace WhaleSpotting.Controllers {
 
       if (authHeader is null)
       {
-        return new UnauthorizedResult();
+        return Unauthorized(new {Message = "Username and password must be entered."});
       }
 
       UsernamePassword usernamePassword = GetUsernameAndPasswordfromAuthheader(authHeader);
@@ -38,13 +38,13 @@ namespace WhaleSpotting.Controllers {
       {
         var check = _authservice.IsAuthenticated(usernamePassword.Username, usernamePassword.Password);
         if (!check)
-          return new UnauthorizedResult();
+          return Unauthorized(new {Message = "Username and password do not match."});
         else
           return Ok();
       }
       catch (Exception)
       {
-        return new UnauthorizedResult();
+        return Unauthorized(new {Message = "Username and password not found."});
       }
     }
   }
