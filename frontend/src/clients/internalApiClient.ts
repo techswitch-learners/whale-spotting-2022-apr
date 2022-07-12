@@ -35,7 +35,7 @@ export interface NewSightingRequest {
   speciesId: number;
 }
 
-export interface authenticateLoginResponse {
+export interface AuthenticateLoginResponse {
   isResponseOk: boolean;
   message: string;
 }
@@ -66,7 +66,7 @@ export async function createSighting(newSighting: NewSightingRequest) {
 export async function authenticateLogin(
   username: string,
   password: string
-): Promise<authenticateLoginResponse> {
+): Promise<AuthenticateLoginResponse> {
   const details = `${username}:${password}`;
   const encodedDetails = btoa(details);
   const authHeader = `Basic ${encodedDetails}`;

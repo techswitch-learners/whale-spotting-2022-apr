@@ -1,7 +1,7 @@
 import React, { createContext, useState } from "react";
 import {
   authenticateLogin,
-  authenticateLoginResponse,
+  AuthenticateLoginResponse,
 } from "../../clients/internalApiClient";
 
 type LoginContextType = {
@@ -12,7 +12,7 @@ type LoginContextType = {
   logIn: (
     username: string,
     password: string
-  ) => Promise<authenticateLoginResponse>;
+  ) => Promise<AuthenticateLoginResponse>;
   logOut: () => void;
 };
 
@@ -21,7 +21,7 @@ export const LoginContext = createContext<LoginContextType>({
   isAdmin: false,
   username: "",
   password: "",
-  logIn: async (): Promise<authenticateLoginResponse> => {
+  logIn: async (): Promise<AuthenticateLoginResponse> => {
     return { isResponseOk: false, message: "" };
   },
   logOut: () => {
@@ -38,7 +38,7 @@ export const LoginManager: React.FunctionComponent = ({ children }) => {
   async function logIn(
     username: string,
     password: string
-  ): Promise<authenticateLoginResponse> {
+  ): Promise<AuthenticateLoginResponse> {
     const loginResponse = await authenticateLogin(username, password);
     if (loginResponse.isResponseOk) {
       setUsername(username);
