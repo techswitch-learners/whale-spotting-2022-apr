@@ -15,22 +15,26 @@ export const SightingCard: React.FunctionComponent<SightingCardProps> = ({
 
   let descriptionSection = <></>;
   if ("description" in sighting) {
-    descriptionSection = <p>Description: {sighting.description}</p>;
+    descriptionSection = (
+      <p className="my-0">Description: {sighting.description}</p>
+    );
   }
 
   let locationSection = <></>;
   if ("location" in sighting) {
     locationSection = (
       <>
-        <p>Latitude: {sighting.location.latitude}</p>
-        <p>Longitude: {sighting.location.longitude}</p>
+        <p className="my-0">
+          {sighting.location.latitude}, {sighting.location.longitude}
+        </p>
       </>
     );
   } else {
     locationSection = (
       <>
-        <p>Latitude: {sighting.latitude}</p>
-        <p>Longitude: {sighting.longitude}</p>
+        <p className="my-0">
+          {sighting.latitude}, {sighting.longitude}
+        </p>
       </>
     );
   }
@@ -42,14 +46,14 @@ export const SightingCard: React.FunctionComponent<SightingCardProps> = ({
         {species.map((s) => {
           return (
             <li key={s.id}>
-              <h5 className="card-title">{s.name}</h5>
+              <h5 className="card-title my-0">{s.name}</h5>
             </li>
           );
         })}
       </ul>
     );
   } else {
-    speciesSection = <h5 className="card-title">{species.name}</h5>;
+    speciesSection = <h5 className="card-title my-0">{species.name}</h5>;
   }
 
   return (
@@ -63,9 +67,9 @@ export const SightingCard: React.FunctionComponent<SightingCardProps> = ({
         {species ? (
           speciesSection
         ) : (
-          <h5 className="card-title">Unrecognised species</h5>
+          <h5 className="card-title my-0">Unrecognised species</h5>
         )}
-        <h6 className="card-subtitle">Spotted on: {formattedDate}</h6>
+        <h6 className="card-subtitle my-0">Spotted on: {formattedDate}</h6>
         {descriptionSection}
         {locationSection}
       </div>
