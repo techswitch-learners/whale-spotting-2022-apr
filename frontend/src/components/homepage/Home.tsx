@@ -32,12 +32,9 @@ export const Home: React.FunctionComponent = () => {
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
-        {sightings.map(
-          (sighting) =>
-            sighting.isApproved && (
-              <BinocularMarker key={sighting.id} sighting={sighting} />
-            )
-        )}
+        {sightings.map((sighting) => (
+          <BinocularMarker key={sighting.id} sighting={sighting} />
+        ))}
       </MapContainer>
     </>
   );
