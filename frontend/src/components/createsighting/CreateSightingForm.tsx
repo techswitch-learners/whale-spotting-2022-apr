@@ -52,7 +52,7 @@ export const CreateSightingForm: React.FunctionComponent = () => {
         <label>
           Enter Latitude:
           <input
-            type={"number"}
+            type={"float"}
             required
             min={-90}
             max={90}
@@ -64,7 +64,7 @@ export const CreateSightingForm: React.FunctionComponent = () => {
         <label>
           Enter Longitude:
           <input
-            type={"number"}
+            type={"float"}
             required
             min={-180}
             max={180}

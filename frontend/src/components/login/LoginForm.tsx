@@ -9,11 +9,11 @@ export const LoginForm: React.FunctionComponent = () => {
 
   function tryLogin(event: FormEvent) {
     event.preventDefault();
-    loginContext.logIn(username, password).then((didLogin) => {
-      if (didLogin) {
+    loginContext.logIn(username, password).then((loginResponse) => {
+      if (loginResponse.isResponseOk) {
         setError(undefined);
       } else {
-        setError("Login failed.");
+        setError(loginResponse.message);
       }
     });
   }
