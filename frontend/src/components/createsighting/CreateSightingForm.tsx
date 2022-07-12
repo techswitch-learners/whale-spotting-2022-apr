@@ -57,7 +57,10 @@ export const CreateSightingForm: React.FunctionComponent = () => {
             min={-90}
             max={90}
             value={latitude}
-            onChange={(event) => setLatitude(parseFloat(event.target.value))}
+            onChange={(event) => {
+              parseFloat(event.target.value) == NaN ? 0 : event.target.value;
+              return setLatitude(parseFloat(event.target.value));
+            }}
           />
         </label>
         <br />
