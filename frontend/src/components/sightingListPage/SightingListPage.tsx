@@ -4,6 +4,7 @@ import {
   SightingResponse,
 } from "../../clients/internalApiClient";
 import { SightingCard } from "../sightingCard/sightingCard";
+import "masonry-layout/masonry";
 
 export const SightingListPage: React.FunctionComponent = () => {
   const [sightings, setSightings] = useState<SightingResponse[]>();
@@ -14,11 +15,15 @@ export const SightingListPage: React.FunctionComponent = () => {
 
   return (
     <section>
-      <h1>Sighting List</h1>
-      {sightings &&
-        sightings.map((sighting) => (
-          <SightingCard sighting={sighting} key={sighting.id} />
-        ))}
+      <h1>Sightings</h1>
+      <div className="row" data-masonry='{"percentPosition": true }'>
+        {sightings &&
+          sightings.map((sighting) => (
+            <div className="col-sm-6 col-md-4 col-lg-3" key={sighting.id}>
+              <SightingCard sighting={sighting} />
+            </div>
+          ))}
+      </div>
     </section>
   );
 };

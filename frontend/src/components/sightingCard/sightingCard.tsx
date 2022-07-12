@@ -38,44 +38,37 @@ export const SightingCard: React.FunctionComponent<SightingCardProps> = ({
   let speciesSection = <></>;
   if (Array.isArray(species)) {
     speciesSection = (
-      <>
+      <ul>
         {species.map((s) => {
           return (
-            <ul key={s.id}>
-              <li>Species Name: {s.name}</li>
-              <li>Species Description: {s.description}</li>
-            </ul>
+            <li key={s.id}>
+              <h5 className="card-title">{s.name}</h5>
+            </li>
           );
         })}
-      </>
+      </ul>
     );
   } else {
-    speciesSection = (
-      <>
-        <p>Species Name: {species.name}</p>
-        <p>Species Description: {species.description}</p>
-      </>
-    );
+    speciesSection = <h5 className="card-title">{species.name}</h5>;
   }
 
   return (
-    <div className="sighting-card">
-      {descriptionSection}
-      <p>Spotted on: {formattedDate}</p>
-      {locationSection}
-      {species ? (
-        speciesSection
-      ) : (
-        <div>
-          <p>Unrecognised species</p>
-          <p>This type of whale was not recognised when whale spotting</p>
-        </div>
-      )}
-      {sighting.photoUrl ? (
-        <img src={sighting.photoUrl} alt="sighting of whales" />
-      ) : (
-        <img src="https://i.imgur.com/bQI6qPz.jpeg" alt="sighting of whales" />
-      )}
+    <div className="card sighting-card">
+      <img
+        className="card-img-top"
+        src={sighting.photoUrl || "https://i.imgur.com/bQI6qPz.jpeg"}
+        alt="sighting of whales"
+      />
+      <div className="card-body">
+        {species ? (
+          speciesSection
+        ) : (
+          <h5 className="card-title">Unrecognised species</h5>
+        )}
+        <h6 className="card-subtitle">Spotted on: {formattedDate}</h6>
+        {descriptionSection}
+        {locationSection}
+      </div>
     </div>
   );
 };
