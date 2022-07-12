@@ -6,7 +6,7 @@ type FormStatus = "READY" | "SUBMITTING" | "ERROR" | "FINISHED";
 
 export const CreateSightingForm: React.FunctionComponent = () => {
   const [date, setDate] = useState<Date>(new Date());
-  const [latitude, setLatitude] = useState(0);
+  const [latitude, setLatitude] = useState("");
   const [longitude, setLongitude] = useState(0);
   const [description, setDescription] = useState("");
   const [photoUrl, setPhotoUrl] = useState("");
@@ -17,7 +17,7 @@ export const CreateSightingForm: React.FunctionComponent = () => {
     event.preventDefault();
     setStatus("SUBMITTING");
     createSighting({
-      latitude,
+      latitude: parseFloat(latitude),
       longitude,
       date,
       description,
@@ -52,15 +52,13 @@ export const CreateSightingForm: React.FunctionComponent = () => {
         <label>
           Enter Latitude:
           <input
-            type={"float"}
+            type="number"
             required
             min={-90}
             max={90}
+            step={0.0000000000001}
             value={latitude}
-            onChange={(event) => {
-              parseFloat(event.target.value) == NaN ? 0 : event.target.value;
-              return setLatitude(parseFloat(event.target.value));
-            }}
+            onChange={(event) => setLatitude(event.target.value)}
           />
         </label>
         <br />
