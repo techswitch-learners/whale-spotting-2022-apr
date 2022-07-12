@@ -25,21 +25,25 @@ export const LoginForm: React.FunctionComponent = () => {
       <form onSubmit={tryLogin}>
         <div className="form-floating mb-3">
           <input
+            value={username}
             type="text"
             className="form-control"
             id="username"
             placeholder="Username"
             onChange={(event) => setUsername(event.target.value)}
+            required
           />
           <label htmlFor="username">Username</label>
         </div>
         <div className="form-floating mb-3">
           <input
+            value={password}
             type="password"
             className="form-control"
             id="password"
             placeholder="Password"
             onChange={(event) => setPassword(event.target.value)}
+            required
           />
           <label htmlFor="password">Password</label>
         </div>
