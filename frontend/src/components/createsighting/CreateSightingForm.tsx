@@ -17,13 +17,7 @@ export const CreateSightingForm: React.FunctionComponent = () => {
   const [photoUrl, setPhotoUrl] = useState("");
   const [speciesId, setSpeciesId] = useState(0);
   const [status, setStatus] = useState<FormStatus>("READY");
-  const [species, setSpecies] = useState<SpeciesResponse[]>([]);
-
-  const options = [
-    { value: "chocolate", label: "Chocolate" },
-    { value: "strawberry", label: "Strawberry" },
-    { value: "vanilla", label: "Vanilla" },
-  ];
+  const [species, setSpecies] = useState<SpeciesResponse[]>();
 
   const submit = (event: FormEvent) => {
     event.preventDefault();
@@ -40,9 +34,23 @@ export const CreateSightingForm: React.FunctionComponent = () => {
       .catch(() => setStatus("ERROR"));
   };
 
+  interface ValueLabelPair {
+    value: number;
+    label: string;
+  }
+
+  const speciesOptions: ValueLabelPair[] = [];
+
   useEffect(() => {
-    fetchSpecies().then((response) => setSpecies(response.species));
+    fetchSpecies().then((response) => setSpecies(response.speciesList));
   }, []);
+
+  if (species) {
+    species.forEach((element) => {
+      const option = { value: element.id, label: element.name };
+      speciesOptions.push(option);
+    });
+  }
 
   if (status === "FINISHED") {
     return (
@@ -52,7 +60,7 @@ export const CreateSightingForm: React.FunctionComponent = () => {
     );
   }
   return (
-    <form onSubmit={submit}>
+    <form onSubmit={submit} data-testid="form">
       <fieldset>
         <label>
           Enter date:
@@ -108,13 +116,16 @@ export const CreateSightingForm: React.FunctionComponent = () => {
         </label>
         <br />
         <label>
-          Enter Species ID:
-          {/* <input
-            type={"number"}
-            value={speciesId}
-            onChange={(event) => setSpeciesId(parseInt(event.target.value))}
-          /> */}
-          <Select options={options} />
+          Select Species:
+          <Select
+            options={speciesOptions}
+            name="species"
+            onChange={(event) => {
+              if (event) {
+                setSpeciesId(event.value);
+              }
+            }}
+          />
         </label>
         <br />
         <button type="submit">Submit</button>

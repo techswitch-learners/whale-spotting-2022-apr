@@ -60,7 +60,8 @@
     "husky": "^7.0.4",
     "jest-fetch-mock": "^3.0.3",
     "node-sass": "^6.0.1",
-    "prettier": "2.4.1"
+    "prettier": "2.4.1",
+    "react-select-event": "^5.5.0"
   },
   "jest": {
     "resetMocks": false

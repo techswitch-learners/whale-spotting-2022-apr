@@ -1,5 +1,5 @@
 export interface SpeciesListResponse {
-  species: SpeciesResponse[];
+  speciesList: SpeciesResponse[];
 }
 
 export interface SightingListResponse {
