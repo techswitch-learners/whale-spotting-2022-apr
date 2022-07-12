@@ -81,7 +81,7 @@ const context_admin_login = {
   logOut: async () => true,
 };
 
-test("When rendered, check the correct number of unapproved sightings API endpoint", async () => {
+test("When rendered, check the correct number of unapproved sightings", async () => {
   jest
     .spyOn(apiClient, "fetchUnapprovedSightings")
     .mockImplementation(async () => unapprovedSightingsDummyData);
