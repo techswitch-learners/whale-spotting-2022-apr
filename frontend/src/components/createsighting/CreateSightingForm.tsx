@@ -39,7 +39,9 @@ export const CreateSightingForm: React.FunctionComponent = () => {
     label: string;
   }
 
-  const speciesOptions: ValueLabelPair[] = [];
+  const speciesOptions: ValueLabelPair[] = [
+    { value: 0, label: "Unknown/Other" },
+  ];
 
   useEffect(() => {
     fetchSpecies().then((response) => setSpecies(response.speciesList));
@@ -121,7 +123,7 @@ export const CreateSightingForm: React.FunctionComponent = () => {
             options={speciesOptions}
             name="species"
             onChange={(event) => {
-              if (event) {
+              if (event && event.value != 0) {
                 setSpeciesId(event.value);
               }
             }}
