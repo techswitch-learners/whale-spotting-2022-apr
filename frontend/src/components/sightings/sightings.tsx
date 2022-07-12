@@ -39,19 +39,19 @@ export const Sightings: React.FunctionComponent = () => {
   return (
     <section>
       <h1>Sightings</h1>
-      <ul>
-        {allSightings ? (
-          allSightings.map((sighting, index) => {
+      {allSightings ? (
+        <ul>
+          {allSightings.map((sighting, index) => {
             return (
               <li key={index}>
                 <SightingCard sighting={sighting} />
               </li>
             );
-          })
-        ) : (
-          <p>Loading...</p>
-        )}
-      </ul>
+          })}
+        </ul>
+      ) : (
+        <p>Loading...</p>
+      )}
     </section>
   );
 };
