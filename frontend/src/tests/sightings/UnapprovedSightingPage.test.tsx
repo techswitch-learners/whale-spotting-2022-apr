@@ -78,7 +78,7 @@ const context_admin_login = {
   username: "Olena",
   password: "password",
   logIn: async () => true,
-  logOut: async () => true,
+  logOut: async () => false,
 };
 
 test("When rendered, check the correct number of unapproved sightings", async () => {
@@ -90,21 +90,8 @@ test("When rendered, check the correct number of unapproved sightings", async ()
       <UnapprovedSightingPage />
     </LoginContext.Provider>
   );
-  await waitFor(() =>
-    expect(screen.queryAllByRole("unapproved")).toHaveLength(2)
-  );
-});
-
-test("When rendered, displays the correct information about the sighting", async () => {
-  jest
-    .spyOn(apiClient, "fetchUnapprovedSightings")
-    .mockImplementation(async () => unapprovedSightingsDummyData);
-  render(
-    <LoginContext.Provider value={context_admin_login}>
-      <UnapprovedSightingPage />
-    </LoginContext.Provider>
-  );
   await waitFor(() => {
+    expect(screen.queryAllByRole("unapproved")).toHaveLength(2);
     const elements = screen.getByText(/Description: A sighting, very amazing/i);
     expect(elements).toBeInTheDocument();
   });
@@ -115,7 +102,7 @@ const context_admin_logout = {
   isAdmin: false,
   username: "Olena",
   password: "password",
-  logIn: async () => true,
+  logIn: async () => false,
   logOut: async () => true,
 };
 
