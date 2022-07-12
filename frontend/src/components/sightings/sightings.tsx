@@ -9,6 +9,7 @@ import {
 } from "../../clients/externalApiClient";
 import { SightingCard } from "../sightingCard/sightingCard";
 import { compareDesc, parseISO } from "date-fns";
+import { Link } from "react-router-dom";
 
 export const Sightings: React.FunctionComponent = () => {
   const [internalSightings, setInternalSightings] =
@@ -44,7 +45,9 @@ export const Sightings: React.FunctionComponent = () => {
           {allSightings.map((sighting, index) => {
             return (
               <li key={index}>
-                <SightingCard sighting={sighting} />
+                <Link to={`/sightings/${sighting.id}`}>
+                  <SightingCard sighting={sighting} />
+                </Link>
               </li>
             );
           })}
