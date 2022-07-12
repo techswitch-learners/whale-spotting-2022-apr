@@ -1,6 +1,11 @@
-import React, { useState, FormEvent } from "react";
-import { createSighting } from "../../clients/internalApiClient";
+import React, { useState, FormEvent, useEffect } from "react";
+import {
+  createSighting,
+  fetchSpecies,
+  SpeciesResponse,
+} from "../../clients/internalApiClient";
 import { format, parse } from "date-fns";
+import Select from "react-select";
 
 type FormStatus = "READY" | "SUBMITTING" | "ERROR" | "FINISHED";
 
@@ -12,6 +17,13 @@ export const CreateSightingForm: React.FunctionComponent = () => {
   const [photoUrl, setPhotoUrl] = useState("");
   const [speciesId, setSpeciesId] = useState(0);
   const [status, setStatus] = useState<FormStatus>("READY");
+  const [species, setSpecies] = useState<SpeciesResponse[]>([]);
+
+  const options = [
+    { value: "chocolate", label: "Chocolate" },
+    { value: "strawberry", label: "Strawberry" },
+    { value: "vanilla", label: "Vanilla" },
+  ];
 
   const submit = (event: FormEvent) => {
     event.preventDefault();
@@ -27,6 +39,10 @@ export const CreateSightingForm: React.FunctionComponent = () => {
       .then(() => setStatus("FINISHED"))
       .catch(() => setStatus("ERROR"));
   };
+
+  useEffect(() => {
+    fetchSpecies().then((response) => setSpecies(response.species));
+  }, []);
 
   if (status === "FINISHED") {
     return (
@@ -93,11 +109,12 @@ export const CreateSightingForm: React.FunctionComponent = () => {
         <br />
         <label>
           Enter Species ID:
-          <input
+          {/* <input
             type={"number"}
             value={speciesId}
             onChange={(event) => setSpeciesId(parseInt(event.target.value))}
-          />
+          /> */}
+          <Select options={options} />
         </label>
         <br />
         <button type="submit">Submit</button>
