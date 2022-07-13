@@ -3,7 +3,7 @@ import { createMemoryHistory } from "history";
 import { Router } from "react-router-dom";
 import * as apiClient from "../../clients/internalApiClient";
 import { act } from "@testing-library/react";
-import { UnapprovedSightingPage } from "../../components/sightingListPage/UnapprovedSightingPage";
+import { UnapprovedSightingPage } from "../../components/unapprovedSightings/UnapprovedSightingPage";
 import { SightingListResponse } from "../../clients/internalApiClient";
 import { LoginContext } from "../../components/login/LoginManager";
 

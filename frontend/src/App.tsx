@@ -8,7 +8,7 @@ import { Footer } from "./components/footer/Footer";
 import { CreateSightingPage } from "./components/createsighting/CreateSightingPage";
 import { Sightings } from "./components/sightings/sightings";
 import { SightingPage } from "./components/individualSighting/SightingPage";
-import { UnapprovedSightingPage } from "./components/sightingListPage/UnapprovedSightingPage";
+import { UnapprovedSightingPage } from "./components/unapprovedSightings/UnapprovedSightingPage";
 
 const Routes: React.FunctionComponent = () => {
   return (
