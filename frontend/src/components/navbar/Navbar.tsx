@@ -35,7 +35,7 @@ export const Navbar: React.FunctionComponent = () => {
         <div className="navbar-collapse collapse" id="navbarToggler">
           <ul className="navbar-nav me-auto">
             <li className="nav-item">
-              <Link className="nav-link fs-5 text-light" to="/sightings">
+              <Link className="nav-link fs-5 text-light mx-3" to="/sightings">
                 <span
                   data-bs-toggle="collapse"
                   data-bs-target=".navbar-collapse.show"
@@ -46,17 +46,17 @@ export const Navbar: React.FunctionComponent = () => {
             </li>
             {loginContext.isLoggedIn ? (
               <li>
-                <span
-                  data-bs-toggle="collapse"
-                  data-bs-target=".navbar-collapse.show"
+                <Link
+                  className="nav-link fs-5 ps-0 text-light mx-3"
+                  to="/admin/unapproved"
                 >
-                  <Link
-                    className="nav-link fs-5 ps-0 text-light"
-                    to="/admin/unapproved"
+                  <span
+                    data-bs-toggle="collapse"
+                    data-bs-target=".navbar-collapse.show"
                   >
                     Unapproved Sightings
-                  </Link>
-                </span>
+                  </span>
+                </Link>
               </li>
             ) : (
               <></>
@@ -66,7 +66,7 @@ export const Navbar: React.FunctionComponent = () => {
             <span className="nav-item ps-0">
               {!loginContext.isLoggedIn ? (
                 <Link
-                  className="nav-link fs-5 ps-0 text-light"
+                  className="nav-link fs-5 ps-0 text-light mx-3"
                   to="/admin/login"
                 >
                   <span
@@ -81,7 +81,7 @@ export const Navbar: React.FunctionComponent = () => {
                   <span
                     role="button"
                     onClick={loginContext.logOut}
-                    className="navbar__right-component--logout nav-link fs-5 ps-0 text-light"
+                    className="navbar__right-component--logout nav-link fs-5 ps-0 text-light mx-3"
                     data-bs-toggle="collapse"
                     data-bs-target=".navbar-collapse.show"
                   >
