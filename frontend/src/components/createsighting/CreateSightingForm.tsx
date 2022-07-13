@@ -36,11 +36,15 @@ export const CreateSightingForm: React.FunctionComponent = () => {
     );
   }
   return (
-    <form onSubmit={submit}>
+    <form
+      className="form-group mx-5 shadow-lg p-3 mb-5 bg-body rounded"
+      onSubmit={submit}
+    >
       <fieldset>
         <label>
           Enter date:
           <input
+            className="form-control my-1"
             type={"date"}
             value={format(date, "yyyy-MM-dd")}
             onChange={(event) =>
@@ -52,6 +56,7 @@ export const CreateSightingForm: React.FunctionComponent = () => {
         <label>
           Enter Latitude:
           <input
+            className="form-control my-1"
             type={"float"}
             required
             min={-90}
@@ -64,6 +69,7 @@ export const CreateSightingForm: React.FunctionComponent = () => {
         <label>
           Enter Longitude:
           <input
+            className="form-control my-1"
             type={"float"}
             required
             min={-180}
@@ -76,6 +82,7 @@ export const CreateSightingForm: React.FunctionComponent = () => {
         <label>
           Enter Description:
           <input
+            className="form-control my-1"
             type={"text"}
             value={description}
             onChange={(event) => setDescription(event.target.value)}
@@ -85,6 +92,7 @@ export const CreateSightingForm: React.FunctionComponent = () => {
         <label>
           Enter Photo:
           <input
+            className="form-control my-1"
             type={"text"}
             value={photoUrl}
             onChange={(event) => setPhotoUrl(event.target.value)}
@@ -94,13 +102,16 @@ export const CreateSightingForm: React.FunctionComponent = () => {
         <label>
           Enter Species ID:
           <input
+            className="form-control my-1"
             type={"number"}
             value={speciesId}
             onChange={(event) => setSpeciesId(parseInt(event.target.value))}
           />
         </label>
         <br />
-        <button type="submit">Submit</button>
+        <button className="btn btn-secondary my-3" type="submit">
+          Submit
+        </button>
       </fieldset>
     </form>
   );
