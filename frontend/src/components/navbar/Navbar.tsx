@@ -34,8 +34,6 @@ export const Navbar: React.FunctionComponent = () => {
                 Sightings
               </Link>
             </li>
-          </ul>
-          <ul className="navbar-nav me-auto">
             <li className="nav-item">
               <Link className="nav-link fs-5 text-light" to="/sightings/create">
                 Report a sighting
