@@ -20,10 +20,13 @@ const Routes: React.FunctionComponent = () => {
       <Route exact path="/sightings">
         <Sightings />
       </Route>
+      <Route exact path="/sightings/create">
+        <CreateSightingPage />
+      </Route>
       <Route exact path="/sightings/:id">
         <SightingPage />
       </Route>
-      <Route exact path="/sightingslist">
+      <Route exact path="/sightings">
         <SightingListPage />
       </Route>
       <Route exact path="/admin/unapproved">
@@ -31,9 +34,6 @@ const Routes: React.FunctionComponent = () => {
       </Route>
       <Route exact path="/admin/login">
         <LoginPage />
-      </Route>
-      <Route exact path="/sightings/create">
-        <CreateSightingPage />
       </Route>
     </Switch>
   );
