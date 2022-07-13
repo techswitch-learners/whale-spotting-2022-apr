@@ -1,6 +1,7 @@
 import React, { useState, FormEvent } from "react";
 import { createSighting } from "../../clients/internalApiClient";
 import { format, parse } from "date-fns";
+import "./Sightingform.scss";
 
 type FormStatus = "READY" | "SUBMITTING" | "ERROR" | "FINISHED";
 
@@ -37,7 +38,7 @@ export const CreateSightingForm: React.FunctionComponent = () => {
   }
   return (
     <form
-      className="form-group mx-5 shadow-lg p-3 mb-5 bg-body rounded"
+      className="sighting-form form-group mx-5 h-100 shadow-lg p-3 mb-5 bg-body rounded"
       onSubmit={submit}
     >
       <fieldset>
@@ -113,7 +114,7 @@ export const CreateSightingForm: React.FunctionComponent = () => {
           />
         </label>
         <br />
-        <button className="btn btn-secondary my-3" type="submit">
+        <button className="btn btn-secondary mt-3" type="submit">
           Submit
         </button>
       </fieldset>
