@@ -3,7 +3,7 @@ import { createMemoryHistory } from "history";
 import { Router } from "react-router-dom";
 import * as apiClient from "../../clients/internalApiClient";
 import { act } from "@testing-library/react";
-import { UnapprovedSightingPage } from "../../components/sightingListPage/UnapprovedSightingPage";
+import { UnapprovedSightingPage } from "../../components/unapprovedSightings/UnapprovedSightingPage";
 import {
   AuthenticateLoginResponse,
   SightingListResponse,
@@ -99,8 +99,8 @@ test("When rendered, check the correct number of unapproved sightings", async ()
   );
   await waitFor(() => {
     expect(screen.queryAllByRole("unapproved")).toHaveLength(2);
-    const elements = screen.getByText(/Description: A sighting, very amazing/i);
-    expect(elements).toBeInTheDocument();
+    const element = screen.getByText(/A sighting, very amazing/i);
+    expect(element).toBeInTheDocument();
   });
 });
 
