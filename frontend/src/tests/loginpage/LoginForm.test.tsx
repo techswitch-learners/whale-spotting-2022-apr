@@ -4,10 +4,18 @@ import userEvent from "@testing-library/user-event";
 import { LoginForm } from "../../components/login/LoginForm";
 import { LoginContext } from "../../components/login/LoginManager";
 import { Router } from "react-router-dom";
+import { AuthenticateLoginResponse } from "../../clients/internalApiClient";
 
 test("form submission sends the correct api request", async () => {
   const history = createMemoryHistory();
-  const logIn = jest.fn(async (username: string, password: string) => true);
+  const logIn = jest.fn(
+    async (
+      username: string,
+      password: string
+    ): Promise<AuthenticateLoginResponse> => {
+      return { isResponseOk: true, message: "" };
+    }
+  );
   render(
     <LoginContext.Provider
       value={{

@@ -61,7 +61,7 @@ export const SightingCard: React.FunctionComponent<SightingCardProps> = ({
   return (
     <div className="sighting-card">
       {descriptionSection}
-      <p>Spotted on: {formattedDate}</p>
+      Spotted on: {formattedDate}
       {locationSection}
       {species ? (
         speciesSection

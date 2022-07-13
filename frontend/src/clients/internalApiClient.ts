@@ -1,7 +1,7 @@
 const baseUrl = process.env["REACT_APP_BACKEND_DOMAIN"];
 
 export interface SpeciesListResponse {
-  species: SpeciesResponse[];
+  speciesList: SpeciesResponse[];
 }
 
 export interface SightingListResponse {

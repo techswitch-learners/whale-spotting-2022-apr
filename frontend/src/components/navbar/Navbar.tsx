@@ -10,11 +10,16 @@ export const Navbar: React.FunctionComponent = () => {
     <nav className="navbar fixed-top navbar-expand-lg navbar-dark bg-secondary">
       <div className="container-fluid">
         <Link className="navbar-brand" to="/">
-          <img
-            className="navbar__logo"
-            src="/logo.png"
-            alt="Whale Spotting logo"
-          />
+          <span
+            data-bs-toggle="collapse"
+            data-bs-target=".navbar-collapse.show"
+          >
+            <img
+              className="navbar__logo"
+              src="/logo.png"
+              alt="Whale Spotting logo"
+            />
+          </span>
         </Link>
         <button
           className="navbar-toggler"
@@ -27,11 +32,16 @@ export const Navbar: React.FunctionComponent = () => {
         >
           <span className="navbar-toggler-icon"></span>
         </button>
-        <div className="collapse navbar-collapse" id="navbarToggler">
+        <div className="navbar-collapse collapse" id="navbarToggler">
           <ul className="navbar-nav me-auto">
             <li className="nav-item">
               <Link className="nav-link fs-5 text-light" to="/sightings">
-                Sightings
+                <span
+                  data-bs-toggle="collapse"
+                  data-bs-target=".navbar-collapse.show"
+                >
+                  Sightings
+                </span>
               </Link>
             </li>
           </ul>
@@ -42,7 +52,12 @@ export const Navbar: React.FunctionComponent = () => {
                   className="nav-link fs-5 ps-0 text-light"
                   to="/admin/login"
                 >
-                  Log In
+                  <span
+                    data-bs-toggle="collapse"
+                    data-bs-target=".navbar-collapse.show"
+                  >
+                    Log In
+                  </span>
                 </Link>
               ) : (
                 <>
@@ -50,6 +65,8 @@ export const Navbar: React.FunctionComponent = () => {
                     role="button"
                     onClick={loginContext.logOut}
                     className="navbar__right-component--logout nav-link fs-5 ps-0 text-light"
+                    data-bs-toggle="collapse"
+                    data-bs-target=".navbar-collapse.show"
                   >
                     Log Out
                   </span>
