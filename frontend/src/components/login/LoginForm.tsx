@@ -21,7 +21,6 @@ export const LoginForm: React.FunctionComponent = () => {
 
   return (
     <div className="form-wrapper h-100">
-      {error && <p>{error}</p>}
       <h1>Log In</h1>
       <form onSubmit={tryLogin}>
         <div className="form-floating mb-3">
@@ -51,6 +50,7 @@ export const LoginForm: React.FunctionComponent = () => {
         <button type="submit" className="btn btn-primary d-block w-100">
           Log In
         </button>
+        {error && <p className="mt-2">{error}</p>}
       </form>
     </div>
   );
