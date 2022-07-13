@@ -17,9 +17,6 @@ const Routes: React.FunctionComponent = () => {
       <Route exact path="/">
         <Home />
       </Route>
-      <Route exact path="/sightings">
-        <Sightings />
-      </Route>
       <Route exact path="/sightings/create">
         <CreateSightingPage />
       </Route>
