@@ -5,7 +5,6 @@ import "./Navbar.scss";
 
 export const Navbar: React.FunctionComponent = () => {
   const loginContext = useContext(LoginContext);
-  const [expanded, setExpanded] = useState(false);
 
   return (
     <nav className="navbar fixed-top navbar-expand-lg navbar-dark bg-secondary">
