@@ -31,7 +31,8 @@ export const CreateSightingForm: React.FunctionComponent = () => {
   if (status === "FINISHED") {
     return (
       <div>
-        <p>Form Submitted Successfully!</p>
+        <h5>Your sighting is submitted successfully!</h5>
+        <h5>It will be approved in a few days! Thank you</h5>
       </div>
     );
   }
