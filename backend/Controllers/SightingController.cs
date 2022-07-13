@@ -98,6 +98,10 @@ namespace WhaleSpotting.Controllers
             {
                 return Unauthorized(err.Message);
             }
+            catch (InvalidOperationException err)
+            {
+                return Unauthorized("Username and password are not valid.");
+            }
             
             var sighting = _sightingService.ApproveSighting(id);
             return new SightingResponse(sighting);

@@ -17,23 +17,18 @@ namespace WhaleSpotting.Services
         }
         public bool IsAuthenticated(string username, string password)
         {
-            var foundUser = _context.Users.SingleOrDefault(user => user.Username == username);
+            var foundUser = _context.Users.Single(user => user.Username == username);
 
-            if (foundUser != null)
-            {
-                var foundUserSalt = foundUser.Salt;
+            var foundUserSalt = foundUser.Salt;
 
-                string hashed = Convert.ToBase64String(KeyDerivation.Pbkdf2(
-                    password: password,
-                    salt: foundUserSalt,
-                    prf: KeyDerivationPrf.HMACSHA256,
-                    iterationCount: 100000,
-                    numBytesRequested: 256 / 8));
+            string hashed = Convert.ToBase64String(KeyDerivation.Pbkdf2(
+                password: password,
+                salt: foundUserSalt,
+                prf: KeyDerivationPrf.HMACSHA256,
+                iterationCount: 100000,
+                numBytesRequested: 256 / 8));
 
-                return hashed == foundUser.HashedPassword;
-            }
-            else
-                return false;
+            return hashed == foundUser.HashedPassword;
         }
     }
 };
