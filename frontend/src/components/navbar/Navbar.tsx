@@ -44,6 +44,23 @@ export const Navbar: React.FunctionComponent = () => {
                 </span>
               </Link>
             </li>
+            {loginContext.isLoggedIn ? (
+              <li>
+                <span
+                  data-bs-toggle="collapse"
+                  data-bs-target=".navbar-collapse.show"
+                >
+                  <Link
+                    className="nav-link fs-5 ps-0 text-light"
+                    to="/admin/unapproved"
+                  >
+                    Unapproved Sightings
+                  </Link>
+                </span>
+              </li>
+            ) : (
+              <></>
+            )}
           </ul>
           <div className="navbar-nav mt-n1">
             <span className="nav-item ps-0">
@@ -70,12 +87,6 @@ export const Navbar: React.FunctionComponent = () => {
                   >
                     Log Out
                   </span>
-                  <Link
-                    className="nav-link fs-5 ps-0 text-light"
-                    to="/admin/unapproved"
-                  >
-                    Unapproved Sightings
-                  </Link>
                 </>
               )}
             </span>
