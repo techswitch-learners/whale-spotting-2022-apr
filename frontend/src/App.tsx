@@ -36,7 +36,7 @@ const App: React.FunctionComponent = () => {
     <Router>
       <LoginManager>
         <Navbar />
-        <main className="h-100">
+        <main>
           <Routes />
         </main>
         <Footer />

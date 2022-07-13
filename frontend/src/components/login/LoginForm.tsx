@@ -20,7 +20,7 @@ export const LoginForm: React.FunctionComponent = () => {
   }
 
   return (
-    <div className="form-wrapper h-100">
+    <div className="form-wrapper">
       <h1>Log In</h1>
       <form onSubmit={tryLogin}>
         <div className="form-floating mb-3">

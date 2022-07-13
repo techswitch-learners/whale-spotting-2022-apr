@@ -14,7 +14,7 @@ export const Home: React.FunctionComponent = () => {
   }, []);
 
   return (
-    <div className="container-fluid h-100 d-flex flex-column justify-content-center">
+    <div className="container-fluid d-flex">
       <div className="m-auto">
         <h1>Whale Spotting</h1>
         <p className="lead">Spot whales!</p>
