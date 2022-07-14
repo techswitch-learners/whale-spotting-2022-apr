@@ -45,7 +45,10 @@ export const Navbar: React.FunctionComponent = () => {
               </Link>
             </li>
             <li className="nav-item">
-              <Link className="nav-link fs-5 text-light" to="/sightings/create">
+              <Link
+                className="nav-link fs-5 text-light mx-3"
+                to="/sightings/create"
+              >
                 Report a sighting
               </Link>
             </li>
