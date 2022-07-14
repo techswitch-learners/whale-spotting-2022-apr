@@ -5,10 +5,16 @@ import { format, parseISO } from "date-fns";
 
 interface SightingCardProps {
   sighting: InternalSightingResponse | ExternalSightingResponse;
+  isApproved?: boolean;
+  onApprove?: (sighting: InternalSightingResponse) => void;
+  onDelete?: (sighting: InternalSightingResponse) => void;
 }
 
 export const SightingCard: React.FunctionComponent<SightingCardProps> = ({
   sighting,
+  isApproved = true,
+  onApprove,
+  onDelete,
 }) => {
   const species = sighting.species;
   const formattedDate = format(parseISO(sighting.date), "do MMMM, yyyy");
@@ -56,7 +62,7 @@ export const SightingCard: React.FunctionComponent<SightingCardProps> = ({
   }
 
   return (
-    <div className="card sighting-card">
+    <div className="card sighting-card my-2">
       <div className="ratio ratio-4x3">
         <img
           className="card-img-top"
@@ -73,6 +79,26 @@ export const SightingCard: React.FunctionComponent<SightingCardProps> = ({
         <h6 className="card-subtitle my-0">Spotted on: {formattedDate}</h6>
         {descriptionSection}
         {locationSection}
+        {!isApproved && (
+          <>
+            <button
+              className="btn btn-primary mt-3 me-3"
+              onClick={() => {
+                onApprove && onApprove(sighting as InternalSightingResponse);
+              }}
+            >
+              Approve
+            </button>
+            <button
+              className="btn btn-danger mt-3"
+              onClick={() => {
+                onDelete && onDelete(sighting as InternalSightingResponse);
+              }}
+            >
+              Delete
+            </button>
+          </>
+        )}
       </div>
     </div>
   );
