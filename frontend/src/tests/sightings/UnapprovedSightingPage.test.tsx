@@ -4,7 +4,10 @@ import { Router } from "react-router-dom";
 import * as apiClient from "../../clients/internalApiClient";
 import { act } from "@testing-library/react";
 import { UnapprovedSightingPage } from "../../components/unapprovedSightings/UnapprovedSightingPage";
-import { SightingListResponse } from "../../clients/internalApiClient";
+import {
+  AuthenticateLoginResponse,
+  SightingListResponse,
+} from "../../clients/internalApiClient";
 import { LoginContext } from "../../components/login/LoginManager";
 
 const unapprovedSightingsDummyData: SightingListResponse = {
@@ -77,8 +80,12 @@ const context_admin_login = {
   isAdmin: true,
   username: "Olena",
   password: "password",
-  logIn: async () => true,
-  logOut: async () => true,
+  logIn: async (): Promise<AuthenticateLoginResponse> => {
+    return { isResponseOk: false, message: "" };
+  },
+  logOut: () => {
+    console.log();
+  },
 };
 
 test("When rendered, check the correct number of unapproved sightings", async () => {
@@ -102,8 +109,12 @@ const context_admin_logout = {
   isAdmin: false,
   username: "Olena",
   password: "password",
-  logIn: async () => true,
-  logOut: async () => true,
+  logIn: async (): Promise<AuthenticateLoginResponse> => {
+    return { isResponseOk: false, message: "" };
+  },
+  logOut: () => {
+    console.log();
+  },
 };
 
 test("When rendered, asks admin to login", async () => {

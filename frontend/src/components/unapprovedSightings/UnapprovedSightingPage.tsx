@@ -36,25 +36,31 @@ export const UnapprovedSightingPage: React.FunctionComponent = () => {
       <h1>Unapproved Sightings</h1>
       {loginContext.isAdmin ? (
         filteredSightings ? (
-          filteredSightings.map((sighting) => (
-            <div role="unapproved" key={sighting.id}>
-              <SightingCard sighting={sighting} key={sighting.id} />
-              <button
-                onClick={() => {
-                  onApprove(sighting);
-                }}
+          <div className="row" data-masonry='{"percentPosition": true }'>
+            {filteredSightings.map((sighting) => (
+              <div
+                role="unapproved"
+                className="col-sm-6 col-md-4 col-lg-3"
+                key={sighting.id}
               >
-                Approve
-              </button>
-              <button
-                onClick={() => {
-                  onDelete(sighting);
-                }}
-              >
-                Delete
-              </button>
-            </div>
-          ))
+                <SightingCard sighting={sighting} key={sighting.id} />
+                <button
+                  onClick={() => {
+                    onApprove(sighting);
+                  }}
+                >
+                  Approve
+                </button>
+                <button
+                  onClick={() => {
+                    onDelete(sighting);
+                  }}
+                >
+                  Delete
+                </button>
+              </div>
+            ))}
+          </div>
         ) : (
           <p>There are no unapproved sightings left!</p>
         )
