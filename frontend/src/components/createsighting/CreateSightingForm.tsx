@@ -25,24 +25,18 @@ export const CreateSightingForm: React.FunctionComponent = () => {
   const submit = (event: FormEvent) => {
     event.preventDefault();
     setSubmitted(true);
-    if (
-      date &&
-      !isNaN(parseFloat(latitude)) &&
-      !isNaN(parseFloat(longitude)) &&
-      description
-    ) {
-      setStatus("SUBMITTING");
-      createSighting({
-        latitude: parseFloat(latitude),
-        longitude: parseFloat(longitude),
-        date,
-        description,
-        photoUrl,
-        speciesId,
-      })
-        .then(() => setStatus("FINISHED"))
-        .catch(() => setStatus("ERROR"));
-    }
+
+    setStatus("SUBMITTING");
+    createSighting({
+      latitude: parseFloat(latitude),
+      longitude: parseFloat(longitude),
+      date,
+      description,
+      photoUrl,
+      speciesId,
+    })
+      .then(() => setStatus("FINISHED"))
+      .catch(() => setStatus("ERROR"));
   };
 
   interface ValueLabelPair {
@@ -68,8 +62,12 @@ export const CreateSightingForm: React.FunctionComponent = () => {
   if (status === "FINISHED") {
     return (
       <div>
-        <h5>Your sighting is submitted successfully!</h5>
-        <h5>It will be approved in a few days! Thank you</h5>
+        <h5 className="text-center">
+          Your sighting is submitted successfully!
+        </h5>
+        <p className="text-center">
+          It will be approved in a few days! Thank you
+        </p>
       </div>
     );
   }
