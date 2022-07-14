@@ -1,3 +1,4 @@
+import { LatLngBoundsExpression } from "leaflet";
 import { useEffect, useState } from "react";
 import { MapContainer, TileLayer } from "react-leaflet";
 import {
@@ -5,6 +6,11 @@ import {
   SightingResponse,
 } from "../../clients/internalApiClient";
 import { BinocularMarker } from "./BinocularMarker";
+
+const bounds: LatLngBoundsExpression = [
+  [90, -180],
+  [-90, 180],
+];
 
 export const Home: React.FunctionComponent = () => {
   const [sightings, setSightings] = useState<SightingResponse[]>([]);
@@ -23,6 +29,7 @@ export const Home: React.FunctionComponent = () => {
             <MapContainer
               center={[54.637581, -3.902469]}
               zoom={5}
+              maxBounds={bounds}
               scrollWheelZoom={false}
               style={{
                 height: "600px",
@@ -34,6 +41,8 @@ export const Home: React.FunctionComponent = () => {
               <TileLayer
                 attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
                 url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                maxZoom={8}
+                minZoom={2}
               />
               {sightings.map((sighting) => (
                 <BinocularMarker key={sighting.id} sighting={sighting} />

@@ -72,7 +72,4 @@ test("When rendered with a route, displays the information of the sighting with 
     await screen.findByText(/description: a sighting/i)
   ).toBeInTheDocument();
   expect(await screen.findByText(/blue whale/i)).toBeInTheDocument();
-  expect(
-    await screen.findByText(/a whale, coloured blue/i)
-  ).toBeInTheDocument();
 });
