@@ -64,7 +64,7 @@ export const SightingCard: React.FunctionComponent<SightingCardProps> = ({
           alt="sighting of whales"
         />
       </div>
-      <div className="card-body">
+      <div className="card-body text-dark">
         {species ? (
           speciesSection
         ) : (
