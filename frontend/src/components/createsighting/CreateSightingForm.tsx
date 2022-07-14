@@ -20,19 +20,29 @@ export const CreateSightingForm: React.FunctionComponent = () => {
   const [status, setStatus] = useState<FormStatus>("READY");
   const [species, setSpecies] = useState<SpeciesResponse[]>();
 
+  const [submitted, setSubmitted] = useState(false);
+
   const submit = (event: FormEvent) => {
     event.preventDefault();
-    setStatus("SUBMITTING");
-    createSighting({
-      latitude: parseFloat(latitude),
-      longitude: parseFloat(longitude),
-      date,
-      description,
-      photoUrl,
-      speciesId,
-    })
-      .then(() => setStatus("FINISHED"))
-      .catch(() => setStatus("ERROR"));
+    setSubmitted(true);
+    if (
+      date &&
+      !isNaN(parseFloat(latitude)) &&
+      !isNaN(parseFloat(longitude)) &&
+      description
+    ) {
+      setStatus("SUBMITTING");
+      createSighting({
+        latitude: parseFloat(latitude),
+        longitude: parseFloat(longitude),
+        date,
+        description,
+        photoUrl,
+        speciesId,
+      })
+        .then(() => setStatus("FINISHED"))
+        .catch(() => setStatus("ERROR"));
+    }
   };
 
   interface ValueLabelPair {
@@ -64,17 +74,20 @@ export const CreateSightingForm: React.FunctionComponent = () => {
   }
   return (
     <form
-      className="sighting-form form-group mx-5 h-100 shadow-lg p-3 mb-5 bg-body rounded"
+      className={`sighting-form form-group h-100 shadow-lg p-3 mb-5 bg-body rounded needs-validation ${
+        submitted && "was-validated"
+      }`}
       onSubmit={submit}
       data-testid="form"
+      noValidate
     >
       <fieldset>
-        <label>
+        <label className="w-100">
           Enter date:
           <input
             className="form-control my-1"
             required
-            type={"date"}
+            type="date"
             value={format(date, "yyyy-MM-dd")}
             onChange={(event) =>
               setDate(parse(event.target.value, "yyyy-MM-dd", new Date()))
@@ -82,7 +95,7 @@ export const CreateSightingForm: React.FunctionComponent = () => {
           />
         </label>
         <br />
-        <label>
+        <label className="w-100">
           Enter Latitude:
           <input
             className="form-control my-1"
@@ -90,14 +103,14 @@ export const CreateSightingForm: React.FunctionComponent = () => {
             required
             min={-90}
             max={90}
-            placeholder="0"
             value={latitude}
             step="0.000001"
             onChange={(event) => setLatitude(event.target.value)}
           />
+          <div className="invalid-feedback">Please enter a valid latitude</div>
         </label>
         <br />
-        <label>
+        <label className="w-100">
           Enter Longitude:
           <input
             className="form-control my-1"
@@ -105,38 +118,38 @@ export const CreateSightingForm: React.FunctionComponent = () => {
             required
             min={-180}
             max={180}
-            placeholder="0"
             value={longitude}
             step="0.000001"
             onChange={(event) => setLongitude(event.target.value)}
           />
+          <div className="invalid-feedback">Please enter a valid longitude</div>
         </label>
         <br />
-        <label>
+        <label className="w-100">
           Enter Description:
-          <input
+          <textarea
             className="form-control my-1"
             required
-            type={"text"}
             value={description}
             onChange={(event) => setDescription(event.target.value)}
           />
+          <div className="invalid-feedback">Please enter a description</div>
         </label>
         <br />
-        <label>
+        <label className="w-100">
           Enter Photo:
           <input
             className="form-control my-1"
-            type={"text"}
+            type="url"
             value={photoUrl}
             onChange={(event) => setPhotoUrl(event.target.value)}
           />
         </label>
         <br />
-        <label>
+        <label className="w-100">
           Select Species:
           <Select
-            className="form-control my-1"
+            className="my-1"
             options={speciesOptions}
             name="species"
             onChange={(event) => {
