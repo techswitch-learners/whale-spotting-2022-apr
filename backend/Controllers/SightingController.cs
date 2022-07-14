@@ -111,7 +111,13 @@ namespace WhaleSpotting.Controllers
         public ActionResult<SightingResponse> GetSightingById([FromRoute] int id)
         {
             var sighting = _sightingService.GetSightingById(id);
-            return new SightingResponse(sighting);
+            if (sighting != null){
+                return new SightingResponse(sighting);
+            }
+            else {
+                return NotFound();
+            }
+            
         }
 
         [HttpGet("/search")]

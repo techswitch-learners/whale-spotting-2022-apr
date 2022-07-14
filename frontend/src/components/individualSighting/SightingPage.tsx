@@ -11,7 +11,9 @@ export const SightingPage: React.FunctionComponent = () => {
   const idNumber = parseInt(id);
   const [sighting, setSighting] = useState<SightingResponse>();
   useEffect(() => {
-    fetchSightingById(idNumber).then((response) => setSighting(response));
+    fetchSightingById(idNumber)
+      .then((response) => setSighting(response))
+      .catch((error) => console.log(error));
   }, []);
 
   return (
