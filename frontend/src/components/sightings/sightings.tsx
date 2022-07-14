@@ -58,14 +58,20 @@ export const Sightings: React.FunctionComponent = () => {
 
   return (
     <section>
-      <h1>Sightings</h1>
+      <h1 className="sightings d-flex justify-content-center">Sightings</h1>
       {allSightings ? (
-        <ul className="row" data-masonry='{"percentPosition": true }'>
+        <ul className="row p-0 m-0 w-100">
           {allSightings.map((sighting, index) => {
             return (
-              <li className="col-sm-6 col-md-4 col-lg-3" key={index}>
+              <li
+                className="col-sm-6 col-md-4 col-lg-3 list-unstyled p-0 d-flex justify-content-center"
+                key={index}
+              >
                 {sighting.isInternal ? (
-                  <Link to={`/sightings/${sighting.sightingResponse.id}`}>
+                  <Link
+                    to={`/sightings/${sighting.sightingResponse.id}`}
+                    className="text-decoration-none"
+                  >
                     <SightingCard sighting={sighting.sightingResponse} />
                   </Link>
                 ) : (
