@@ -20,11 +20,8 @@ export const CreateSightingForm: React.FunctionComponent = () => {
   const [status, setStatus] = useState<FormStatus>("READY");
   const [species, setSpecies] = useState<SpeciesResponse[]>();
 
-  const [submitted, setSubmitted] = useState(false);
-
   const submit = (event: FormEvent) => {
     event.preventDefault();
-    setSubmitted(true);
 
     setStatus("SUBMITTING");
     createSighting({
@@ -74,7 +71,7 @@ export const CreateSightingForm: React.FunctionComponent = () => {
   return (
     <form
       className={`sighting-form form-group h-100 shadow-lg p-3 mb-5 bg-body rounded needs-validation ${
-        submitted && "was-validated"
+        status !== "READY" && "was-validated"
       }`}
       onSubmit={submit}
       data-testid="form"
