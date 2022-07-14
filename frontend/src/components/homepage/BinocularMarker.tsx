@@ -25,6 +25,8 @@ export const BinocularMarker: React.FunctionComponent<BinocularMarkerProps> = ({
 
   if (sighting.species) {
     speciesSection = <>{sighting.species.name}</>;
+  } else {
+    speciesSection = <>Unknown Species</>;
   }
 
   return (
