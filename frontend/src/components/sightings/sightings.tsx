@@ -60,7 +60,7 @@ export const Sightings: React.FunctionComponent = () => {
     <section>
       <h1 className="sightings d-flex justify-content-center">Sightings</h1>
       {allSightings ? (
-        <ul className="row p-0" data-masonry='{"percentPosition": true }'>
+        <ul className="row p-0 m-0 w-100">
           {allSightings.map((sighting, index) => {
             return (
               <li

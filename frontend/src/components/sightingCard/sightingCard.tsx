@@ -57,7 +57,7 @@ export const SightingCard: React.FunctionComponent<SightingCardProps> = ({
   }
 
   return (
-    <div className="card sighting-card">
+    <div className="card sighting-card m-2">
       <img
         className="card-img-top"
         src={sighting.photoUrl || "https://i.imgur.com/bQI6qPz.jpeg"}
