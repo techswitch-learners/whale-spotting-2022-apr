@@ -1,7 +1,12 @@
-import React, { useState, FormEvent } from "react";
-import { createSighting } from "../../clients/internalApiClient";
+import React, { useState, FormEvent, useEffect } from "react";
+import {
+  createSighting,
+  fetchSpecies,
+  SpeciesResponse,
+} from "../../clients/internalApiClient";
 import { format, parse } from "date-fns";
 import "./Sightingform.scss";
+import Select from "react-select";
 
 type FormStatus = "READY" | "SUBMITTING" | "ERROR" | "FINISHED";
 
@@ -13,6 +18,7 @@ export const CreateSightingForm: React.FunctionComponent = () => {
   const [photoUrl, setPhotoUrl] = useState("");
   const [speciesId, setSpeciesId] = useState(0);
   const [status, setStatus] = useState<FormStatus>("READY");
+  const [species, setSpecies] = useState<SpeciesResponse[]>();
 
   const submit = (event: FormEvent) => {
     event.preventDefault();
@@ -29,6 +35,26 @@ export const CreateSightingForm: React.FunctionComponent = () => {
       .catch(() => setStatus("ERROR"));
   };
 
+  interface ValueLabelPair {
+    value: number;
+    label: string;
+  }
+
+  const speciesOptions: ValueLabelPair[] = [
+    { value: 0, label: "Unknown/Other" },
+  ];
+
+  useEffect(() => {
+    fetchSpecies().then((response) => setSpecies(response.speciesList));
+  }, []);
+
+  if (species) {
+    species.forEach((element) => {
+      const option = { value: element.id, label: element.name };
+      speciesOptions.push(option);
+    });
+  }
+
   if (status === "FINISHED") {
     return (
       <div>
@@ -40,6 +66,7 @@ export const CreateSightingForm: React.FunctionComponent = () => {
     <form
       className="sighting-form form-group mx-5 h-100 shadow-lg p-3 mb-5 bg-body rounded"
       onSubmit={submit}
+      data-testid="form"
     >
       <fieldset>
         <label>
@@ -105,12 +132,16 @@ export const CreateSightingForm: React.FunctionComponent = () => {
         </label>
         <br />
         <label>
-          Enter Species ID:
-          <input
+          Select Species:
+          <Select
             className="form-control my-1"
-            type={"number"}
-            value={speciesId}
-            onChange={(event) => setSpeciesId(parseInt(event.target.value))}
+            options={speciesOptions}
+            name="species"
+            onChange={(event) => {
+              if (event && event.value != 0) {
+                setSpeciesId(event.value);
+              }
+            }}
           />
         </label>
         <br />
