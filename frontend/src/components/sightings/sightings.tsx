@@ -68,7 +68,10 @@ export const Sightings: React.FunctionComponent = () => {
                 key={index}
               >
                 {sighting.isInternal ? (
-                  <Link to={`/sightings/${sighting.sightingResponse.id}`}>
+                  <Link
+                    to={`/sightings/${sighting.sightingResponse.id}`}
+                    className="text-decoration-none"
+                  >
                     <SightingCard sighting={sighting.sightingResponse} />
                   </Link>
                 ) : (
