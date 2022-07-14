@@ -45,14 +45,22 @@ export const Navbar: React.FunctionComponent = () => {
               </Link>
             </li>
             <li className="nav-item">
-              <Link className="nav-link fs-5 text-light" to="/sightings/create">
-                Report a sighting
+              <Link
+                className="nav-link fs-5 text-light mx-3"
+                to="/sightings/create"
+              >
+                <span
+                  data-bs-toggle="collapse"
+                  data-bs-target=".navbar-collapse.show"
+                >
+                  Report a Sighting
+                </span>
               </Link>
             </li>
             {loginContext.isLoggedIn ? (
               <li>
                 <Link
-                  className="nav-link fs-5 ps-0 text-light mx-3"
+                  className="nav-link fs-5 text-light mx-3"
                   to="/admin/unapproved"
                 >
                   <span

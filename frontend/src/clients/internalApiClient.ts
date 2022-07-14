@@ -146,7 +146,7 @@ export async function deleteById(
   const details = `${username}:${password}`;
   const encodedDetails = btoa(details);
   const authHeader = `Basic ${encodedDetails}`;
-  const response = await fetch(`${baseUrl}/${id}`, {
+  const response = await fetch(`${baseUrl}/sightings/${id}`, {
     method: "DELETE",
     headers: {
       Authorization: authHeader,
