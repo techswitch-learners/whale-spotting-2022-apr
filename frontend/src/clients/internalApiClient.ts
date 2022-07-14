@@ -95,7 +95,11 @@ export async function authenticateLogin(
 
 export async function fetchSightingById(id: number): Promise<SightingResponse> {
   const response = await fetch(`${baseUrl}/sightings/${id}`);
-  return await response.json();
+  if (response.ok) {
+    return await response.json();
+  } else {
+    throw new Error(await response.json());
+  }
 }
 
 export async function fetchUnapprovedSightings(

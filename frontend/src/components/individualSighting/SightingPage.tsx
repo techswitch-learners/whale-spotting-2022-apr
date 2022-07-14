@@ -10,18 +10,27 @@ export const SightingPage: React.FunctionComponent = () => {
   const { id } = useParams<{ id: string }>();
   const idNumber = parseInt(id);
   const [sighting, setSighting] = useState<SightingResponse>();
+  const [isLoading, setIsLoading] = useState(false);
   useEffect(() => {
-    fetchSightingById(idNumber).then((response) => setSighting(response));
+    setIsLoading(true);
+    fetchSightingById(idNumber)
+      .then((response) => {
+        setSighting(response);
+        setIsLoading(false);
+      })
+      .catch((error) => setIsLoading(false));
   }, []);
 
   return (
-    <section>
-      <h1>Whale spotting sighting</h1>
+    <div className="container-fluid">
+      <h1 className="text-center">Whale spotting sighting</h1>
       {sighting ? (
         <SightingCard sighting={sighting} key={sighting.id} />
+      ) : isLoading ? (
+        <p className="text-center">Loading...</p>
       ) : (
-        <p>Loading...</p>
+        <p className="text-center">No sighting here!</p>
       )}
-    </section>
+    </div>
   );
 };
