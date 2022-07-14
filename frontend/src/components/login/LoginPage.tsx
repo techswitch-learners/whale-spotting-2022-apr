@@ -11,7 +11,7 @@ export const LoginPage: React.FunctionComponent = () => {
   }
 
   return (
-    <div className="container h-100">
+    <div className="container">
       <LoginForm />
     </div>
   );
