@@ -1,7 +1,7 @@
 const baseUrl = process.env["REACT_APP_BACKEND_DOMAIN"];
 
 export interface SpeciesListResponse {
-  species: SpeciesResponse[];
+  speciesList: SpeciesResponse[];
 }
 
 export interface SightingListResponse {
@@ -96,4 +96,59 @@ export async function authenticateLogin(
 export async function fetchSightingById(id: number): Promise<SightingResponse> {
   const response = await fetch(`${baseUrl}/sightings/${id}`);
   return await response.json();
+}
+
+export async function fetchUnapprovedSightings(
+  username: string,
+  password: string
+): Promise<SightingListResponse> {
+  const details = `${username}:${password}`;
+  const encodedDetails = btoa(details);
+  const authHeader = `Basic ${encodedDetails}`;
+  const response = await fetch(`${baseUrl}/sightings/unapproved`, {
+    method: "GET",
+    headers: {
+      Authorization: authHeader,
+    },
+  });
+  return await response.json();
+}
+
+export async function approveSighting(
+  id: number,
+  username: string,
+  password: string
+): Promise<SightingResponse> {
+  const details = `${username}:${password}`;
+  const encodedDetails = btoa(details);
+  const authHeader = `Basic ${encodedDetails}`;
+  const response = await fetch(`${baseUrl}/sightings/${id}/approve`, {
+    method: "PATCH",
+    headers: {
+      Authorization: authHeader,
+    },
+  });
+  if (!response.ok) {
+    throw new Error(await response.json());
+  }
+  return await response.json();
+}
+
+export async function deleteById(
+  id: number,
+  username: string,
+  password: string
+) {
+  const details = `${username}:${password}`;
+  const encodedDetails = btoa(details);
+  const authHeader = `Basic ${encodedDetails}`;
+  const response = await fetch(`${baseUrl}/${id}`, {
+    method: "DELETE",
+    headers: {
+      Authorization: authHeader,
+    },
+  });
+  if (!response.ok) {
+    throw new Error(await response.json());
+  }
 }

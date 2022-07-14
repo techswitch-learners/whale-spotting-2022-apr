@@ -1,6 +1,12 @@
-import React, { useState, FormEvent } from "react";
-import { createSighting } from "../../clients/internalApiClient";
+import React, { useState, FormEvent, useEffect } from "react";
+import {
+  createSighting,
+  fetchSpecies,
+  SpeciesResponse,
+} from "../../clients/internalApiClient";
 import { format, parse } from "date-fns";
+import "./Sightingform.scss";
+import Select from "react-select";
 
 type FormStatus = "READY" | "SUBMITTING" | "ERROR" | "FINISHED";
 
@@ -12,6 +18,7 @@ export const CreateSightingForm: React.FunctionComponent = () => {
   const [photoUrl, setPhotoUrl] = useState("");
   const [speciesId, setSpeciesId] = useState(0);
   const [status, setStatus] = useState<FormStatus>("READY");
+  const [species, setSpecies] = useState<SpeciesResponse[]>();
 
   const submit = (event: FormEvent) => {
     event.preventDefault();
@@ -28,6 +35,26 @@ export const CreateSightingForm: React.FunctionComponent = () => {
       .catch(() => setStatus("ERROR"));
   };
 
+  interface ValueLabelPair {
+    value: number;
+    label: string;
+  }
+
+  const speciesOptions: ValueLabelPair[] = [
+    { value: 0, label: "Unknown/Other" },
+  ];
+
+  useEffect(() => {
+    fetchSpecies().then((response) => setSpecies(response.speciesList));
+  }, []);
+
+  if (species) {
+    species.forEach((element) => {
+      const option = { value: element.id, label: element.name };
+      speciesOptions.push(option);
+    });
+  }
+
   if (status === "FINISHED") {
     return (
       <div>
@@ -37,11 +64,16 @@ export const CreateSightingForm: React.FunctionComponent = () => {
     );
   }
   return (
-    <form onSubmit={submit}>
+    <form
+      className="sighting-form form-group mx-5 h-100 shadow-lg p-3 mb-5 bg-body rounded"
+      onSubmit={submit}
+      data-testid="form"
+    >
       <fieldset>
         <label>
           Enter date:
           <input
+            className="form-control my-1"
             type={"date"}
             value={format(date, "yyyy-MM-dd")}
             onChange={(event) =>
@@ -53,6 +85,7 @@ export const CreateSightingForm: React.FunctionComponent = () => {
         <label>
           Enter Latitude:
           <input
+            className="form-control my-1"
             type="number"
             required
             min={-90}
@@ -67,6 +100,7 @@ export const CreateSightingForm: React.FunctionComponent = () => {
         <label>
           Enter Longitude:
           <input
+            className="form-control my-1"
             type="number"
             required
             min={-180}
@@ -81,6 +115,7 @@ export const CreateSightingForm: React.FunctionComponent = () => {
         <label>
           Enter Description:
           <input
+            className="form-control my-1"
             type={"text"}
             value={description}
             onChange={(event) => setDescription(event.target.value)}
@@ -90,6 +125,7 @@ export const CreateSightingForm: React.FunctionComponent = () => {
         <label>
           Enter Photo:
           <input
+            className="form-control my-1"
             type={"text"}
             value={photoUrl}
             onChange={(event) => setPhotoUrl(event.target.value)}
@@ -97,15 +133,22 @@ export const CreateSightingForm: React.FunctionComponent = () => {
         </label>
         <br />
         <label>
-          Enter Species ID:
-          <input
-            type={"number"}
-            value={speciesId}
-            onChange={(event) => setSpeciesId(parseInt(event.target.value))}
+          Select Species:
+          <Select
+            className="form-control my-1"
+            options={speciesOptions}
+            name="species"
+            onChange={(event) => {
+              if (event && event.value != 0) {
+                setSpeciesId(event.value);
+              }
+            }}
           />
         </label>
         <br />
-        <button type="submit">Submit</button>
+        <button className="btn btn-secondary mt-3" type="submit">
+          Submit
+        </button>
       </fieldset>
     </form>
   );
