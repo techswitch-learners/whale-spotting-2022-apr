@@ -1,5 +1,6 @@
 import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import { MapContainer, TileLayer } from "react-leaflet";
+import { BrowserRouter } from "react-router-dom";
 import { BinocularMarker } from "../../components/homepage/BinocularMarker";
 
 const sighting = {
@@ -46,23 +47,25 @@ test("When rendered, includes one binocular marker", async () => {
 it("displays popup when click on binocular marker", async () => {
   {
     render(
-      <MapContainer
-        center={[54.637581, -3.902469]}
-        zoom={5}
-        scrollWheelZoom={false}
-        style={{
-          height: "600px",
-          width: "600px",
-          maxHeight: "80vw",
-          maxWidth: "80vw",
-        }}
-      >
-        <TileLayer
-          attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-        />
-        <BinocularMarker sighting={sighting} />
-      </MapContainer>
+      <BrowserRouter>
+        <MapContainer
+          center={[54.637581, -3.902469]}
+          zoom={5}
+          scrollWheelZoom={false}
+          style={{
+            height: "600px",
+            width: "600px",
+            maxHeight: "80vw",
+            maxWidth: "80vw",
+          }}
+        >
+          <TileLayer
+            attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+          />
+          <BinocularMarker sighting={sighting} />
+        </MapContainer>
+      </BrowserRouter>
     );
     await waitFor(() => expect(screen.getByRole("marker")).toBeInTheDocument());
     const marker = screen.getByRole("marker");
