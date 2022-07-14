@@ -28,36 +28,29 @@ export const UnapprovedSightingPage: React.FunctionComponent = () => {
     setRemoveSightingIds(removeSightingIds.concat([sighting.id]));
     deleteById(sighting.id, loginContext.username, loginContext.password);
   };
+
   const filteredSightings =
     sightings &&
     sightings.filter((sighting) => !removeSightingIds.includes(sighting.id));
   return (
-    <section>
-      <h1>Unapproved Sightings</h1>
+    <div className="container-fluid">
+      <h1 className="text-center">Unapproved Sightings</h1>
       {loginContext.isAdmin ? (
         filteredSightings ? (
-          <div className="row" data-masonry='{"percentPosition": true }'>
+          <div className="row">
             {filteredSightings.map((sighting) => (
               <div
                 role="unapproved"
                 className="col-sm-6 col-md-4 col-lg-3"
                 key={sighting.id}
               >
-                <SightingCard sighting={sighting} key={sighting.id} />
-                <button
-                  onClick={() => {
-                    onApprove(sighting);
-                  }}
-                >
-                  Approve
-                </button>
-                <button
-                  onClick={() => {
-                    onDelete(sighting);
-                  }}
-                >
-                  Delete
-                </button>
+                <SightingCard
+                  sighting={sighting}
+                  isApproved={false}
+                  onApprove={onApprove}
+                  onDelete={onDelete}
+                  key={sighting.id}
+                />
               </div>
             ))}
           </div>
@@ -67,6 +60,6 @@ export const UnapprovedSightingPage: React.FunctionComponent = () => {
       ) : (
         <p>Please login as administrator</p>
       )}
-    </section>
+    </div>
   );
 };

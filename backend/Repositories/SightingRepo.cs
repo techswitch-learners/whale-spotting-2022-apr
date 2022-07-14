@@ -76,7 +76,7 @@ namespace WhaleSpotting.Repositories
                 .Sightings
                 .Where(s => s.IsApproved && !s.IsDeleted)
                 .Include(s => s.Species)
-                .Single(s => s.Id == id);
+                .SingleOrDefault(s => s.Id == id);
         }
 
         public IEnumerable<Sighting> SearchSightings(SightingSearchRequest search)

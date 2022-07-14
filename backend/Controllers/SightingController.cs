@@ -89,16 +89,20 @@ namespace WhaleSpotting.Controllers
             try
             {
                 UsernamePassword usernamePassword = GetUsernameAndPasswordfromAuthheader(authorization);
-                
                 if (!_authService.IsAuthenticated(usernamePassword.Username, usernamePassword.Password))
                 {
                     return Unauthorized("Username and password are not valid.");
                 }
             }
-            catch (Exception)
+            catch (Exception err) when (err is FormatException || err is ArgumentException || err is IndexOutOfRangeException)
             {
-                return Unauthorized("Must pass a valid authorization header.");
+                return Unauthorized(err.Message);
             }
+            catch (InvalidOperationException err)
+            {
+                return Unauthorized("Username and password are not valid.");
+            }
+            
             var sighting = _sightingService.ApproveSighting(id);
             return new SightingResponse(sighting);
         }
@@ -107,7 +111,13 @@ namespace WhaleSpotting.Controllers
         public ActionResult<SightingResponse> GetSightingById([FromRoute] int id)
         {
             var sighting = _sightingService.GetSightingById(id);
-            return new SightingResponse(sighting);
+            if (sighting != null){
+                return new SightingResponse(sighting);
+            }
+            else {
+                return NotFound();
+            }
+            
         }
 
         [HttpGet("/search")]

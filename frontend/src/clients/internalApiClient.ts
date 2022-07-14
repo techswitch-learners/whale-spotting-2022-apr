@@ -95,7 +95,11 @@ export async function authenticateLogin(
 
 export async function fetchSightingById(id: number): Promise<SightingResponse> {
   const response = await fetch(`${baseUrl}/sightings/${id}`);
-  return await response.json();
+  if (response.ok) {
+    return await response.json();
+  } else {
+    throw new Error(await response.json());
+  }
 }
 
 export async function fetchUnapprovedSightings(
@@ -142,7 +146,7 @@ export async function deleteById(
   const details = `${username}:${password}`;
   const encodedDetails = btoa(details);
   const authHeader = `Basic ${encodedDetails}`;
-  const response = await fetch(`${baseUrl}/${id}`, {
+  const response = await fetch(`${baseUrl}/sightings/${id}`, {
     method: "DELETE",
     headers: {
       Authorization: authHeader,
