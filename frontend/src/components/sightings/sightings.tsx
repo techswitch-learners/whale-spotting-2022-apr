@@ -60,10 +60,10 @@ export const Sightings: React.FunctionComponent = () => {
     <section>
       <h1>Sightings</h1>
       {allSightings ? (
-        <ul>
+        <ul className="row" data-masonry='{"percentPosition": true }'>
           {allSightings.map((sighting, index) => {
             return (
-              <li key={index}>
+              <li className="col-sm-6 col-md-4 col-lg-3" key={index}>
                 {sighting.isInternal ? (
                   <Link to={`/sightings/${sighting.sightingResponse.id}`}>
                     <SightingCard sighting={sighting.sightingResponse} />

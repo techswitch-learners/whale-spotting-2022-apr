@@ -60,15 +60,23 @@ export const Navbar: React.FunctionComponent = () => {
                   </span>
                 </Link>
               ) : (
-                <span
-                  role="button"
-                  onClick={loginContext.logOut}
-                  className="navbar__right-component--logout nav-link fs-5 ps-0 text-light"
-                  data-bs-toggle="collapse"
-                  data-bs-target=".navbar-collapse.show"
-                >
-                  Log Out
-                </span>
+                <>
+                  <span
+                    role="button"
+                    onClick={loginContext.logOut}
+                    className="navbar__right-component--logout nav-link fs-5 ps-0 text-light"
+                    data-bs-toggle="collapse"
+                    data-bs-target=".navbar-collapse.show"
+                  >
+                    Log Out
+                  </span>
+                  <Link
+                    className="nav-link fs-5 ps-0 text-light"
+                    to="/admin/unapproved"
+                  >
+                    Unapproved Sightings
+                  </Link>
+                </>
               )}
             </span>
           </div>

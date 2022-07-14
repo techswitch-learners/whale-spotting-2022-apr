@@ -15,22 +15,26 @@ export const SightingCard: React.FunctionComponent<SightingCardProps> = ({
 
   let descriptionSection = <></>;
   if ("description" in sighting) {
-    descriptionSection = <p>Description: {sighting.description}</p>;
+    descriptionSection = (
+      <p className="my-0">Description: {sighting.description}</p>
+    );
   }
 
   let locationSection = <></>;
   if ("location" in sighting) {
     locationSection = (
       <>
-        <p>Latitude: {sighting.location.latitude}</p>
-        <p>Longitude: {sighting.location.longitude}</p>
+        <p className="my-0">
+          {sighting.location.latitude}, {sighting.location.longitude}
+        </p>
       </>
     );
   } else {
     locationSection = (
       <>
-        <p>Latitude: {sighting.latitude}</p>
-        <p>Longitude: {sighting.longitude}</p>
+        <p className="my-0">
+          {sighting.latitude}, {sighting.longitude}
+        </p>
       </>
     );
   }
@@ -39,45 +43,38 @@ export const SightingCard: React.FunctionComponent<SightingCardProps> = ({
   if (species) {
     if (Array.isArray(species)) {
       speciesSection = (
-        <>
+        <ul>
           {species.map((s) => {
             return (
-              <ul key={s.id}>
-                <li>Species Name: {s.name}</li>
-                <li>Species Description: {s.description}</li>
-              </ul>
+              <li key={s.id}>
+                <h5 className="card-title my-0">{s.name}</h5>
+              </li>
             );
           })}
-        </>
+        </ul>
       );
     } else {
-      speciesSection = (
-        <>
-          <p>Species Name: {species.name}</p>
-          <p>Species Description: {species.description}</p>
-        </>
-      );
+      speciesSection = <h5 className="card-title my-0">{species.name}</h5>;
     }
   }
 
   return (
-    <div className="sighting-card">
-      {descriptionSection}
-      Spotted on: {formattedDate}
-      {locationSection}
-      {species ? (
-        speciesSection
-      ) : (
-        <div>
-          <p>Unrecognised species</p>
-          <p>This type of whale was not recognised when whale spotting</p>
-        </div>
-      )}
-      {sighting.photoUrl ? (
-        <img src={sighting.photoUrl} alt="sighting of whales" />
-      ) : (
-        <img src="https://i.imgur.com/bQI6qPz.jpeg" alt="sighting of whales" />
-      )}
+    <div className="card sighting-card">
+      <img
+        className="card-img-top"
+        src={sighting.photoUrl || "https://i.imgur.com/bQI6qPz.jpeg"}
+        alt="sighting of whales"
+      />
+      <div className="card-body">
+        {species ? (
+          speciesSection
+        ) : (
+          <h5 className="card-title my-0">Unrecognised species</h5>
+        )}
+        <h6 className="card-subtitle my-0">Spotted on: {formattedDate}</h6>
+        {descriptionSection}
+        {locationSection}
+      </div>
     </div>
   );
 };
