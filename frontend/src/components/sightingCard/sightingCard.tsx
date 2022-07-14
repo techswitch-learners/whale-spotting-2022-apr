@@ -40,20 +40,22 @@ export const SightingCard: React.FunctionComponent<SightingCardProps> = ({
   }
 
   let speciesSection = <></>;
-  if (Array.isArray(species)) {
-    speciesSection = (
-      <ul>
-        {species.map((s) => {
-          return (
-            <li key={s.id}>
-              <h5 className="card-title my-0">{s.name}</h5>
-            </li>
-          );
-        })}
-      </ul>
-    );
-  } else {
-    speciesSection = <h5 className="card-title my-0">{species.name}</h5>;
+  if (species) {
+    if (Array.isArray(species)) {
+      speciesSection = (
+        <ul>
+          {species.map((s) => {
+            return (
+              <li key={s.id}>
+                <h5 className="card-title my-0">{s.name}</h5>
+              </li>
+            );
+          })}
+        </ul>
+      );
+    } else {
+      speciesSection = <h5 className="card-title my-0">{species.name}</h5>;
+    }
   }
 
   return (
