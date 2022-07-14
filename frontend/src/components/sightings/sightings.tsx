@@ -57,16 +57,13 @@ export const Sightings: React.FunctionComponent = () => {
   }, []);
 
   return (
-    <section>
-      <h1 className="sightings d-flex justify-content-center">Sightings</h1>
+    <div className="container-fluid">
+      <h1 className="sightings text-center">Sightings</h1>
       {allSightings ? (
-        <ul className="row p-0 m-0 w-100">
+        <div className="row">
           {allSightings.map((sighting, index) => {
             return (
-              <li
-                className="col-sm-6 col-md-4 col-lg-3 list-unstyled p-0 d-flex justify-content-center"
-                key={index}
-              >
+              <div className="col-sm-6 col-md-4 col-lg-3" key={index}>
                 {sighting.isInternal ? (
                   <Link
                     to={`/sightings/${sighting.sightingResponse.id}`}
@@ -77,13 +74,13 @@ export const Sightings: React.FunctionComponent = () => {
                 ) : (
                   <SightingCard sighting={sighting.sightingResponse} />
                 )}
-              </li>
+              </div>
             );
           })}
-        </ul>
+        </div>
       ) : (
         <p>Loading...</p>
       )}
-    </section>
+    </div>
   );
 };
