@@ -5,6 +5,7 @@ import {
   SpeciesResponse,
 } from "../../clients/internalApiClient";
 import { format, parse } from "date-fns";
+import "./Sightingform.scss";
 import Select from "react-select";
 
 type FormStatus = "READY" | "SUBMITTING" | "ERROR" | "FINISHED";
@@ -62,11 +63,16 @@ export const CreateSightingForm: React.FunctionComponent = () => {
     );
   }
   return (
-    <form onSubmit={submit} data-testid="form">
+    <form
+      className="sighting-form form-group mx-5 h-100 shadow-lg p-3 mb-5 bg-body rounded"
+      onSubmit={submit}
+      data-testid="form"
+    >
       <fieldset>
         <label>
           Enter date:
           <input
+            className="form-control my-1"
             type={"date"}
             value={format(date, "yyyy-MM-dd")}
             onChange={(event) =>
@@ -78,6 +84,7 @@ export const CreateSightingForm: React.FunctionComponent = () => {
         <label>
           Enter Latitude:
           <input
+            className="form-control my-1"
             type="number"
             required
             min={-90}
@@ -92,6 +99,7 @@ export const CreateSightingForm: React.FunctionComponent = () => {
         <label>
           Enter Longitude:
           <input
+            className="form-control my-1"
             type="number"
             required
             min={-180}
@@ -106,6 +114,7 @@ export const CreateSightingForm: React.FunctionComponent = () => {
         <label>
           Enter Description:
           <input
+            className="form-control my-1"
             type={"text"}
             value={description}
             onChange={(event) => setDescription(event.target.value)}
@@ -115,6 +124,7 @@ export const CreateSightingForm: React.FunctionComponent = () => {
         <label>
           Enter Photo:
           <input
+            className="form-control my-1"
             type={"text"}
             value={photoUrl}
             onChange={(event) => setPhotoUrl(event.target.value)}
@@ -124,6 +134,7 @@ export const CreateSightingForm: React.FunctionComponent = () => {
         <label>
           Select Species:
           <Select
+            className="form-control my-1"
             options={speciesOptions}
             name="species"
             onChange={(event) => {
@@ -134,7 +145,9 @@ export const CreateSightingForm: React.FunctionComponent = () => {
           />
         </label>
         <br />
-        <button type="submit">Submit</button>
+        <button className="btn btn-secondary mt-3" type="submit">
+          Submit
+        </button>
       </fieldset>
     </form>
   );
