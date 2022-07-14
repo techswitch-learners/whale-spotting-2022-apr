@@ -3,8 +3,6 @@
 @import "~bootstrap/scss/bootstrap.scss";
 
 body {
-  padding-top: 5rem;
-  padding-bottom: 5rem;
   margin: 0;
   background-image: linear-gradient(
       200deg,
@@ -29,4 +27,13 @@ html,
 body,
 #root {
   height: 100%;
+}
+
+main {
+  padding-top: 5rem;
+  padding-bottom: 5rem;
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
