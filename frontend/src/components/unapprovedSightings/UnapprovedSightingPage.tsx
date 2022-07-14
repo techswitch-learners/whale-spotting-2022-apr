@@ -45,6 +45,7 @@ export const UnapprovedSightingPage: React.FunctionComponent = () => {
               >
                 <SightingCard sighting={sighting} key={sighting.id} />
                 <button
+                  className="btn btn-secondary my-3 mx-3"
                   onClick={() => {
                     onApprove(sighting);
                   }}
@@ -52,6 +53,7 @@ export const UnapprovedSightingPage: React.FunctionComponent = () => {
                   Approve
                 </button>
                 <button
+                  className="btn btn-secondary my-3"
                   onClick={() => {
                     onDelete(sighting);
                   }}
