@@ -25,7 +25,8 @@ export const SightingCard: React.FunctionComponent<SightingCardProps> = ({
     locationSection = (
       <>
         <p className="my-0">
-          {sighting.location.latitude}, {sighting.location.longitude}
+          Coordinates: ({sighting.location.latitude},{" "}
+          {sighting.location.longitude})
         </p>
       </>
     );
@@ -33,7 +34,7 @@ export const SightingCard: React.FunctionComponent<SightingCardProps> = ({
     locationSection = (
       <>
         <p className="my-0">
-          {sighting.latitude}, {sighting.longitude}
+          Coordinates: ({sighting.latitude}, {sighting.longitude})
         </p>
       </>
     );
@@ -43,15 +44,11 @@ export const SightingCard: React.FunctionComponent<SightingCardProps> = ({
   if (species) {
     if (Array.isArray(species)) {
       speciesSection = (
-        <ul>
-          {species.map((s) => {
-            return (
-              <li key={s.id}>
-                <h5 className="card-title my-0">{s.name}</h5>
-              </li>
-            );
-          })}
-        </ul>
+        <h5 className="card-title my-0">
+          {species.map((s, index) =>
+            species.length === index + 1 ? s.name : `${s.name}, `
+          )}
+        </h5>
       );
     } else {
       speciesSection = <h5 className="card-title my-0">{species.name}</h5>;
@@ -60,11 +57,13 @@ export const SightingCard: React.FunctionComponent<SightingCardProps> = ({
 
   return (
     <div className="card sighting-card">
-      <img
-        className="card-img-top"
-        src={sighting.photoUrl || "https://i.imgur.com/bQI6qPz.jpeg"}
-        alt="sighting of whales"
-      />
+      <div className="ratio ratio-4x3">
+        <img
+          className="card-img-top"
+          src={sighting.photoUrl || "https://i.imgur.com/bQI6qPz.jpeg"}
+          alt="sighting of whales"
+        />
+      </div>
       <div className="card-body">
         {species ? (
           speciesSection
