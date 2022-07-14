@@ -73,6 +73,7 @@ export const CreateSightingForm: React.FunctionComponent = () => {
           Enter date:
           <input
             className="form-control my-1"
+            required
             type={"date"}
             value={format(date, "yyyy-MM-dd")}
             onChange={(event) =>
@@ -115,6 +116,7 @@ export const CreateSightingForm: React.FunctionComponent = () => {
           Enter Description:
           <input
             className="form-control my-1"
+            required
             type={"text"}
             value={description}
             onChange={(event) => setDescription(event.target.value)}
