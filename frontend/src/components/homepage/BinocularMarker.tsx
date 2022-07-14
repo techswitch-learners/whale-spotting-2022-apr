@@ -20,11 +20,20 @@ export const BinocularMarker: React.FunctionComponent<BinocularMarkerProps> = ({
   sighting,
 }) => {
   const formattedDate = format(parseISO(sighting.date), "do MMMM, yyyy");
+
+  let speciesSection = <></>;
+
+  if (sighting.species) {
+    speciesSection = <>{sighting.species.name}</>;
+  } else {
+    speciesSection = <>Unknown Species</>;
+  }
+
   return (
     <Marker position={[sighting.latitude, sighting.longitude]} icon={svgIcon}>
       <Popup>
         <Link to={`/sightings/${sighting.id}`}>
-          {sighting.species.name}
+          {speciesSection}
 
           {sighting.date && (
             <>
