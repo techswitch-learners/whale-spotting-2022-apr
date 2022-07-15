@@ -61,7 +61,7 @@ export const Sightings: React.FunctionComponent = () => {
     <section className="container-fluid">
       <h1 className="sightings text-center">Sightings</h1>
       {allSightings ? (
-        <ul className="row">
+        <ul className="row p-0">
           {allSightings.map((sighting, index) => {
             return (
               <li
