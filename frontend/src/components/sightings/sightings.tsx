@@ -10,6 +10,7 @@ import {
 import { SightingCard } from "../sightingCard/sightingCard";
 import { compareDesc, parseISO } from "date-fns";
 import { Link } from "react-router-dom";
+import "./sightings.scss";
 
 interface SightingResponseWrapper {
   isInternal: boolean;
@@ -57,14 +58,14 @@ export const Sightings: React.FunctionComponent = () => {
   }, []);
 
   return (
-    <section>
-      <h1 className="sightings d-flex justify-content-center">Sightings</h1>
+    <section className="container-fluid">
+      <h1 className="sightings text-center">Sightings</h1>
       {allSightings ? (
-        <ul className="row p-0 m-0 w-100">
+        <ul className="row">
           {allSightings.map((sighting, index) => {
             return (
               <li
-                className="col-sm-6 col-md-4 col-lg-3 list-unstyled p-0 d-flex justify-content-center"
+                className="col-sm-6 col-md-4 col-lg-3 sighting_list"
                 key={index}
               >
                 {sighting.isInternal ? (
