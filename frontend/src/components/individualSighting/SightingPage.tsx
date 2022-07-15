@@ -5,6 +5,7 @@ import {
   SightingResponse,
 } from "../../clients/internalApiClient";
 import { SightingCard } from "../sightingCard/sightingCard";
+import "./SightingPage.scss";
 
 export const SightingPage: React.FunctionComponent = () => {
   const { id } = useParams<{ id: string }>();
@@ -22,7 +23,7 @@ export const SightingPage: React.FunctionComponent = () => {
   }, []);
 
   return (
-    <div className="container-fluid">
+    <div className="individual-sighting-card">
       <h1 className="text-center">Whale spotting sighting</h1>
       {sighting ? (
         <SightingCard sighting={sighting} key={sighting.id} />
