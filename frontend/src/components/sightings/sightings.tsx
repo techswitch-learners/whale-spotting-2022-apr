@@ -10,6 +10,7 @@ import {
 import { SightingCard } from "../sightingCard/sightingCard";
 import { compareDesc, parseISO } from "date-fns";
 import { Link } from "react-router-dom";
+import "./sightings.scss";
 
 interface SightingResponseWrapper {
   isInternal: boolean;
@@ -57,13 +58,16 @@ export const Sightings: React.FunctionComponent = () => {
   }, []);
 
   return (
-    <div className="container-fluid">
+    <section className="container-fluid">
       <h1 className="sightings text-center">Sightings</h1>
       {allSightings ? (
-        <div className="row">
+        <ul className="row">
           {allSightings.map((sighting, index) => {
             return (
-              <div className="col-sm-6 col-md-4 col-lg-3" key={index}>
+              <li
+                className="col-sm-6 col-md-4 col-lg-3 sighting_list"
+                key={index}
+              >
                 {sighting.isInternal ? (
                   <Link
                     to={`/sightings/${sighting.sightingResponse.id}`}
@@ -74,13 +78,13 @@ export const Sightings: React.FunctionComponent = () => {
                 ) : (
                   <SightingCard sighting={sighting.sightingResponse} />
                 )}
-              </div>
+              </li>
             );
           })}
-        </div>
+        </ul>
       ) : (
         <p>Loading...</p>
       )}
-    </div>
+    </section>
   );
 };
